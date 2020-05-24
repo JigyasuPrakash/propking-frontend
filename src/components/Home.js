@@ -1,0 +1,33 @@
+import React, { Component } from 'react';
+import Section from './Section';
+import Title from './Title';
+import data from '../data/data';
+
+class Home extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            project: ""
+        }
+    }
+
+    componentDidMount() {
+        // API call here
+        this.setState({
+            project: data
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <Title name={this.state.project.name} location={this.state.project.location} />
+                <Section project={this.state.project} />
+            </div>
+        )
+    }
+}
+
+export default Home
