@@ -30,8 +30,8 @@ function Section({ project }) {
             </Grid>
 
             <Grid item sm={6} xs={12} className={classes.grid}>
-                <Paper elevation={3} >
-                    <MiddleSection />
+                <Paper elevation={3}>
+                    <MiddleSection tower={project.tower} />
                 </Paper>
             </Grid>
 

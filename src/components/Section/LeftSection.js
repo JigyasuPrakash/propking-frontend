@@ -14,9 +14,9 @@ function LeftSection({ tower, unitInfo }) {
     }
 
     const icons = tower === undefined ? null : tower.map(item => (
-        <ToggleButton key={item} value={item} aria-label={item} style={{ margin: "10px" }}>
+        <ToggleButton key={item.id} value={item.name} aria-label={item.name} style={{ margin: "10px" }}>
             <ApartmentIcon color="primary" fontSize="large" />
-            <Typography variant="button" style={{ color: "black" }}>{item}</Typography>
+            <Typography variant="button" style={{ color: "black" }}>{item.name}</Typography>
         </ToggleButton>
     ));
 
@@ -26,12 +26,12 @@ function LeftSection({ tower, unitInfo }) {
 
     return (
         <Grid container>
-            <Grid item xs style={{ borderRight: "1px lightgrey solid" }}>
+            <Grid item sm style={{ borderRight: "1px lightgrey solid" }}>
                 <ToggleButtonGroup orientation="vertical" value={formats} onChange={handleChange} aria-label="apartments" style={{ margin: "5px", }}>
                     {icons}
                 </ToggleButtonGroup>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item sm={8}>
                 <Typography variant="h6" style={{ borderBottom: "1px lightGrey solid", margin: "10px" }} align="center">Unit Type</Typography>
                 {createUnitInfo}
             </Grid>
