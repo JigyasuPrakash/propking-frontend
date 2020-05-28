@@ -10,7 +10,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 
 function getUnit(unit) {
-    console.log();
     switch (unit.status) {
         case "available": return (
             <Tooltip arrow title={(
@@ -52,7 +51,7 @@ function Matrix({ tower, filter }) {
                                             </TableCell>) :
                                             (filter.includes(unit.area) ? (
                                                 <TableCell key={unit.unitId}>
-                                                    {getUnit(unit, filter)}
+                                                    {getUnit(unit)}
                                                 </TableCell>) : null
                                             )
                                         )
