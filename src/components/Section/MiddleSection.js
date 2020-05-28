@@ -2,6 +2,7 @@ import React from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
 import Matrix from './Matrix'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     div: {
@@ -9,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function MiddleSection({ tower }) {
+function MiddleSection({ tower, areaFilter }) {
 
     const styling = useStyles();
 
@@ -18,9 +19,9 @@ function MiddleSection({ tower }) {
         setPage(value);
     }
 
-    return (tower === undefined ? null : (
+    return (tower === undefined ? (<CircularProgress />) : (
         <div className={styling.div}>
-            <Matrix tower={tower[page - 1]} />
+            <Matrix tower={tower[page - 1]} filter={areaFilter} />
             <br />
             <Pagination count={tower.length} page={page} onChange={handleChange} color="primary" />
             <br />

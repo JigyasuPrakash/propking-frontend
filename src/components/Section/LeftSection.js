@@ -6,22 +6,23 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import MyCheckBox from './MyCheckBox';
 
-function LeftSection({ tower, unitInfo }) {
+function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
 
     const [formats, setFormats] = React.useState(() => []);
     const handleChange = (event, newFormats) => {
         setFormats(newFormats);
+        towerFilter(newFormats);
     }
 
     const icons = tower === undefined ? null : tower.map(item => (
-        <ToggleButton key={item.id} value={item.name} aria-label={item.name} style={{ margin: "10px" }}>
+        <ToggleButton key={item.id} value={item.name} aria-label={item.name} style={{ margin: "9px" }}>
             <ApartmentIcon color="primary" fontSize="large" />
             <Typography variant="button" style={{ color: "black" }}>{item.name}</Typography>
         </ToggleButton>
     ));
 
     const createUnitInfo = unitInfo === undefined ? null : unitInfo.map(item => (
-        <MyCheckBox key={item.id} data={item} />
+        <MyCheckBox key={item.id} data={item} filter={areaFilter} />
     ))
 
     return (

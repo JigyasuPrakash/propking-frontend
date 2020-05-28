@@ -10,16 +10,15 @@ import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 
 function getUnit(unit) {
-    const title = (
-        <React.Fragment>
-            <Typography variant="body2" align="center">{unit.unitId}</Typography>
-            <Typography variant="caption" align="center">{unit.type} ({unit.area} Sq.Ft.)</Typography>
-        </React.Fragment>
-    );
-
+    console.log();
     switch (unit.status) {
         case "available": return (
-            <Tooltip arrow title={title}>
+            <Tooltip arrow title={(
+                <React.Fragment>
+                    <Typography variant="body2" align="center">{unit.unitId}</Typography>
+                    <Typography variant="caption" align="center">{unit.type} ({unit.area} Sq.Ft.)</Typography>
+                </React.Fragment>
+            )}>
                 <Button variant="contained" color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
             </Tooltip>
         );
@@ -33,28 +32,37 @@ function getUnit(unit) {
     }
 }
 
-function Matrix({ tower }) {
+function Matrix({ tower, filter }) {
     return (
-        <TableContainer>
-            <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.name}</Typography>
-            <Table size="small" aria-label="simple table">
-                <TableBody>
-                    {tower.floors.map((floor) => (
-                        <TableRow key={floor.floorNo}>
-                            <TableCell align="center">
-                                <Typography variant="body2">Floor {floor.floorNo}</Typography>
-                            </TableCell>
-                            {floor.units.map((unit) => (
-                                <TableCell key={unit.unitId}>
-                                    {getUnit(unit)}
+        tower === undefined ? null : (
+            <TableContainer>
+                <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.name}</Typography>
+                <Table size="small" aria-label="simple table">
+                    <TableBody>
+                        {tower.floors.map((floor) => (
+                            <TableRow key={floor.floorNo}>
+                                <TableCell align="center">
+                                    <Typography variant="body2">Floor {floor.floorNo}</Typography>
                                 </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    )
+                                {floor.units.map((unit) =>
+                                    unit === undefined ? null :
+                                        (filter.length === 0 ? (
+                                            <TableCell key={unit.unitId}>
+                                                {getUnit(unit)}
+                                            </TableCell>) :
+                                            (filter.includes(unit.area) ? (
+                                                <TableCell key={unit.unitId}>
+                                                    {getUnit(unit, filter)}
+                                                </TableCell>) : null
+                                            )
+                                        )
+                                )}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        ))
 }
 
 export default Matrix

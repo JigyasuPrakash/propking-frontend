@@ -21,17 +21,43 @@ const useStyles = makeStyles((theme) => ({
 function Section({ project }) {
     const classes = useStyles();
 
+    const [filteredTower, myFilter] = React.useState(project.tower);
+    const handleTowerFilter = (info) => {
+        let data = project.tower.filter((t) => {
+            return info.includes(t.name);
+        });
+        if (data.length === 0) {
+            data = project.tower;
+        }
+        myFilter(data);
+    }
+
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
+
+    const [areaArray, updateArea] = React.useState([]);
+    const handleAreaFilter = (info) => {
+        let data = areaArray;
+        if (data.includes(info)) {
+            data = data.filter(a => { return a !== info })
+        } else {
+            data.push(info)
+            forceUpdate()
+        }
+        updateArea(data)
+    }
+
     return (
         <Grid container justify="space-evenly">
             <Grid item sm xs={12} className={classes.grid}>
                 <Paper elevation={3} >
-                    <LeftSection tower={project.tower} unitInfo={project.unitInfo} />
+                    <LeftSection tower={project.tower} unitInfo={project.unitInfo} areaFilter={handleAreaFilter} towerFilter={handleTowerFilter} />
                 </Paper>
             </Grid>
 
             <Grid item sm={6} xs={12} className={classes.grid}>
                 <Paper elevation={3}>
-                    <MiddleSection tower={project.tower} />
+                    <MiddleSection tower={filteredTower} areaFilter={areaArray} />
                 </Paper>
             </Grid>
 

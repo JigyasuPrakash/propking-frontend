@@ -3,13 +3,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import CheckBox from '@material-ui/core/Checkbox';
 
-function MyCheckBox({ data }) {
+function MyCheckBox({ data, filter }) {
 
-    const [state, setState] = React.useState({
-        checked: false
-    });
+    const [state, setState] = React.useState({ checked: false });
     const handleCheckBox = (event) => {
         setState(prevState => ({ checked: !prevState.checked }));
+        filter(data.area);
     }
 
     return (
@@ -17,7 +16,7 @@ function MyCheckBox({ data }) {
             <FormControlLabel
                 control={<CheckBox checked={state.checked} onChange={handleCheckBox} color="primary" />}
                 label={<Typography>{data.bhk} BHK ({data.area} {data.unit})</Typography>}
-                style={{margin: "2px"}}
+                style={{ margin: "2px" }}
             />
         )
     )

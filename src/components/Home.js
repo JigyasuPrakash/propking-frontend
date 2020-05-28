@@ -9,7 +9,7 @@ class Home extends Component {
         super(props)
 
         this.state = {
-            project: ""
+            project: undefined
         }
     }
 
@@ -22,10 +22,12 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                <Title name={this.state.project.name} location={this.state.project.location} />
-                <Section project={this.state.project} />
-            </div>
+            this.state.project === undefined ? null : (
+                <div>
+                    <Title name={this.state.project.name} location={this.state.project.location} />
+                    <Section project={this.state.project} />
+                </div>
+            )
         )
     }
 }
