@@ -24,7 +24,7 @@ function Section({ project }) {
     const [filteredTower, myFilter] = React.useState(project.tower);
     const handleTowerFilter = (info) => {
         let data = project.tower.filter((t) => {
-            return info.includes(t.name);
+            return info.includes(t.TID);
         });
         if (data.length === 0) {
             data = project.tower;

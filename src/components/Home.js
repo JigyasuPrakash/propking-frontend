@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Section from './Section';
 import Title from './Title';
-import data from '../data/data';
+import axios from 'axios';
 
 class Home extends Component {
 
@@ -15,9 +15,12 @@ class Home extends Component {
 
     componentDidMount() {
         // API call here
-        this.setState({
-            project: data
-        });
+        axios.get('http://localhost:7777/getproject/12345').then((response) => {
+            this.setState({
+                project: response.data
+            });
+            console.log(response.data)
+        })
     }
 
     render() {

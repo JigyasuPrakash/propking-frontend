@@ -15,9 +15,9 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
     }
 
     const icons = tower === undefined ? null : tower.map(item => (
-        <ToggleButton key={item.id} value={item.name} aria-label={item.name} style={{ margin: "9px" }}>
+        <ToggleButton key={item.TID} value={item.TID} aria-label={item.TID} style={{ margin: "9px" }}>
             <ApartmentIcon color="primary" fontSize="large" />
-            <Typography variant="button" style={{ color: "black" }}>{item.name}</Typography>
+            <Typography variant="button" style={{ color: "black" }}>T{item.TID}</Typography>
         </ToggleButton>
     ));
 

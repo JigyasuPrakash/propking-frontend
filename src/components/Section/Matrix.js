@@ -14,8 +14,8 @@ function getUnit(unit) {
         case "available": return (
             <Tooltip arrow title={(
                 <React.Fragment>
-                    <Typography variant="body2" align="center">{unit.unitId}</Typography>
-                    <Typography variant="caption" align="center">{unit.type} ({unit.area} Sq.Ft.)</Typography>
+                    <Typography variant="body2" align="center">FlatID: {unit.uid}</Typography>
+                    <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
                 </React.Fragment>
             )}>
                 <Button variant="contained" color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
@@ -35,22 +35,22 @@ function Matrix({ tower, filter }) {
     return (
         tower === undefined ? null : (
             <TableContainer>
-                <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.name}</Typography>
+                <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">T{tower.TID}</Typography>
                 <Table size="small" aria-label="simple table">
                     <TableBody>
                         {tower.floors.map((floor) => (
-                            <TableRow key={floor.floorNo}>
+                            <TableRow key={floor.FID}>
                                 <TableCell align="center">
-                                    <Typography variant="body2">Floor {floor.floorNo}</Typography>
+                                    <Typography variant="body2">Floor {floor.FLOOR_NO}</Typography>
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
                                         (filter.length === 0 ? (
-                                            <TableCell key={unit.unitId}>
+                                            <TableCell key={unit.uid}>
                                                 {getUnit(unit)}
                                             </TableCell>) :
-                                            (filter.includes(unit.area) ? (
-                                                <TableCell key={unit.unitId}>
+                                            (filter.includes(unit.size) ? (
+                                                <TableCell key={unit.uid}>
                                                     {getUnit(unit)}
                                                 </TableCell>) : null
                                             )
