@@ -5,6 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import LeftSection from './Section/LeftSection';
 import MiddleSection from './Section/MiddleSection';
 import RightSection from './Section/RightSection';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,6 +20,17 @@ const useStyles = makeStyles((theme) => ({
     },
     grid: {
         margin: "18px"
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     }
 }));
 
@@ -39,13 +55,38 @@ function Section({ project }) {
     const handleAreaFilter = (info) => {
         let data = areaArray;
         if (data.includes(info)) {
-            data = data.filter(a => { return a !== info })
+            data = data.filter(a => { return a !== info });
         } else {
-            data.push(info)
-            forceUpdate()
+            data.push(info);
+            forceUpdate();
         }
-        updateArea(data)
+        updateArea(data);
     }
+
+    const [unit, changeUnit] = React.useState();
+
+    const [open, switchModal] = React.useState(false);
+    const handleModalOpen = () => {
+        switchModal(true);
+    }
+    const handleModalClose = () => {
+        switchModal(false);
+    }
+
+    const modalBody = (
+        unit === undefined ? null : (
+            <Fade in={open}>
+                <div className={classes.paper}>
+                    <Typography variant="h6" align="center">FlatID: {unit.uid}</Typography>
+                    <br />
+                    <Typography variant="subtitle1" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                    <Typography variant="subtitle1" align="center">{unit.no_of_balconies} Balconies</Typography>
+                    <br />
+                    <Button variant="outlined" color="primary">Proceed with Payment</Button>
+                </div>
+            </Fade>
+        )
+    );
 
     return (
         <Grid container justify="space-evenly">
@@ -57,16 +98,31 @@ function Section({ project }) {
 
             <Grid item sm={6} xs={12} className={classes.grid}>
                 <Paper elevation={3}>
-                    <MiddleSection tower={filteredTower} areaFilter={areaArray} />
+                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={changeUnit} />
                 </Paper>
             </Grid>
 
             <Grid item sm xs={12} className={classes.grid}>
                 <Paper elevation={3} >
-                    <RightSection />
+                    <RightSection myUnit={unit} handleModal={handleModalOpen} />
                 </Paper>
             </Grid>
 
+            {/* Payment Modal */}
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleModalClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                {modalBody}
+            </Modal>
         </Grid>
     );
 }

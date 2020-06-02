@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-function Title(props) {
+function Title({ name, location, logo }) {
 
     const styling = {
         "div": {
@@ -15,9 +15,9 @@ function Title(props) {
 
     return (
         <div style={styling.div}>
-            <img src="https://s3-ap-southeast-1.amazonaws.com/sqy/commonbookingdocs/logo_godrej_properties.jpeg" style={styling.img} alt="logo" />
-            <Typography variant="h6">{props.name}</Typography>
-            <Typography>{props.location}</Typography>
+            <img src={logo} style={styling.img} alt="logo" />
+            <Typography variant="h6">{name}</Typography>
+            <Typography>{location}</Typography>
         </div>
     )
 }

@@ -14,12 +14,13 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        const dev = 'http://localhost:7777/api/getproject/12345';
+        //const prod = '/api/getproject/12345';
         // API call here
-        axios.get('http://localhost:7777/getproject/12345').then((response) => {
+        axios.get(dev).then((response) => {
             this.setState({
                 project: response.data
             });
-            console.log(response.data)
         })
     }
 
@@ -27,7 +28,7 @@ class Home extends Component {
         return (
             this.state.project === undefined ? null : (
                 <div>
-                    <Title name={this.state.project.name} location={this.state.project.location} />
+                    <Title name={this.state.project.name} location={this.state.project.location} logo={this.state.project.logo} />
                     <Section project={this.state.project} />
                 </div>
             )
