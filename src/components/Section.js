@@ -7,9 +7,7 @@ import MiddleSection from './Section/MiddleSection';
 import RightSection from './Section/RightSection';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import PaymentModal from './Modal/PaymentModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,11 +18,6 @@ const useStyles = makeStyles((theme) => ({
     },
     grid: {
         margin: "18px"
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
@@ -73,21 +66,6 @@ function Section({ project }) {
         switchModal(false);
     }
 
-    const modalBody = (
-        unit === undefined ? null : (
-            <Fade in={open}>
-                <div className={classes.paper}>
-                    <Typography variant="h6" align="center">FlatID: {unit.uid}</Typography>
-                    <br />
-                    <Typography variant="subtitle1" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
-                    <Typography variant="subtitle1" align="center">{unit.no_of_balconies} Balconies</Typography>
-                    <br />
-                    <Button variant="outlined" color="primary">Proceed with Payment</Button>
-                </div>
-            </Fade>
-        )
-    );
-
     return (
         <Grid container justify="space-evenly">
             <Grid item sm xs={12} className={classes.grid}>
@@ -121,7 +99,7 @@ function Section({ project }) {
                     timeout: 500,
                 }}
             >
-                {modalBody}
+                <PaymentModal open={open} />
             </Modal>
         </Grid>
     );
