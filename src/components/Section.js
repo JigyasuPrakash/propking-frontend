@@ -19,11 +19,10 @@ const useStyles = makeStyles((theme) => ({
     grid: {
         margin: "18px"
     },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 }));
 
@@ -96,10 +95,9 @@ function Section({ project }) {
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <PaymentModal open={open} />
+                    timeout: 500
+                }}>
+                <PaymentModal unit={unit} open={open} />
             </Modal>
         </Grid>
     );
