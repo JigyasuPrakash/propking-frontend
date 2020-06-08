@@ -44,7 +44,7 @@ class Builder extends Component {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, bhk_type: 0, size: 0 });
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, bhk_type: 0, size: 0, att: "", facing: "" });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }

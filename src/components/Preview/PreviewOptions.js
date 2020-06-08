@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function PreviewOptions({ area, attributes }) {
+function PreviewOptions({ area, attributes, flatTypes, facing, apply }) {
     const classes = useStyles();
 
     const [newArea, setArea] = React.useState('');
@@ -29,14 +29,34 @@ function PreviewOptions({ area, attributes }) {
         setAtt(event.target.value);
     }
 
+    const [newFlat, setFlat] = React.useState('');
+    const handleFlat = (event) => {
+        setFlat(event.target.value);
+    }
+
+    const [newFace, setFace] = React.useState('');
+    const handleFace = (event) => {
+        setFace(event.target.value);
+    }
+
+    const applyOptions = () => {
+        apply(newArea, newAtt, newFlat, newFace);
+        setArea('');
+        setAtt('');
+        setFlat('');
+        setFace('');
+    }
 
     return (
         <div>
             <Grid container justify="space-evenly">
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <FormControl className={classes.formControl}>
                         <InputLabel>Area</InputLabel>
                         <Select value={newArea} onChange={handleArea} autoWidth>
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
                             {area.map(a => (
                                 <MenuItem key={a.key} value={a.label}>{a.label}</MenuItem>
                             ))}
@@ -44,10 +64,13 @@ function PreviewOptions({ area, attributes }) {
                     </FormControl>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <FormControl className={classes.formControl}>
                         <InputLabel>Attributes</InputLabel>
                         <Select value={newAtt} onChange={handleAtt} autoWidth>
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
                             {attributes.map(a => (
                                 <MenuItem key={a.key} value={a.label}>{a.label}</MenuItem>
                             ))}
@@ -55,17 +78,45 @@ function PreviewOptions({ area, attributes }) {
                     </FormControl>
                 </Grid>
 
-                <Grid>
+                <Grid item xs={2}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>FlatTypes</InputLabel>
+                        <Select value={newFlat} onChange={handleFlat} autoWidth>
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {flatTypes.map(a => (
+                                <MenuItem key={a} value={a}>{a} BHK</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={2}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Facing</InputLabel>
+                        <Select value={newFace} onChange={handleFace} autoWidth>
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {facing.map(a => (
+                                <MenuItem key={a} value={a}>{a}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid item>
                     <Button
                         variant="contained"
                         color="primary"
+                        onClick={applyOptions}
                         className={classes.formControl}
                         style={{ marginTop: "20px" }}>
                         Apply
                     </Button>
                 </Grid>
             </Grid>
-
         </div>
     )
 }

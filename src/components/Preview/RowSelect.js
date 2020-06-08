@@ -2,12 +2,12 @@ import React from 'react';
 import CheckBox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-function FloorSelect({ floor, filter }) {
+function RowSelect({ floor, filter }) {
 
     const [check, setCheck] = React.useState(false);
     const handleCheck = () => {
-        setCheck(!check);
         filter(floor.fid)
+        setCheck(prevState => !prevState);
     }
 
     return (
@@ -18,4 +18,4 @@ function FloorSelect({ floor, filter }) {
     )
 }
 
-export default FloorSelect
+export default RowSelect
