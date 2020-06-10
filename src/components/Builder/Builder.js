@@ -11,6 +11,7 @@ class Builder extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pid: 123,
             towerCount: [],
             tower: [],
             uniqueArea: [],
@@ -44,7 +45,7 @@ class Builder extends Component {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, bhk_type: 0, size: 0, att: "", facing: "" });
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, bhk_type: 0, size: 0, att: "", facing: "", status: true });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
@@ -197,6 +198,7 @@ class Builder extends Component {
                         <center>
                             <Link to={{
                                 pathname: "/preview",
+                                pid: this.state.pid,
                                 tower: this.state.tower,
                                 uniqueArea: this.state.uniqueArea,
                                 uniqueAtt: this.state.uniqueAtt,
