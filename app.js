@@ -69,7 +69,7 @@ app.post('/api/builder/save', (req, res) => {
             let temp = { tid: tower.tid, tname: tower.tname, floors: tower.floors };
             newData.towers.forEach(t => {
                 if (t.tid === tid) {
-                    t = data;
+                    t = tower;
                     update = true;
                 }
             })

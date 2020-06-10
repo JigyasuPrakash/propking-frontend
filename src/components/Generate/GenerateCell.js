@@ -6,7 +6,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-function PreviewCell({ unit, variant, filter, color, disable, applyDisable }) {
+function PreviewCell({ unit, variant, filter, color, disable }) {
 
     const [checked, setChecked] = React.useState(!unit.status);
     const toggleChecked = () => {

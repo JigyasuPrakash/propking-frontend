@@ -8,11 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import RowSelect from './RowSelect';
 import ColumnSelect from './ColumnSelect';
 import Grid from '@material-ui/core/Grid';
-import PreviewOptions from './PreviewOptions';
-import PreviewCell from './PreviewCell';
+import GenerateOptions from './GenerateOptions';
+import GenerateCell from './GenerateCell';
 import Button from '@material-ui/core/Button';
 
-function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save }) {
+function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, preview }) {
 
     const [myTower, setTower] = React.useState(tower);
 
@@ -21,7 +21,7 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save }
             // Selected Units
             let color = ""
             unit.status ? (color = "lightgreen") : (color = "red");
-            return (<PreviewCell
+            return (<GenerateCell
                 unit={unit}
                 variant="contained"
                 filter={handleIndividual}
@@ -31,7 +31,7 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save }
         } else {
             let color = ""
             unit.status ? (color = "lightgreen") : (color = "red");
-            return (<PreviewCell
+            return (<GenerateCell
                 unit={unit}
                 variant="outlined"
                 filter={handleIndividual}
@@ -135,7 +135,7 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save }
 
     return (myTower === undefined ? null : (
         <React.Fragment>
-            <PreviewOptions area={uniqueArea} attributes={uniqueAtt} flatTypes={flatTypes} facing={facing} apply={applyOptions} />
+            <GenerateOptions area={uniqueArea} attributes={uniqueAtt} flatTypes={flatTypes} facing={facing} apply={applyOptions} />
             <Grid>
                 <TableContainer>
                     <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{myTower.tname}</Typography>
@@ -205,7 +205,8 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save }
             </Grid>
             <br /><br />
             <center>
-                <Button color="primary" variant="contained" onClick={() => save(myTower)}>Save Changes</Button>
+                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={() => save(myTower)}>Save Changes</Button>
+                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={preview} >Preview</Button>
             </center>
         </React.Fragment>
     ))
