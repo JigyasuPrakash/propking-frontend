@@ -2,20 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import LeftSection from './Section/LeftSection';
-import MiddleSection from './Section/MiddleSection';
-import RightSection from './Section/RightSection';
+import LeftSection from './LeftSection';
+import MiddleSection from './MiddleSection';
+import RightSection from './RightSection';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import PaymentModal from './Modal/PaymentModal';
+import PaymentModal from './PaymentModal';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    control: {
-        padding: theme.spacing(2),
-    },
     grid: {
         margin: "18px"
     },
@@ -32,7 +26,7 @@ function Section({ project }) {
     const [filteredTower, myFilter] = React.useState(project.tower);
     const handleTowerFilter = (info) => {
         let data = project.tower.filter((t) => {
-            return info.includes(t.TID);
+            return info.includes(t.tid);
         });
         if (data.length === 0) {
             data = project.tower;

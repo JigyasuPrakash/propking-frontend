@@ -1,10 +1,11 @@
 import React from 'react';
-import Home from './components/Home';
+import User from './components/User';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import Error404 from './components/Error/Error404';
 import Builder from './components/Builder/Builder';
 import Generate from './components/Generate/Generate';
 import Preview from './components/Preview/Preview';
+import Home from './components/Home';
 import './App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Route render={({ location }) => (
         <Switch location={location}>
           <Route exact path="/" component={Home} />
+          <Route path="/user/:id" component={User} />
           <Route path="/builder" component={Builder} />
           <Route path="/generate/:id" component={Generate} />
           <Route path="/preview/:id" component={Preview} />

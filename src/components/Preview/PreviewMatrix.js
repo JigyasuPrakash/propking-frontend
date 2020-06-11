@@ -9,11 +9,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 
-function Matrix({ tower, filter, mySelect }) {
+function PreviewMatrix({ tower, filter, mySelect }) {
 
     const getUnit = (unit) => {
         switch (unit.status) {
-            case "available": return (
+            case true: return (
                 <Tooltip arrow title={(
                     <React.Fragment>
                         <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
@@ -23,11 +23,8 @@ function Matrix({ tower, filter, mySelect }) {
                     <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
                 </Tooltip>
             );
-            case "sold": return (
+            case false: return (
                 <Button variant="contained" disabled><HomeIcon color="secondary" /></Button>
-            );
-            case "unavailable": return (
-                <Button variant="contained" disabled><HomeIcon /></Button>
             );
             default: console.error(unit)
         }
@@ -38,7 +35,7 @@ function Matrix({ tower, filter, mySelect }) {
             <TableContainer>
                 <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.tname}</Typography>
                 <Table size="small" aria-label="simple table">
-                    <TableBody>{tower.floors[0].floor_no < tower.floors[1].floor_no ? (
+                    <TableBody>{tower.floors[0].floor_no === 1 ? (
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">
@@ -85,4 +82,4 @@ function Matrix({ tower, filter, mySelect }) {
         ))
 }
 
-export default Matrix
+export default PreviewMatrix;

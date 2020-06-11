@@ -13,16 +13,16 @@ function LeftPreview({ tower, unitInfo, areaFilter, towerFilter }) {
         setFormats(newFormats);
         towerFilter(newFormats);
     }
-
+    
     const icons = tower === undefined ? null : tower.map(item => (
-        <ToggleButton key={item.TID} value={item.TID} aria-label={item.TID} style={{ margin: "9px" }}>
+        <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "9px" }}>
             <ApartmentIcon color="primary" fontSize="large" />
-            <Typography variant="button" style={{ color: "black" }}>T{item.TID}</Typography>
+            <Typography variant="button" style={{ color: "black" }}>{item.tid}</Typography>
         </ToggleButton>
     ));
 
     const createUnitInfo = unitInfo === undefined ? null : unitInfo.map(item => (
-        <PreviewCheckBox key={item.id} data={item} filter={areaFilter} />
+        <PreviewCheckBox key={item.key} data={item} filter={areaFilter} />
     ))
 
     return (

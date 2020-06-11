@@ -12,7 +12,7 @@ import GenerateOptions from './GenerateOptions';
 import GenerateCell from './GenerateCell';
 import Button from '@material-ui/core/Button';
 
-function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, preview }) {
+function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, update }) {
 
     const [myTower, setTower] = React.useState(tower);
 
@@ -27,6 +27,7 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
                 filter={handleIndividual}
                 color={color}
                 disable={handleDisabled}
+                renameModal={rename}
                 applyDisable={applyDisable} />);
         } else {
             let color = ""
@@ -37,6 +38,7 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
                 filter={handleIndividual}
                 color={color}
                 disable={handleDisabled}
+                renameModal={rename}
                 applyDisable={applyDisable} />);
         }
     };
@@ -99,9 +101,9 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
             let units = []
             floor.units.forEach(unit => {
                 if (data.includes(unit.uid)) {
-                    units.push({ uid: unit.uid, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: false })
+                    units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: false })
                 } else {
-                    units.push({ uid: unit.uid, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: true })
+                    units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: true })
                 }
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
@@ -113,15 +115,15 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
         });
     }
 
-    const applyOptions = (newArea, newAtt, newFlat, newFace) => {
+    const applyOptions = (unitInfo, newAtt, newFace) => {
         let floors = []
         tower.floors.forEach(floor => {
             let units = []
             floor.units.forEach(unit => {
                 if (columnSelect.includes('U' + unit.uid.split('U')[1]) || floorSelect.includes(unit.uid.split('U')[0]) || individual.includes(unit.uid)) {
-                    units.push({ uid: unit.uid, bhk_type: newFlat, size: newArea, att: newAtt, facing: newFace, status: unit.status });
+                    units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unitInfo.bhk, size: unitInfo.area, att: newAtt, facing: newFace, status: unit.status });
                 } else {
-                    units.push({ uid: unit.uid, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: unit.status });
+                    units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: unit.status });
                 }
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
@@ -131,23 +133,50 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
             tname: myTower.tname,
             floors
         });
+        update({
+            tid: myTower.tid,
+            tname: myTower.tname,
+            floors
+        });
+    }
+
+    const rename = (type, id, value) => {
+        let newData = myTower;
+        if (type === 'floor') {
+            newData.floors.forEach(f => {
+                if (f.fid === id) {
+                    f.floor_no = value;
+                }
+            })
+        } else {
+            newData.floors.forEach(f => {
+                if (f.fid === id.split('U')[0]) {
+                    f.units.forEach(u => {
+                        if (u.uid === id) {
+                            u.unit_no = value;
+                        }
+                    })
+                }
+            })
+        }
+        setTower(newData);
     }
 
     return (myTower === undefined ? null : (
         <React.Fragment>
-            <GenerateOptions area={uniqueArea} attributes={uniqueAtt} flatTypes={flatTypes} facing={facing} apply={applyOptions} />
+            <GenerateOptions unitInfo={unitInfo} attributes={uniqueAtt} facing={facing} apply={applyOptions} />
             <Grid>
                 <TableContainer>
                     <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{myTower.tname}</Typography>
                     <Table size="small" aria-label="simple table">
                         <TableBody>
-                            {myTower.floors[0].floor_no === 1 ? (
+                            {myTower.floors[0].floor_no < myTower.floors[1].floor_no ? (
                                 <React.Fragment>
                                     {myTower.floors.reverse().map((floor) => (
                                         <TableRow key={floor.fid}>
                                             <TableCell align="center">
                                                 <Typography variant="body2">
-                                                    <RowSelect floor={floor} filter={handleRowSelect} />
+                                                    <RowSelect floor={floor} filter={handleRowSelect} renameModal={rename} />
                                                 </Typography>
                                             </TableCell>
                                             {floor.units.map((unit) =>
@@ -175,7 +204,7 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
                                             <TableRow key={floor.fid}>
                                                 <TableCell align="center">
                                                     <Typography variant="body2">
-                                                        <RowSelect floor={floor} filter={handleRowSelect} />
+                                                        <RowSelect floor={floor} filter={handleRowSelect} renameModal={rename} />
                                                     </Typography>
                                                 </TableCell>
                                                 {floor.units.map((unit) =>
@@ -205,11 +234,11 @@ function PreviewMatrix({ tower, uniqueArea, uniqueAtt, flatTypes, facing, save, 
             </Grid>
             <br /><br />
             <center>
-                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={() => save(myTower)}>Save Changes</Button>
+                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={save}>Save Draft</Button>
                 <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={preview} >Preview</Button>
             </center>
         </React.Fragment>
     ))
 }
 
-export default PreviewMatrix;
+export default GenerateMatrix;

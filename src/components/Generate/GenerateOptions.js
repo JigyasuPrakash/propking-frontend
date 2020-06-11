@@ -16,22 +16,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function PreviewOptions({ area, attributes, flatTypes, facing, apply }) {
+function GenerateOptions({ unitInfo, attributes, facing, apply }) {
     const classes = useStyles();
-
-    const [newArea, setArea] = React.useState('');
-    const handleArea = (event) => {
-        setArea(event.target.value);
-    }
 
     const [newAtt, setAtt] = React.useState('');
     const handleAtt = (event) => {
         setAtt(event.target.value);
     }
 
-    const [newFlat, setFlat] = React.useState('');
-    const handleFlat = (event) => {
-        setFlat(event.target.value);
+    const [newUnit, setUnit] = React.useState({});
+    const [newInfo, setInfo] = React.useState('');
+    const handleInfo = (event) => {
+        setUnit({ bhk: event.target.value.bhk, area: event.target.value.area });
+        setInfo(event.target.value);
     }
 
     const [newFace, setFace] = React.useState('');
@@ -40,11 +37,11 @@ function PreviewOptions({ area, attributes, flatTypes, facing, apply }) {
     }
 
     const applyOptions = () => {
-        apply(newArea, newAtt, newFlat, newFace);
-        setArea('');
+        apply(newUnit, newAtt, newFace);
         setAtt('');
-        setFlat('');
+        setInfo('');
         setFace('');
+        setUnit({});
     }
 
     return (
@@ -52,13 +49,13 @@ function PreviewOptions({ area, attributes, flatTypes, facing, apply }) {
             <Grid container justify="space-evenly">
                 <Grid item xs={2}>
                     <FormControl className={classes.formControl}>
-                        <InputLabel>Area</InputLabel>
-                        <Select value={newArea} onChange={handleArea} autoWidth>
+                        <InputLabel>FlatTypes</InputLabel>
+                        <Select value={newInfo} onChange={handleInfo} autoWidth>
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            {area.map(a => (
-                                <MenuItem key={a.key} value={a.label}>{a.label}</MenuItem>
+                            {unitInfo.map(a => (
+                                <MenuItem key={a.key} value={a}>{a.bhk} BHK ({a.area} Sq.Ft.)</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -73,20 +70,6 @@ function PreviewOptions({ area, attributes, flatTypes, facing, apply }) {
                             </MenuItem>
                             {attributes.map(a => (
                                 <MenuItem key={a.key} value={a.label}>{a.label}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Grid>
-
-                <Grid item xs={2}>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel>FlatTypes</InputLabel>
-                        <Select value={newFlat} onChange={handleFlat} autoWidth>
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {flatTypes.map(a => (
-                                <MenuItem key={a} value={a}>{a} BHK</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -121,4 +104,4 @@ function PreviewOptions({ area, attributes, flatTypes, facing, apply }) {
     )
 }
 
-export default PreviewOptions
+export default GenerateOptions;

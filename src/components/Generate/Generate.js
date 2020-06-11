@@ -13,172 +13,41 @@ class Preview extends Component {
         super(props)
 
         this.state = {
-            loaded: undefined
+            loaded: false
         }
     }
 
     componentDidMount() {
-        const dev = 'http://localhost:7777/api/getproject/12345';
-        //const prod = '/api/getproject/12345';
-        // API call here
-        axios.get(dev).then((response) => {
-            const pid = window.location.pathname.split('/')[2];
-            if (this.props.location.tower !== undefined) {
+        const pid = window.location.pathname.split('/')[2];
+        const dev = 'http://localhost:7777/api/builder/getproject/' + pid;
+        console.log('component mount')
+        if (this.props.location.towers !== undefined) {
+            console.log("found")
+            this.setState({
+                loaded: true,
+                pid: pid,
+                towers: this.props.location.towers,
+                unitInfo: this.props.location.unitInfo,
+                uniqueAtt: this.props.location.uniqueAtt,
+                facing: this.props.location.facing,
+                page: 1
+            })
+        } else {
+            console.log("notfound")
+            axios.get(dev).then((response) => {
                 this.setState({
                     loaded: true,
                     pid: pid,
-                    tower: this.props.location.tower,
-                    uniqueArea: this.props.location.uniqueArea,
-                    uniqueAtt: this.props.location.uniqueAtt,
-                    flatTypes: this.props.location.flatTypes,
-                    facing: this.props.location.facing,
-                    page: 1
-                })
-            } else {
-                //send request to database
-                const data = {
-                    pid: 12346,
-                    tower: [
-                        {
-                            tid: 'T1',
-                            tname: 'ABC',
-                            floors: [
-                                {
-                                    fid: 'T1F1',
-                                    floor_no: 1,
-                                    units: [
-                                        {
-                                            uid: 'T1F1U1',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F1U2',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F1U3',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F1U4',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        }
-                                    ]
-                                },
-                                {
-                                    fid: 'T1F2',
-                                    floor_no: 2,
-                                    units: [
-                                        {
-                                            uid: 'T1F2U1',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F2U2',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F2U3',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F2U4',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        }
-                                    ]
-                                },
-                                {
-                                    fid: 'T1F3',
-                                    floor_no: 3,
-                                    units: [
-                                        {
-                                            uid: 'T1F3U1',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F3U2',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F3U3',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        },
-                                        {
-                                            uid: 'T1F3U4',
-                                            bhk_type: "",
-                                            size: 0,
-                                            att: "",
-                                            facing: "",
-                                            status: true
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    uniqueArea: [{ key: 1, label: 1025 }, { key: 2, label: 1300 }],
-                    uniqueAtt: [{ key: 1, label: "Garden Facing" }, { key: 2, label: "Club House Facing" }],
-                    flatTypes: [2, 2.5, 3],
-                    facing: ['East', 'West', 'North'],
-                    page: 1,
-                    updatedTowers: []
-                };
-                this.setState({
-                    loaded: true,
-                    pid: pid,
-                    tower: data.tower,
-                    uniqueArea: data.uniqueArea,
-                    uniqueAtt: data.uniqueAtt,
-                    flatTypes: data.flatTypes,
-                    facing: data.facing,
+                    towers: response.data.towers,
+                    unitInfo: response.data.unitInfo,
+                    uniqueAtt: response.data.uniqueAtt,
+                    facing: response.data.facing,
                     page: 1
                 });
-            }
-        })
+            }).catch((err) => {
+                console.error("Something went wrong", err);
+            })
+        }
     }
 
     handleChange = (event, page) => {
@@ -186,24 +55,29 @@ class Preview extends Component {
     }
 
     preview = () => {
-        window.localStorage.setItem('project', JSON.stringify(this.state.tower));
+        window.localStorage.setItem('pid', this.state.pid);
+        window.localStorage.setItem('towers', JSON.stringify(this.state.towers));
+        window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
         window.open(`/preview/${this.state.pid}`, "_blank");
     }
 
-    save = (newTower) => {
-        console.log(newTower);
-        let newData = this.state.tower;
+    updateState = (newTower) => {
+        let newData = this.state.towers;
         newData.forEach(t => {
             if (t.tid === newTower.tid) {
-                t = newTower;
+                newData[newData.indexOf(t)] = newTower;
             }
         })
-        this.setState({ tower: newData })
-        console.log(newData)
+        this.setState({ towers: newData });
+    }
+
+    save = () => {
         axios.post('http://localhost:7777/api/builder/save', {
             pid: this.state.pid,
-            tid: newTower.tid,
-            tower: newTower
+            towers: this.state.towers,
+            unitInfo: this.state.unitInfo,
+            uniqueAtt: this.state.uniqueAtt,
+            facing: this.state.facing
         }).then((response) => {
             alert("Data saving: " + response.data.status);
         }).catch((err) => {
@@ -213,25 +87,25 @@ class Preview extends Component {
 
     render() {
         return (
-            this.state.loaded === undefined ? (
+            this.state.loaded === false ? (
                 <Backdrop open={true}>
                     <CircularProgress color="primary" />
                 </Backdrop>
             ) :
-                this.state.tower === undefined ? (<Redirect to="/builder" />) : (
+                this.state.towers === undefined ? <Redirect to="/builder" /> : (
                     <div>
                         <Header publish={this.publish} />
                         <GenerateMatrix
-                            tower={this.state.tower[this.state.page - 1]}
+                            tower={this.state.towers[this.state.page - 1]}
                             facing={this.state.facing}
-                            uniqueArea={this.state.uniqueArea}
+                            unitInfo={this.state.unitInfo}
                             uniqueAtt={this.state.uniqueAtt}
-                            flatTypes={this.state.flatTypes}
                             save={this.save}
+                            update={this.updateState}
                             preview={this.preview}
                         />
                         <br />
-                        <Pagination count={this.state.tower.length} page={this.state.page} onChange={this.handleChange} color="primary" />
+                        <Pagination count={this.state.towers.length} page={this.state.page} onChange={this.handleChange} color="primary" />
                     </div >
                 )
         )

@@ -1,8 +1,34 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import CheckBox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Button from '@material-ui/core/Button';
 
-function RowSelect({ floor, filter }) {
+const useStyles = makeStyles((theme) => ({
+    grid: {
+        margin: "18px"
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    }
+}));
+
+function RowSelect({ floor, filter, renameModal }) {
+
+    const classes = useStyles();
 
     const [check, setCheck] = React.useState(false);
     const handleCheck = () => {
@@ -10,11 +36,48 @@ function RowSelect({ floor, filter }) {
         setCheck(prevState => !prevState);
     }
 
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    }
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    const update = (type, id ,value) => {
+        renameModal(type, id, value);
+        handleClose();
+    }
+
     return (
-        <FormControlLabel
-            control={<CheckBox checked={check} onChange={handleCheck} color="primary" />}
-            label={`Floor ${floor.floor_no}`}
-        />
+        <React.Fragment>
+            <FormControlLabel
+                control={<CheckBox checked={check} onChange={handleCheck} color="primary" />}
+                label={`Floor ${floor.floor_no}`}
+            />
+            <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
+
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500
+                }}>
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <center>
+                            <input id="newname" type="text" placeholder="Floor No." /><br />
+                            <Button variant="outlined" onClick={() => update('floor', floor.fid, document.getElementById('newname').value)} color="primary">Done</Button>
+                        </center>
+                    </div>
+                </Fade>
+            </Modal>
+        </React.Fragment>
     )
 }
 

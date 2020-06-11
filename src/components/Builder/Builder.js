@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import FlatTypesOptions from './FlatTypesOptions';
 import FacingOptions from './FacingOptions';
 
 class Builder extends Component {
@@ -13,8 +12,8 @@ class Builder extends Component {
         this.state = {
             pid: 12346,
             towerCount: [],
-            tower: [],
-            uniqueArea: [],
+            towers: [],
+            unitInfo: [],
             uniqueAtt: [],
             flatTypes: [],
             flatTypesOptions: [2, 2.5, 3, 3.5, 4],
@@ -36,7 +35,7 @@ class Builder extends Component {
         }
 
         const handleProceed = () => {
-            let tower = [];
+            let towers = [];
             this.state.towerCount.forEach(t => {
                 let tname = document.getElementById(`tname${t.tid}`).value;
                 let floors = []
@@ -45,40 +44,44 @@ class Builder extends Component {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
+                        let num = '';
+                        j <= 9 ? (num = `0${j}`) : num = `${j}`;
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
-                tower.push({
+                towers.push({
                     tid: t.tid,
                     tname,
                     floors,
                 })
             })
-            this.setState({ tower, proceed: true });
+            this.setState({ towers, proceed: true });
         }
 
-        const addArea = () => {
+        const addFlatType = () => {
+            let bhk = Number(document.getElementById('uniquebhk').value);
             let area = Number(document.getElementById('uniqueArea').value);
-            if (area !== 0) {
-                this.setState({ uniqueArea: [...this.state.uniqueArea, { key: area, label: area }] });
+            if (area !== 0 && bhk !== 0) {
+                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + area, bhk, area }] });
             } else {
                 alert("Please provide some value");
             }
-            document.getElementById('uniqueArea').value = 0;
+            document.getElementById('uniqueArea').value = null;
+            document.getElementById('uniquebhk').value = null;
         }
 
         const handleAreaDelete = (areaToDelete) => () => {
-            this.setState((prevState) => ({ uniqueArea: prevState.uniqueArea.filter((data) => data.key !== areaToDelete.key) }));
+            this.setState((prevState) => ({ unitInfo: prevState.unitInfo.filter((data) => data.key !== areaToDelete.key) }));
         };
 
         const createArea = (
-            this.state.uniqueArea.map((data) => {
+            this.state.unitInfo.map((data) => {
                 return (
                     <Chip
                         key={data.key}
                         size="small"
-                        label={data.label}
+                        label={`${data.bhk} BHK (${data.area} sq.ft.)`}
                         onDelete={handleAreaDelete(data)}
                     />
                 );
@@ -92,6 +95,7 @@ class Builder extends Component {
             } else {
                 alert("Please provide some value");
             }
+            document.getElementById('uniqueAtt').value = null;
         }
 
         const handleAttDelete = (attToDelete) => () => {
@@ -110,16 +114,6 @@ class Builder extends Component {
                 )
             })
         );
-
-        const handleFlatFilter = (info) => {
-            let data = this.state.flatTypes;
-            if (data.includes(info)) {
-                data = data.filter(a => { return a !== info });
-            } else {
-                data.push(info);
-            }
-            this.setState({ flatTypes: data });
-        }
 
         const handleFaceFilter = (info) => {
             let data = this.state.facing;
@@ -160,9 +154,20 @@ class Builder extends Component {
                                 <center>
                                     <label>Unique Flat Types</label>
                                 </center><br />
-                                {this.state.flatTypesOptions.map(opt => (
-                                    <FlatTypesOptions key={opt} data={opt} filter={handleFlatFilter} />
-                                ))}
+                                <input id="uniquebhk" type="number" placeholder="BHK" />
+                                <input id="uniqueArea" type="number" placeholder="Area" />
+                                <button onClick={() => addFlatType()}> + </button>
+                                <br /><br />
+                                {createArea}
+                            </Grid>
+                            <Grid item xs={3}>
+                                <center>
+                                    <label>Unique Attributes: </label>
+                                </center><br />
+                                <input id="uniqueAtt" type="text" placeholder="Unique Attributes" />
+                                <button onClick={() => addAtt()}> + </button>
+                                <br /><br />
+                                {createAtt}
                             </Grid>
                             <Grid item xs={3}>
                                 <center>
@@ -173,33 +178,12 @@ class Builder extends Component {
                                 ))}
                             </Grid>
                         </Grid>
-                        <br />
-                        <Grid container justify="space-evenly">
-                            <Grid item xs={4}>
-                                <center>
-                                    <label>Type of Unique Sizes: </label>
-                                </center><br />
-                                <input id="uniqueArea" type="number" />
-                                <button onClick={() => addArea()}> + </button>
-                                <br /><br />
-                                {createArea}
-                            </Grid>
-                            <Grid item xs={4}>
-                                <center>
-                                    <label>Unique Attributes: </label>
-                                </center><br />
-                                <input id="uniqueAtt" type="text" />
-                                <button onClick={() => addAtt()}> + </button>
-                                <br /><br />
-                                {createAtt}
-                            </Grid>
-                        </Grid>
                         <br /><br />
                         <center>
                             <Link to={{
                                 pathname: `/generate/${this.state.pid}`,
-                                tower: this.state.tower,
-                                uniqueArea: this.state.uniqueArea,
+                                towers: this.state.towers,
+                                unitInfo: this.state.unitInfo,
                                 uniqueAtt: this.state.uniqueAtt,
                                 facing: this.state.facing,
                                 flatTypes: this.state.flatTypes
