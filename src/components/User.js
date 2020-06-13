@@ -19,10 +19,14 @@ class Home extends Component {
     componentDidMount() {
         const dev = 'http://localhost:7777/api/getproject/' + window.location.pathname.split('/')[2];
         axios.get(dev).then((response) => {
-            console.log(response.data);
-            this.setState({
-                project: response.data
-            });
+            console.log(response.data)
+            if (response.data.status === "failed") {
+                console.log("Failed")
+                this.setState({ project: undefined });
+            } else {
+                console.log("Success");
+                this.setState({ project: response.data });
+            }
         })
     }
 

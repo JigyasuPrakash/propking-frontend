@@ -29,9 +29,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function PreviewCell({ unit, variant, filter, color, disable, renameModal }) {
+function GenerateCell({ unit, variant, filter, color, disable, renameModal, state }) {
 
     const classes = useStyles();
+
+    const [select, setSelect] = React.useState(state);
+    const handleSelect = () => {
+        filter(unit.uid, !select);
+        setSelect(prevState => !prevState);
+    }
 
     const [checked, setChecked] = React.useState(!unit.status);
     const toggleChecked = () => {
@@ -68,7 +74,7 @@ function PreviewCell({ unit, variant, filter, color, disable, renameModal }) {
                     <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                 </React.Fragment>
             )}>
-                <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
+                <Button id={unit.uid} onClick={handleSelect} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
             </Tooltip>
 
             <Modal
@@ -95,4 +101,4 @@ function PreviewCell({ unit, variant, filter, color, disable, renameModal }) {
     )
 }
 
-export default PreviewCell
+export default GenerateCell;

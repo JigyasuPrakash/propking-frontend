@@ -128,7 +128,7 @@ class Builder extends Component {
         return (
             <div>
                 <label>Number of Tower: </label>
-                <input id="tCount" type="number" />
+                <input id="tCount" type="number" min="0" />
                 <button onClick={createTower}>
                     Create
                 </button>
@@ -138,9 +138,9 @@ class Builder extends Component {
                         <label>Tower Name: </label>
                         <input id={`tname${t.tid}`} type="text" />
                         <label>No. floors: </label>
-                        <input id={`floorCount${t.tid}`} type="number" />
+                        <input id={`floorCount${t.tid}`} min="0" type="number" />
                         <label>Max no. of flats per floor: </label>
-                        <input id={`unitCount${t.tid}`} type="number" />
+                        <input id={`unitCount${t.tid}`} min="0" type="number" />
                         <br />
                     </div>
                 ))}
@@ -154,8 +154,8 @@ class Builder extends Component {
                                 <center>
                                     <label>Unique Flat Types</label>
                                 </center><br />
-                                <input id="uniquebhk" type="number" placeholder="BHK" />
-                                <input id="uniqueArea" type="number" placeholder="Area" />
+                                <input id="uniquebhk" type="number" min="0" step="0.5" placeholder="BHK" />
+                                <input id="uniqueArea" type="number" min="0" setp="0.1" placeholder="Area" />
                                 <button onClick={() => addFlatType()}> + </button>
                                 <br /><br />
                                 {createArea}

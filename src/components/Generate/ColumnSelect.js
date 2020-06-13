@@ -7,7 +7,7 @@ function ColumnSelect({ row, filter }) {
 
     const [check, setCheck] = React.useState(false);
     const handleCheck = () => {
-        filter('U' + row.uid.split('U')[1]);
+        filter('U' + row.uid.split('U')[1], !check);
         setCheck(prevState => !prevState);
     }
 

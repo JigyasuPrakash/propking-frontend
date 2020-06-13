@@ -17,7 +17,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
     const [myTower, setTower] = React.useState(tower);
 
     const getUnit = (unit) => {
-        if (columnSelect.includes('U' + unit.uid.split('U')[1]) || floorSelect.includes(unit.uid.split('U')[0]) || individual.includes(unit.uid)) {
+        if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
             // Selected Units
             let color = ""
             unit.status ? (color = "lightgreen") : (color = "red");
@@ -26,6 +26,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                 variant="contained"
                 filter={handleIndividual}
                 color={color}
+                state={true}
                 disable={handleDisabled}
                 renameModal={rename}
                 applyDisable={applyDisable} />);
@@ -37,6 +38,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                 variant="outlined"
                 filter={handleIndividual}
                 color={color}
+                state={false}
                 disable={handleDisabled}
                 renameModal={rename}
                 applyDisable={applyDisable} />);
@@ -46,40 +48,75 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
     const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
 
-    const [floorSelect, setFloorSelect] = React.useState([]);
-    const handleRowSelect = (info) => {
-        let data = floorSelect;
-        if (data.includes(info)) {
-            data = data.filter(a => { return a !== info });
+    const [rowSelect, setRowSelect] = React.useState([]);
+    const handleRowSelect = (info, state) => {
+        let data = rowSelect;
+        // Selecting row (T1F1)
+        let myInfo = tower.floors[0].units.map(u => info + 'U' + u.uid.split('U')[1]);
+        if (state) {
+            myInfo.forEach(u => {
+                if (data.includes(u)) {
+                    data = data.filter(a => { return a !== u });
+                } else {
+                    data.push(u);
+                }
+            })
         } else {
-            data.push(info);
-            forceUpdate();
+            myInfo.forEach(u => {
+                data = data.filter(a => { return a !== u });
+            })
         }
-        setFloorSelect(data);
-    }
-
-    const [columnSelect, setRowSelect] = React.useState([]);
-    const handleColumnSelect = (info) => {
-        let data = columnSelect;
-        if (data.includes(info)) {
-            data = data.filter(a => { return a !== info });
-        } else {
-            data.push(info);
-            forceUpdate();
-        }
+        forceUpdate();
         setRowSelect(data);
     }
 
-    const [individual, setIndividual] = React.useState([]);
-    const handleIndividual = (info) => {
-        let data = individual;
-        if (data.includes(info)) {
-            data = data.filter(a => { return a !== info });
+    const [colSelect, setColSelect] = React.useState([]);
+    const handleColumnSelect = (info, state) => {
+        let data = colSelect;
+        // Selecting Column (U1)
+        let myInfo = tower.floors.map(f => f.fid + info);
+        if (state) {
+            myInfo.forEach(u => {
+                if (data.includes(u)) {
+                    data = data.filter(a => { return a !== u });
+                } else {
+                    data.push(u);
+                }
+            })
         } else {
-            data.push(info);
-            forceUpdate();
+            myInfo.forEach(u => {
+                data = data.filter(a => { return a !== u });
+            })
         }
-        setIndividual(data);
+        forceUpdate();
+        setColSelect(data);
+    }
+
+    const handleIndividual = (info, state) => {
+        let rowData = rowSelect;
+        let colData = colSelect;
+        if (state) {
+            if (rowData.includes(info)) {
+                rowData = rowData.filter(a => { return a !== info });
+            } else {
+                rowData.push(info);
+            }
+            if (colData.includes(info)) {
+                colData = colData.filter(a => { return a !== info });
+            } else {
+                colData.push(info);
+            }
+        } else {
+            if (rowData.includes(info)) {
+                rowData = rowData.filter(a => { return a !== info });
+            }
+            if (colData.includes(info)) {
+                colData = colData.filter(a => { return a !== info });
+            }
+        }
+        forceUpdate();
+        setRowSelect(rowData);
+        setColSelect(colData);
     }
 
     const [disabled, setDisabled] = React.useState([]);
@@ -120,7 +157,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
         tower.floors.forEach(floor => {
             let units = []
             floor.units.forEach(unit => {
-                if (columnSelect.includes('U' + unit.uid.split('U')[1]) || floorSelect.includes(unit.uid.split('U')[0]) || individual.includes(unit.uid)) {
+                if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
                     units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unitInfo.bhk, size: unitInfo.area, att: newAtt, facing: newFace, status: unit.status });
                 } else {
                     units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: unit.status });

@@ -32,7 +32,7 @@ function RowSelect({ floor, filter, renameModal }) {
 
     const [check, setCheck] = React.useState(false);
     const handleCheck = () => {
-        filter(floor.fid)
+        filter(floor.fid, !check);
         setCheck(prevState => !prevState);
     }
 
@@ -44,7 +44,7 @@ function RowSelect({ floor, filter, renameModal }) {
         setOpen(false);
     }
 
-    const update = (type, id ,value) => {
+    const update = (type, id, value) => {
         renameModal(type, id, value);
         handleClose();
     }

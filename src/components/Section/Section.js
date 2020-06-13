@@ -23,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
 function Section({ project }) {
     const classes = useStyles();
 
-    const [filteredTower, myFilter] = React.useState(project.tower);
+    const [filteredTower, myFilter] = React.useState(project.towers);
     const handleTowerFilter = (info) => {
-        let data = project.tower.filter((t) => {
+        let data = project.towers.filter((t) => {
             return info.includes(t.tid);
         });
         if (data.length === 0) {
-            data = project.tower;
+            data = project.towers;
         }
         myFilter(data);
     }
@@ -63,7 +63,7 @@ function Section({ project }) {
         <Grid container justify="space-evenly">
             <Grid item sm xs={12} className={classes.grid}>
                 <Paper elevation={3} >
-                    <LeftSection tower={project.tower} unitInfo={project.unitInfo} areaFilter={handleAreaFilter} towerFilter={handleTowerFilter} />
+                    <LeftSection tower={project.towers} unitInfo={project.unitInfo} areaFilter={handleAreaFilter} towerFilter={handleTowerFilter} />
                 </Paper>
             </Grid>
 
