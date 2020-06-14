@@ -19,7 +19,7 @@ class Preview extends Component {
 
     componentDidMount() {
         const pid = window.location.pathname.split('/')[2];
-        const dev = 'http://localhost:7777/api/builder/getproject/' + pid;
+        const dev = 'https://propking.herokuapp.com/api/builder/getproject/' + pid;
         console.log('component mount')
         if (this.props.location.towers !== undefined) {
             console.log("found")
@@ -72,7 +72,7 @@ class Preview extends Component {
     }
 
     save = () => {
-        axios.post('http://localhost:7777/api/builder/save', {
+        axios.post('https://propking.herokuapp.com/api/builder/save', {
             pid: this.state.pid,
             towers: this.state.towers,
             unitInfo: this.state.unitInfo,

@@ -33,7 +33,7 @@ class Home extends Component {
     }
 
     publish = () => {
-        axios.post('http://localhost:7777/api/builder/publish', {
+        axios.post('https://propking.herokuapp.com/api/builder/publish', {
             pid: this.state.pid
         }).then((response) => {
             alert("Project Publishing: " + response.data.status);
