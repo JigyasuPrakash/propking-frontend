@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import GenerateMatrix from './GenerateMatrix';
-import Pagination from '@material-ui/lab/Pagination';
 import axios from 'axios';
 import Header from '../Header/Header';
 import { Redirect } from 'react-router-dom';
@@ -19,8 +18,6 @@ class Preview extends Component {
 
     componentDidMount() {
         const pid = window.location.pathname.split('/')[2];
-        const dev = 'https://propking.herokuapp.com/api/builder/getproject/' + pid;
-        console.log('component mount')
         if (this.props.location.towers !== undefined) {
             console.log("found")
             this.setState({
@@ -29,29 +26,22 @@ class Preview extends Component {
                 towers: this.props.location.towers,
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
-                facing: this.props.location.facing,
-                page: 1
+                facing: this.props.location.facing
             })
         } else {
-            console.log("notfound")
-            axios.get(dev).then((response) => {
+            axios.get(`https://propking.herokuapp.com/api/builder/getproject/${pid}`).then((response) => {
                 this.setState({
                     loaded: true,
                     pid: pid,
                     towers: response.data.towers,
                     unitInfo: response.data.unitInfo,
                     uniqueAtt: response.data.uniqueAtt,
-                    facing: response.data.facing,
-                    page: 1
+                    facing: response.data.facing
                 });
             }).catch((err) => {
                 console.error("Something went wrong", err);
             })
         }
-    }
-
-    handleChange = (event, page) => {
-        this.setState({ page });
     }
 
     preview = () => {
@@ -61,28 +51,21 @@ class Preview extends Component {
         window.open(`/preview/${this.state.pid}`, "_blank");
     }
 
-    updateState = (newTower) => {
-        let newData = this.state.towers;
-        newData.forEach(t => {
-            if (t.tid === newTower.tid) {
-                newData[newData.indexOf(t)] = newTower;
-            }
-        })
-        this.setState({ towers: newData });
-    }
 
-    save = () => {
-        axios.post('https://propking.herokuapp.com/api/builder/save', {
-            pid: this.state.pid,
-            towers: this.state.towers,
-            unitInfo: this.state.unitInfo,
-            uniqueAtt: this.state.uniqueAtt,
-            facing: this.state.facing
-        }).then((response) => {
-            alert("Data saving: " + response.data.status);
-        }).catch((err) => {
-            console.error("Something went wrong", err)
-        })
+
+    save = (project) => {
+        // axios.post('https://propking.herokuapp.com/api/builder/save', {
+        //     pid: this.state.pid,
+        //     towers: project.towers,
+        //     unitInfo: this.state.unitInfo,
+        //     uniqueAtt: this.state.uniqueAtt,
+        //     facing: this.state.facing
+        // }).then((response) => {
+        //     alert("Project saving: " + response.data.status);
+        // }).catch((err) => {
+        //     console.error("Something went wrong", err)
+        // })
+        console.log(project)
     }
 
     render() {
@@ -96,16 +79,13 @@ class Preview extends Component {
                     <div>
                         <Header publish={this.publish} />
                         <GenerateMatrix
-                            tower={this.state.towers[this.state.page - 1]}
+                            towers={this.state.towers}
                             facing={this.state.facing}
                             unitInfo={this.state.unitInfo}
                             uniqueAtt={this.state.uniqueAtt}
                             save={this.save}
-                            update={this.updateState}
                             preview={this.preview}
                         />
-                        <br />
-                        <Pagination count={this.state.towers.length} page={this.state.page} onChange={this.handleChange} color="primary" />
                     </div >
                 )
         )

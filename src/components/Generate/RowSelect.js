@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function RowSelect({ floor, filter, renameModal }) {
+function RowSelect({ floor, filter, rename }) {
 
     const classes = useStyles();
 
@@ -45,7 +45,7 @@ function RowSelect({ floor, filter, renameModal }) {
     }
 
     const update = (type, id, value) => {
-        renameModal(type, id, value);
+        rename(type, id, value);
         handleClose();
     }
 
@@ -53,7 +53,7 @@ function RowSelect({ floor, filter, renameModal }) {
         <React.Fragment>
             <FormControlLabel
                 control={<CheckBox checked={check} onChange={handleCheck} color="primary" />}
-                label={`Floor ${floor.floor_no}`}
+                label={`${floor.floor_no}`}
             />
             <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
 
@@ -71,7 +71,7 @@ function RowSelect({ floor, filter, renameModal }) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <center>
-                            <input id="newname" type="text" placeholder="Floor No." /><br />
+                            <input id="newname" type="text" placeholder={floor.floor_no} /><br />
                             <Button variant="outlined" onClick={() => update('floor', floor.fid, document.getElementById('newname').value)} color="primary">Done</Button>
                         </center>
                     </div>

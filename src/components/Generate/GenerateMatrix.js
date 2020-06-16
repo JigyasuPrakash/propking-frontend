@@ -11,10 +11,34 @@ import Grid from '@material-ui/core/Grid';
 import GenerateOptions from './GenerateOptions';
 import GenerateCell from './GenerateCell';
 import Button from '@material-ui/core/Button';
+import Pagination from '@material-ui/lab/Pagination';
 
-function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, update }) {
+function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) {
 
-    const [myTower, setTower] = React.useState(tower);
+    const [project, setProject] = React.useState(towers);
+    const handleProjectUpdate = (newTower) => {
+        let newData = project;
+        newData.forEach(t => {
+            if (t.tid === newTower.tid) {
+                newData[newData.indexOf(t)] = newTower;
+            }
+        })
+        setProject(newData);
+    }
+
+    const [page, setPage] = React.useState(1);
+    const handlePage = (event, page) => {
+        if (project !== undefined) {
+            updateTower(project[page - 1]);
+            setPage(page);
+        }
+    }
+
+    const [myTower, setTower] = React.useState(project[0]);
+    const updateTower = (newTower) => {
+        setTower(newTower);
+        handleProjectUpdate(newTower)
+    }
 
     const getUnit = (unit) => {
         if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
@@ -28,7 +52,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                 color={color}
                 state={true}
                 disable={handleDisabled}
-                renameModal={rename}
+                rename={rename}
                 applyDisable={applyDisable} />);
         } else {
             let color = ""
@@ -40,7 +64,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                 color={color}
                 state={false}
                 disable={handleDisabled}
-                renameModal={rename}
+                rename={rename}
                 applyDisable={applyDisable} />);
         }
     };
@@ -52,7 +76,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
     const handleRowSelect = (info, state) => {
         let data = rowSelect;
         // Selecting row (T1F1)
-        let myInfo = tower.floors[0].units.map(u => info + 'U' + u.uid.split('U')[1]);
+        let myInfo = myTower.floors[0].units.map(u => info + 'U' + u.uid.split('U')[1]);
         if (state) {
             myInfo.forEach(u => {
                 if (data.includes(u)) {
@@ -74,7 +98,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
     const handleColumnSelect = (info, state) => {
         let data = colSelect;
         // Selecting Column (U1)
-        let myInfo = tower.floors.map(f => f.fid + info);
+        let myInfo = myTower.floors.map(f => f.fid + info);
         if (state) {
             myInfo.forEach(u => {
                 if (data.includes(u)) {
@@ -134,7 +158,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
 
     const applyDisable = (data) => {
         let floors = []
-        tower.floors.forEach(floor => {
+        myTower.floors.forEach(floor => {
             let units = []
             floor.units.forEach(unit => {
                 if (data.includes(unit.uid)) {
@@ -145,7 +169,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
         })
-        setTower({
+        updateTower({
             tid: myTower.tid,
             tname: myTower.tname,
             floors
@@ -154,7 +178,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
 
     const applyOptions = (unitInfo, newAtt, newFace) => {
         let floors = []
-        tower.floors.forEach(floor => {
+        myTower.floors.forEach(floor => {
             let units = []
             floor.units.forEach(unit => {
                 if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
@@ -165,12 +189,7 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
         })
-        setTower({
-            tid: myTower.tid,
-            tname: myTower.tname,
-            floors
-        });
-        update({
+        updateTower({
             tid: myTower.tid,
             tname: myTower.tname,
             floors
@@ -196,8 +215,10 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                 }
             })
         }
-        setTower(newData);
+        updateTower(newData);
     }
+
+
 
     return (myTower === undefined ? null : (
         <React.Fragment>
@@ -207,13 +228,13 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                     <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{myTower.tname}</Typography>
                     <Table size="small" aria-label="simple table">
                         <TableBody>
-                            {myTower.floors[0].floor_no < myTower.floors[1].floor_no ? (
+                            {myTower.floors[0].floor_no < (myTower.floors[1] === undefined ? 0 : myTower.floors[1].floor_no) ? (
                                 <React.Fragment>
                                     {myTower.floors.reverse().map((floor) => (
                                         <TableRow key={floor.fid}>
                                             <TableCell align="center">
                                                 <Typography variant="body2">
-                                                    <RowSelect floor={floor} filter={handleRowSelect} renameModal={rename} />
+                                                    <RowSelect floor={floor} filter={handleRowSelect} rename={rename} />
                                                 </Typography>
                                             </TableCell>
                                             {floor.units.map((unit) =>
@@ -269,9 +290,11 @@ function GenerateMatrix({ tower, unitInfo, uniqueAtt, facing, save, preview, upd
                     </Table>
                 </TableContainer>
             </Grid>
+            <br />
+            <Pagination count={project.length} page={page} onChange={handlePage} color="primary" />
             <br /><br />
             <center>
-                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={save}>Save Draft</Button>
+                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={() => save(project)}>Save Draft</Button>
                 <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={preview} >Preview</Button>
             </center>
         </React.Fragment>

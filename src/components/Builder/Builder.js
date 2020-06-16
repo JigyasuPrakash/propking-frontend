@@ -48,7 +48,7 @@ class Builder extends Component {
                         j <= 9 ? (num = `0${j}`) : num = `${j}`;
                         units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
-                    floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
+                    floors.push({ fid: `T${t.tid}F${i}`, floor_no: `Floor ${i}`, units });
                 }
                 towers.push({
                     tid: t.tid,

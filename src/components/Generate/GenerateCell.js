@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function GenerateCell({ unit, variant, filter, color, disable, renameModal, state }) {
+function GenerateCell({ unit, variant, filter, color, disable, rename, state }) {
 
     const classes = useStyles();
 
@@ -54,7 +54,7 @@ function GenerateCell({ unit, variant, filter, color, disable, renameModal, stat
     }
 
     const update = (type, id, value) => {
-        renameModal(type, id, value);
+        rename(type, id, value);
         handleClose();
     }
 
