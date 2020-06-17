@@ -39,7 +39,7 @@ function PreviewMatrix({ tower, filter, mySelect }) {
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">
-                                    <Typography variant="body2">Floor {floor.floor_no}</Typography>
+                                    <Typography variant="body2">{floor.floor_no}</Typography>
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :

@@ -44,7 +44,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
         if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
             // Selected Units
             let color = ""
-            unit.status ? (color = "lightgreen") : (color = "red");
+            unit.status ? (color = "lightgreen") : (color = "grey");
             return (<GenerateCell
                 unit={unit}
                 variant="contained"
@@ -56,7 +56,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                 applyDisable={applyDisable} />);
         } else {
             let color = ""
-            unit.status ? (color = "lightgreen") : (color = "red");
+            unit.status ? (color = "lightgreen") : (color = "grey");
             return (<GenerateCell
                 unit={unit}
                 variant="outlined"
@@ -179,7 +179,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
     const applyOptions = (unitInfo, newAtt, newFace) => {
         let floors = []
         myTower.floors.forEach(floor => {
-            let units = []
+            let units = [];
             floor.units.forEach(unit => {
                 if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
                     units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unitInfo.bhk, size: unitInfo.area, att: newAtt, facing: newFace, status: unit.status });

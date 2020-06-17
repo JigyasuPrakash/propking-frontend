@@ -70,7 +70,10 @@ function GenerateCell({ unit, variant, filter, color, disable, rename, state }) 
                         label="Remove"
                     /><br />
                     <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                    <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                    {unit.att === "" ? null : (
+                        <React.Fragment>
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                        </React.Fragment>)}
                     <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                 </React.Fragment>
             )}>

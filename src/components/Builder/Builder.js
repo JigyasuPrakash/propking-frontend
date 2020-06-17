@@ -62,13 +62,13 @@ class Builder extends Component {
         const addFlatType = () => {
             let bhk = Number(document.getElementById('uniquebhk').value);
             let area = Number(document.getElementById('uniqueArea').value);
-            if (area !== 0 && bhk !== 0) {
+            if (area !== 0 && bhk !== "") {
                 this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + area, bhk, area }] });
             } else {
                 alert("Please provide some value");
             }
             document.getElementById('uniqueArea').value = null;
-            document.getElementById('uniquebhk').value = null;
+            document.getElementById('uniquebhk').value = "";
         }
 
         const handleAreaDelete = (areaToDelete) => () => {
@@ -154,7 +154,17 @@ class Builder extends Component {
                                 <center>
                                     <label>Unique Flat Types</label>
                                 </center><br />
-                                <input id="uniquebhk" type="number" min="0" step="0.5" placeholder="BHK" />
+                                <select id="uniquebhk">
+                                    <option value="">----BHK----</option>
+                                    <option value="1">1</option>
+                                    <option value="1.5">1.5</option>
+                                    <option value="2">2</option>
+                                    <option value="2.5">2.5</option>
+                                    <option value="3">3</option>
+                                    <option value="3.5">3.5</option>
+                                    <option value="4">4</option>
+                                    <option value="4.5">4.5</option>
+                                </select>
                                 <input id="uniqueArea" type="number" min="0" setp="0.1" placeholder="Area" />
                                 <button onClick={() => addFlatType()}> + </button>
                                 <br /><br />
