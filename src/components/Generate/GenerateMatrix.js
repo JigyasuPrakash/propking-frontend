@@ -228,64 +228,34 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                     <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{myTower.tname}</Typography>
                     <Table size="small" aria-label="simple table">
                         <TableBody>
-                            {myTower.floors[0].floor_no < (myTower.floors[1] === undefined ? 0 : myTower.floors[1].floor_no) ? (
-                                <React.Fragment>
-                                    {myTower.floors.reverse().map((floor) => (
-                                        <TableRow key={floor.fid}>
-                                            <TableCell align="center">
-                                                <Typography variant="body2">
-                                                    <RowSelect floor={floor} filter={handleRowSelect} rename={rename} />
-                                                </Typography>
-                                            </TableCell>
-                                            {floor.units.map((unit) =>
-                                                unit === undefined ? null : (
-                                                    <TableCell key={unit.uid}>
-                                                        {getUnit(unit)}
-                                                    </TableCell>
-                                                ))
-                                            }
-                                        </TableRow>
-                                    ))}
-                                    <TableRow>
-                                        <TableCell>
-                                            <Typography></Typography>
+                            <TableRow>
+                                <TableCell>
+                                    <Typography></Typography>
+                                </TableCell>
+                                {myTower.floors[0].units.map(unit => (
+                                    <TableCell key={unit.uid}>
+                                        <ColumnSelect row={unit} filter={handleColumnSelect} />
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                            <React.Fragment>
+                                {myTower.floors.map((floor) => (
+                                    <TableRow key={floor.fid}>
+                                        <TableCell align="center">
+                                            <Typography variant="body2">
+                                                <RowSelect floor={floor} filter={handleRowSelect} rename={rename} />
+                                            </Typography>
                                         </TableCell>
-                                        {myTower.floors[0].units.map(unit => (
-                                            <TableCell key={unit.uid}>
-                                                <ColumnSelect row={unit} filter={handleColumnSelect} />
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                </React.Fragment>) : (
-                                    <React.Fragment>
-                                        {myTower.floors.map((floor) => (
-                                            <TableRow key={floor.fid}>
-                                                <TableCell align="center">
-                                                    <Typography variant="body2">
-                                                        <RowSelect floor={floor} filter={handleRowSelect} renameModal={rename} />
-                                                    </Typography>
-                                                </TableCell>
-                                                {floor.units.map((unit) =>
-                                                    unit === undefined ? null : (
-                                                        <TableCell key={unit.uid}>
-                                                            {getUnit(unit)}
-                                                        </TableCell>
-                                                    ))
-                                                }
-                                            </TableRow>
-                                        ))}
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography></Typography>
-                                            </TableCell>
-                                            {myTower.floors[0].units.map(unit => (
+                                        {floor.units.map((unit) =>
+                                            unit === undefined ? null : (
                                                 <TableCell key={unit.uid}>
-                                                    <ColumnSelect row={unit} filter={handleColumnSelect} />
+                                                    {getUnit(unit)}
                                                 </TableCell>
-                                            ))}
-                                        </TableRow>
-                                    </React.Fragment>)
-                            }
+                                            ))
+                                        }
+                                    </TableRow>
+                                ))}
+                            </React.Fragment>)
                         </TableBody>
                     </Table>
                 </TableContainer>

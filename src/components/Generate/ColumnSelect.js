@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckBox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownIcon from '@material-ui/icons/ArrowDownward';
 
 function ColumnSelect({ row, filter }) {
 
@@ -14,7 +14,7 @@ function ColumnSelect({ row, filter }) {
     return (
         <FormControlLabel
             control={<CheckBox checked={check} onChange={handleCheck} color="primary" />}
-            label={<ArrowUpwardIcon />}
+            label={<ArrowDownIcon />}
         />
     )
 }
