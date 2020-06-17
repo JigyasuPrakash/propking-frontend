@@ -255,7 +255,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                                         }
                                     </TableRow>
                                 ))}
-                            </React.Fragment>)
+                            </React.Fragment>
                         </TableBody>
                     </Table>
                 </TableContainer>

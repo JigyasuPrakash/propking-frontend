@@ -77,7 +77,11 @@ function GenerateCell({ unit, variant, filter, color, disable, rename, state }) 
                     <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                 </React.Fragment>
             )}>
-                <Button id={unit.uid} onClick={handleSelect} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
+                {unit.att !== "" || unit.bhk_type !== "" || unit.facing !== "" ? (
+                    <Button id={unit.uid} onClick={handleSelect} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
+                ) : (
+                        <Button id={unit.uid} onClick={handleSelect} variant={variant} color="secondary"><HomeIcon style={{ color: color }} /></Button>
+                    )}
             </Tooltip>
 
             <Modal
@@ -100,7 +104,7 @@ function GenerateCell({ unit, variant, filter, color, disable, rename, state }) 
                     </div>
                 </Fade>
             </Modal>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 

@@ -17,7 +17,9 @@ function PreviewMatrix({ tower, filter, mySelect }) {
                 <Tooltip arrow title={(
                     <React.Fragment>
                         <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                        <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                        <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                        <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                        <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                     </React.Fragment>
                 )}>
                     <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
@@ -59,7 +61,7 @@ function PreviewMatrix({ tower, filter, mySelect }) {
                     ) : (tower.floors.map((floor) => (
                         <TableRow key={floor.fid}>
                             <TableCell align="center">
-                                <Typography variant="body2">Floor {floor.floor_no}</Typography>
+                                <Typography variant="body2">{floor.floor_no}</Typography>
                             </TableCell>
                             {floor.units.map((unit) =>
                                 unit === undefined ? null :
