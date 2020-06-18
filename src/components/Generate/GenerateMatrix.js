@@ -120,24 +120,12 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
     const handleIndividual = (info, state) => {
         let rowData = rowSelect;
         let colData = colSelect;
-        if (state) {
-            if (rowData.includes(info)) {
-                rowData = rowData.filter(a => { return a !== info });
-            } else {
-                rowData.push(info);
-            }
-            if (colData.includes(info)) {
-                colData = colData.filter(a => { return a !== info });
-            } else {
-                colData.push(info);
-            }
+        if (rowData.includes(info) || colData.includes(info)) {
+            rowData = rowData.filter(a => { return a !== info });
+            colData = colData.filter(a => { return a !== info });
         } else {
-            if (rowData.includes(info)) {
-                rowData = rowData.filter(a => { return a !== info });
-            }
-            if (colData.includes(info)) {
-                colData = colData.filter(a => { return a !== info });
-            }
+            rowData.push(info);
+            colData.push(info);
         }
         forceUpdate();
         setRowSelect(rowData);
