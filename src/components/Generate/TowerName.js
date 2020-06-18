@@ -1,13 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CheckBox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -26,42 +25,35 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function RowSelect({ floor, filter, rename, state, click }) {
+function TowerName({ tower, update }) {
 
     const classes = useStyles();
 
-    const handleCheck = () => {
-        filter(floor.fid, !state);
-        click(floor.fid.split('F')[1] - 1);
-    }
-
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
+    const openModal = () => {
         setOpen(true);
     }
-    const handleClose = () => {
+    const closeModal = () => {
         setOpen(false);
     }
 
-    const update = (type, id, value) => {
-        rename(type, id, value);
-        handleClose();
+    const handleRename = () => {
+        update('tower', tower.tid, document.getElementById('newTname').value);
+        closeModal();
     }
 
     return (
         <React.Fragment>
-            <FormControlLabel
-                control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
-                label={`${floor.floor_no}`}
-            />
-            <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
+            <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">
+                {tower.tname} <IconButton size="medium" onClick={openModal}><EditIcon fontSize="small" /></IconButton>
+            </Typography>
 
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 className={classes.modal}
                 open={open}
-                onClose={handleClose}
+                onClose={closeModal}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -70,8 +62,8 @@ function RowSelect({ floor, filter, rename, state, click }) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <center>
-                            <input id="newname" type="text" placeholder={floor.floor_no} /><br />
-                            <Button variant="outlined" onClick={() => update('floor', floor.fid, document.getElementById('newname').value)} color="primary">Done</Button>
+                            <input id="newTname" type="text" placeholder={tower.tname} /><br />
+                            <Button variant="outlined" onClick={handleRename} color="primary">Done</Button>
                         </center>
                     </div>
                 </Fade>
@@ -80,4 +72,4 @@ function RowSelect({ floor, filter, rename, state, click }) {
     )
 }
 
-export default RowSelect
+export default TowerName

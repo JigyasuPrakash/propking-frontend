@@ -12,7 +12,7 @@ function RightPreview({ myUnit, handleModal }) {
             ) :
             (
                 <center style={{ padding: "10px" }}>
-                    <Typography variant="h6" align="center">FlatID: {myUnit.uid}</Typography>
+                    <Typography variant="h6" align="center">Flat No. {myUnit.unit_no}</Typography>
                     <img src={myUnit.g_img_set} height="200px" alt="Apartment" style={{ border: "1px solid black" }} />
                     <br />
                     <Typography variant="subtitle1" align="center">{myUnit.bhk_type} BHK ({myUnit.size} Sq.Ft.)</Typography>

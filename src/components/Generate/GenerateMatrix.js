@@ -12,6 +12,7 @@ import GenerateOptions from './GenerateOptions';
 import GenerateCell from './GenerateCell';
 import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
+import TowerName from './TowerName';
 
 function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) {
 
@@ -194,17 +195,21 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
             tname: myTower.tname,
             floors
         });
+        resetCheckBoxState();
     }
 
     const rename = (type, id, value) => {
         let newData = myTower;
+        if (value === "") {
+            return;
+        }
         if (type === 'floor') {
             newData.floors.forEach(f => {
                 if (f.fid === id) {
                     f.floor_no = value;
                 }
-            })
-        } else {
+            });
+        } else if (type === 'unit') {
             newData.floors.forEach(f => {
                 if (f.fid === id.split('U')[0]) {
                     f.units.forEach(u => {
@@ -213,19 +218,39 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                         }
                     })
                 }
-            })
+            });
+        } else if (type === 'tower') {
+            newData.tname = value;
         }
         updateTower(newData);
     }
 
+    const [rowState, setRowState] = React.useState(myTower.floors[0].units.map(u => { return false }));
+    const handleRowClick = (index) => {
+        let data = rowState;
+        data[index] = !data[index];
+        setRowState(data);
+    }
+    const [colState, setColState] = React.useState(myTower.floors.map(f => { return false }));
+    const handleColClick = (index) => {
+        let data = colState;
+        data[index] = !data[index];
+        setColState(data);
+    }
 
+    const resetCheckBoxState = () => {
+        setRowSelect([]);
+        setColSelect([]);
+        setRowState(myTower.floors[0].units.map(u => { return false }));
+        setColState(myTower.floors.map(f => { return false }));
+    }
 
     return (myTower === undefined ? null : (
         <React.Fragment>
             <GenerateOptions unitInfo={unitInfo} attributes={uniqueAtt} facing={facing} apply={applyOptions} />
             <Grid>
                 <TableContainer>
-                    <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{myTower.tname}</Typography>
+                    <TowerName tower={myTower} update={rename} />
                     <Table size="small" aria-label="simple table">
                         <TableBody>
                             <TableRow>
@@ -234,7 +259,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                                 </TableCell>
                                 {myTower.floors[0].units.map(unit => (
                                     <TableCell key={unit.uid}>
-                                        <ColumnSelect row={unit} filter={handleColumnSelect} />
+                                        <ColumnSelect units={unit} filter={handleColumnSelect} state={colState[unit.uid.split('U')[1] - 1]} click={handleColClick} />
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -243,7 +268,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                                     <TableRow key={floor.fid}>
                                         <TableCell align="center">
                                             <Typography variant="body2">
-                                                <RowSelect floor={floor} filter={handleRowSelect} rename={rename} />
+                                                <RowSelect floor={floor} filter={handleRowSelect} rename={rename} state={rowState[floor.fid.split('F')[1] - 1]} click={handleRowClick} />
                                             </Typography>
                                         </TableCell>
                                         {floor.units.map((unit) =>

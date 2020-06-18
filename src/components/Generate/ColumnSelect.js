@@ -3,17 +3,16 @@ import CheckBox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ArrowDownIcon from '@material-ui/icons/ArrowDownward';
 
-function ColumnSelect({ row, filter }) {
+function ColumnSelect({ units, filter, state, click }) {
 
-    const [check, setCheck] = React.useState(false);
     const handleCheck = () => {
-        filter('U' + row.uid.split('U')[1], !check);
-        setCheck(prevState => !prevState);
+        filter('U' + units.uid.split('U')[1], !state);
+        click(units.uid.split('U')[1] - 1);
     }
 
     return (
         <FormControlLabel
-            control={<CheckBox checked={check} onChange={handleCheck} color="primary" />}
+            control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
             label={<ArrowDownIcon />}
         />
     )

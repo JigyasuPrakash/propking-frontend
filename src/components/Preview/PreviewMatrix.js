@@ -37,7 +37,7 @@ function PreviewMatrix({ tower, filter, mySelect }) {
             <TableContainer>
                 <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.tname}</Typography>
                 <Table size="small" aria-label="simple table">
-                    <TableBody>{tower.floors[0].floor_no === 1 ? (
+                    <TableBody>{tower.floors[0].floor_no < (tower.floors === undefined ? 0 : tower.floors[1].floor_no) ? (
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">

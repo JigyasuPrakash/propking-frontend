@@ -15,9 +15,9 @@ function LeftPreview({ tower, unitInfo, areaFilter, towerFilter }) {
     }
     
     const icons = tower === undefined ? null : tower.map(item => (
-        <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "9px" }}>
+        <ToggleButton key={item.tid} value={item.tid} aria-label={item.tname} style={{ margin: "9px" }}>
             <ApartmentIcon color="primary" fontSize="large" />
-            <Typography variant="button" style={{ color: "black" }}>{item.tid}</Typography>
+            <Typography variant="button" style={{ color: "black" }}>{item.tname}</Typography>
         </ToggleButton>
     ));
 
