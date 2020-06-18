@@ -213,13 +213,13 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
         updateTower(newData);
     }
 
-    const [rowState, setRowState] = React.useState(myTower.floors[0].units.map(u => { return false }));
+    const [rowState, setRowState] = React.useState(myTower.floors.map(u => { return false }));
     const handleRowClick = (index) => {
         let data = rowState;
         data[index] = !data[index];
         setRowState(data);
     }
-    const [colState, setColState] = React.useState(myTower.floors.map(f => { return false }));
+    const [colState, setColState] = React.useState(myTower.floors[0].units.map(f => { return false }));
     const handleColClick = (index) => {
         let data = colState;
         data[index] = !data[index];
