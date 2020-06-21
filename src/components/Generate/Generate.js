@@ -54,18 +54,17 @@ class Preview extends Component {
 
 
     save = (project) => {
-        // axios.post('https://propking.herokuapp.com/api/builder/save', {
-        //     pid: this.state.pid,
-        //     towers: project.towers,
-        //     unitInfo: this.state.unitInfo,
-        //     uniqueAtt: this.state.uniqueAtt,
-        //     facing: this.state.facing
-        // }).then((response) => {
-        //     alert("Project saving: " + response.data.status);
-        // }).catch((err) => {
-        //     console.error("Something went wrong", err)
-        // })
-        console.log(project)
+        axios.post('https://propking.herokuapp.com/api/builder/save', {
+            pid: this.state.pid,
+            towers: project,
+            unitInfo: this.state.unitInfo,
+            uniqueAtt: this.state.uniqueAtt,
+            facing: this.state.facing
+        }).then((response) => {
+            alert("Project saving: " + response.data.status);
+        }).catch((err) => {
+            console.error("Something went wrong", err)
+        })
     }
 
     render() {

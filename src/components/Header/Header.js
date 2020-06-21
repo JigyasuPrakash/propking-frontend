@@ -50,7 +50,7 @@ function Header(props) {
                         <Toolbar>
                             <Typography className={classes.title} variant="h5" noWrap>
                                 <NavLink to="/" style={{ color: "white", textDecoration: "none" }}>
-                                    Square Yards
+                                    PropKing
                                 </NavLink>
                             </Typography>
                         </Toolbar>

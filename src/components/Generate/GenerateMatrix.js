@@ -243,7 +243,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                         <TableBody>
                             <TableRow>
                                 <TableCell>
-                                    <Typography></Typography>
+                                    <Typography>Floor</Typography>
                                 </TableCell>
                                 {myTower.floors[0].units.map(unit => (
                                     <TableCell key={unit.uid}>

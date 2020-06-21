@@ -10,7 +10,7 @@ class Builder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pid: 12346,
+            pid: 3333,
             towerCount: [],
             towers: [],
             unitInfo: [],
@@ -43,12 +43,12 @@ class Builder extends Component {
                 for (let i = floorCount; i >= 1; i--) {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
-                    for (let j = unitCount; j >= 1; j--) {
+                    for (let j = 1; j <= unitCount; j++) {
                         let num = '';
                         j <= 9 ? (num = `0${j}`) : num = `${j}`;
                         units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
-                    floors.push({ fid: `T${t.tid}F${i}`, floor_no: `Floor ${i}`, units });
+                    floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
                 towers.push({
                     tid: t.tid,
@@ -63,7 +63,7 @@ class Builder extends Component {
             let bhk = Number(document.getElementById('uniquebhk').value);
             let area = Number(document.getElementById('uniqueArea').value);
             if (area !== 0 && bhk !== "") {
-                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + area, bhk, area }] });
+                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area }] });
             } else {
                 alert("Please provide some value");
             }
