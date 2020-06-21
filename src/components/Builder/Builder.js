@@ -4,13 +4,15 @@ import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import FacingOptions from './FacingOptions';
+import {v4 as uuidv4} from 'uuid';
 
 class Builder extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            pid: 3333,
+            pid: 0,
+            pname: '',
             towerCount: [],
             towers: [],
             unitInfo: [],
@@ -26,12 +28,14 @@ class Builder extends Component {
     render() {
 
         const createTower = () => {
+            let pname = document.getElementById('pname').value;
+            let pid = uuidv4();
             let tcount = document.getElementById('tCount').value;
             let towerCount = []
             for (let i = 1; i <= tcount; i++) {
                 towerCount.push({ tid: i });
             }
-            this.setState({ towerCount });
+            this.setState({ towerCount, pname, pid });
         }
 
         const handleProceed = () => {
@@ -126,7 +130,10 @@ class Builder extends Component {
         }
 
         return (
-            <div>
+            <div style={{margin: "20px"}}>
+                <label>Project Name: </label>
+                <input id="pname" type="text" placeholder="Name.." />
+                <br />
                 <label>Number of Tower: </label>
                 <input id="tCount" type="number" min="0" />
                 <button onClick={createTower}>
@@ -192,6 +199,7 @@ class Builder extends Component {
                         <center>
                             <Link to={{
                                 pathname: `/generate/${this.state.pid}`,
+                                pname: this.state.pname,
                                 towers: this.state.towers,
                                 unitInfo: this.state.unitInfo,
                                 uniqueAtt: this.state.uniqueAtt,

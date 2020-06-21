@@ -5,8 +5,26 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (
         <center>
-            <Link to="/user/12346"><Button variant="contained" color="primary" style={{ margin: "20px", textDecoration: "none" }}>Edit existing Projects</Button></Link>
-            <Link to="/builder"><Button variant="contained" color="primary" style={{ margin: "20px", textDecoration: "none" }}>Create new Project</Button></Link>
+            <Link
+                to="/getall"
+                style={{ textDecoration: "none" }}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ margin: "20px" }}>
+                    Existing Projects
+                      </Button>
+            </Link>
+            <Link
+                to="/builder"
+                style={{ textDecoration: "none" }}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ margin: "20px" }}>
+                    Create new Project
+                     </Button>
+            </Link>
         </center>
     )
 }

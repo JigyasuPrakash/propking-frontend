@@ -52,7 +52,7 @@ function RowSelect({ floor, filter, rename, state, click }) {
         <React.Fragment>
             <FormControlLabel
                 control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
-                label={`${floor.floor_no}`}
+                label={`Floor ${floor.floor_no}`}
             />
             <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
 

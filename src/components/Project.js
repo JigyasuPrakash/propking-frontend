@@ -17,8 +17,8 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const dev = 'https://propking.herokuapp.com/api/getproject/' + window.location.pathname.split('/')[2];
-        axios.get(dev).then((response) => {
+        const url = 'https://propking.herokuapp.com/api/getproject/' + window.location.pathname.split('/')[2];
+        axios.get(url).then((response) => {
             console.log(response.data)
             if (response.data.status === "failed") {
                 console.log("Failed")

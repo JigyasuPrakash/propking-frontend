@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GenerateMatrix from './GenerateMatrix';
 import axios from 'axios';
-import Header from '../Header/Header';
 import { Redirect } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -19,10 +18,10 @@ class Preview extends Component {
     componentDidMount() {
         const pid = window.location.pathname.split('/')[2];
         if (this.props.location.towers !== undefined) {
-            console.log("found")
             this.setState({
                 loaded: true,
                 pid: pid,
+                pname: this.props.location.pname,
                 towers: this.props.location.towers,
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
@@ -33,6 +32,7 @@ class Preview extends Component {
                 this.setState({
                     loaded: true,
                     pid: pid,
+                    pname: response.data.pname,
                     towers: response.data.towers,
                     unitInfo: response.data.unitInfo,
                     uniqueAtt: response.data.uniqueAtt,
@@ -42,6 +42,7 @@ class Preview extends Component {
                 console.error("Something went wrong", err);
             })
         }
+        console.log(pid);
     }
 
     preview = () => {
@@ -56,6 +57,7 @@ class Preview extends Component {
     save = (project) => {
         axios.post('https://propking.herokuapp.com/api/builder/save', {
             pid: this.state.pid,
+            pname: this.state.pname,
             towers: project,
             unitInfo: this.state.unitInfo,
             uniqueAtt: this.state.uniqueAtt,
@@ -71,12 +73,11 @@ class Preview extends Component {
         return (
             this.state.loaded === false ? (
                 <Backdrop open={true}>
-                    <CircularProgress color="primary" />
+                    <CircularProgress color="secondary" />
                 </Backdrop>
             ) :
                 this.state.towers === undefined ? <Redirect to="/builder" /> : (
                     <div>
-                        <Header publish={this.publish} />
                         <GenerateMatrix
                             towers={this.state.towers}
                             facing={this.state.facing}
