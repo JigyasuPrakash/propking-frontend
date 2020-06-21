@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import Section from './Section/Section';
 import Title from './Title';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Header from './Header/Header';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Home extends Component {
 
@@ -25,7 +24,7 @@ class Home extends Component {
                 this.setState({ project: undefined });
             } else {
                 console.log("Success");
-                this.setState({ project: response.data });
+                this.setState({ project: response.data.result });
             }
         })
     }
@@ -33,10 +32,11 @@ class Home extends Component {
     render() {
         return (
             this.state.project === undefined ? (
-                <Link to="/builder"><Button variant="contained">Go to Builder</Button></Link>
+                <Backdrop open={true}>
+                    <CircularProgress color="secondary" />
+                </Backdrop>
             ) : (
                     <div>
-                        <Header />
                         <Title name={this.state.project.name} location={this.state.project.location} logo={this.state.project.img_set} />
                         <Section project={this.state.project} />
                     </div>
