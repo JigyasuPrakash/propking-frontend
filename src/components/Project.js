@@ -4,6 +4,7 @@ import Title from './Title';
 import axios from 'axios';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { domain } from '../config';
 
 class Home extends Component {
 
@@ -16,7 +17,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const url = 'https://propking.herokuapp.com/api/getproject/' + window.location.pathname.split('/')[2];
+        const url = `${domain}/api/getproject/` + window.location.pathname.split('/')[2];
         axios.get(url).then((response) => {
             console.log(response.data)
             if (response.data.status === "failed") {

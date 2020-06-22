@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { domain } from '../config';
 
 class Home extends Component {
 
@@ -21,7 +22,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const url = 'https://propking.herokuapp.com/api/getallprojects';
+        const url = `${domain}/api/getallprojects`;
         axios.get(url)
             .then((response) => {
                 if (response.data.status === 'failed') {
@@ -48,8 +49,8 @@ class Home extends Component {
                 <Typography variant="h5" style={{ margin: "18px" }}>All Projects</Typography>
                 <Grid container justify="flex-start">
                     {this.state.projects.map(p => (
-                        <Grid item xs={2} style={{ margin: "10px" }}>
-                            <Card key={p.pid} variant="elevation">
+                        <Grid item xs={2} style={{ margin: "10px" }} key={p.pid}>
+                            <Card variant="elevation">
                                 <CardContent>
                                     <Typography variant="h6">{p.pname}</Typography>
                                 </CardContent>

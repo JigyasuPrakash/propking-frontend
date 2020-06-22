@@ -4,20 +4,19 @@ import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import FacingOptions from './FacingOptions';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 class Builder extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            pid: 0,
+            pid: '',
             pname: '',
             towerCount: [],
             towers: [],
             unitInfo: [],
             uniqueAtt: [],
-            flatTypes: [],
             flatTypesOptions: [2, 2.5, 3, 3.5, 4],
             facing: [],
             facingOptions: ['East', 'West', 'North', 'South', 'North-East', 'South-East', 'North-West', 'South-West'],
@@ -29,7 +28,7 @@ class Builder extends Component {
 
         const createTower = () => {
             let pname = document.getElementById('pname').value;
-            let pid = uuidv4();
+            let pid = uuidv4().toString();
             let tcount = document.getElementById('tCount').value;
             let towerCount = []
             for (let i = 1; i <= tcount; i++) {
@@ -66,7 +65,7 @@ class Builder extends Component {
         const addFlatType = () => {
             let bhk = Number(document.getElementById('uniquebhk').value);
             let area = Number(document.getElementById('uniqueArea').value);
-            if (area !== 0 && bhk !== "") {
+            if (area !== 0 && bhk !== 0) {
                 this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area }] });
             } else {
                 alert("Please provide some value");
@@ -129,12 +128,23 @@ class Builder extends Component {
             this.setState({ facing: data });
         }
 
+        const validate = () => {
+            if (this.state.pname !== ''
+                && this.state.towers.length !== 0
+                && this.state.unitInfo.length !== 0
+                && this.state.facing.length !== 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         return (
-            <div style={{margin: "20px"}}>
-                <label>Project Name: </label>
+            <div style={{ margin: "20px" }}>
+                <label>Project Name*: </label>
                 <input id="pname" type="text" placeholder="Name.." />
                 <br />
-                <label>Number of Tower: </label>
+                <label>Number of Tower*: </label>
                 <input id="tCount" type="number" min="0" />
                 <button onClick={createTower}>
                     Create
@@ -142,11 +152,11 @@ class Builder extends Component {
 
                 {this.state.towerCount.map(t => (
                     <div key={t.tid}>
-                        <label>Tower Name: </label>
+                        <label>Tower Name*: </label>
                         <input id={`tname${t.tid}`} type="text" />
-                        <label>No. floors: </label>
+                        <label>No. floors*: </label>
                         <input id={`floorCount${t.tid}`} min="0" type="number" />
-                        <label>Max no. of flats per floor: </label>
+                        <label>Max no. of flats per floor*: </label>
                         <input id={`unitCount${t.tid}`} min="0" type="number" />
                         <br />
                     </div>
@@ -159,7 +169,7 @@ class Builder extends Component {
                         <Grid container justify="space-evenly">
                             <Grid item xs={3}>
                                 <center>
-                                    <label>Unique Flat Types</label>
+                                    <label>Unique Flat Types*</label>
                                 </center><br />
                                 <select id="uniquebhk">
                                     <option value="">----BHK----</option>
@@ -188,7 +198,7 @@ class Builder extends Component {
                             </Grid>
                             <Grid item xs={3}>
                                 <center>
-                                    <label>Unique Facings</label>
+                                    <label>Unique Facings*</label>
                                 </center><br />
                                 {this.state.facingOptions.map(face => (
                                     <FacingOptions key={face} data={face} filter={handleFaceFilter} />
@@ -197,17 +207,20 @@ class Builder extends Component {
                         </Grid>
                         <br /><br />
                         <center>
-                            <Link to={{
-                                pathname: `/generate/${this.state.pid}`,
-                                pname: this.state.pname,
-                                towers: this.state.towers,
-                                unitInfo: this.state.unitInfo,
-                                uniqueAtt: this.state.uniqueAtt,
-                                facing: this.state.facing,
-                                flatTypes: this.state.flatTypes
-                            }}>
-                                <Button variant="contained" color="primary">Generate Preview</Button>
-                            </Link>
+                            {validate() && (<Link
+                                to={{
+                                    pathname: `/generate/${this.state.pid}`,
+                                    pname: this.state.pname,
+                                    towers: this.state.towers,
+                                    unitInfo: this.state.unitInfo,
+                                    uniqueAtt: this.state.uniqueAtt,
+                                    facing: this.state.facing
+                                }}
+                                style={{ textDecoration: "none" }}><Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={validate}>Generate Preview</Button></Link>)
+                            }
                         </center>
                     </div>
                 ) : null}

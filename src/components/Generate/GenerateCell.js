@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import BlockIcon from '@material-ui/icons/Block';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -29,15 +30,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function GenerateCell({ unit, variant, filter, color, disable, rename, state }) {
+function GenerateCell({ unit, variant, filter, color, disable, rename }) {
 
     const classes = useStyles();
-
-    const [select, setSelect] = React.useState(state);
-    const handleSelect = () => {
-        filter(unit.uid, !select);
-        setSelect(prevState => !prevState);
-    }
 
     const [checked, setChecked] = React.useState(!unit.status);
     const toggleChecked = () => {
@@ -77,11 +72,14 @@ function GenerateCell({ unit, variant, filter, color, disable, rename, state }) 
                     <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                 </React.Fragment>
             )}>
-                {unit.att !== "" || unit.bhk_type !== "" || unit.facing !== "" ? (
-                    <Button id={unit.uid} onClick={handleSelect} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
-                ) : (
-                        <Button id={unit.uid} onClick={handleSelect} variant={variant} color="secondary"><HomeIcon style={{ color: color }} /></Button>
-                    )}
+                {unit.status ? (
+                    unit.att !== "" || unit.bhk_type !== "" || unit.facing !== "" ? (
+                        <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
+                    ) : (
+                            <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="secondary"><HomeIcon style={{ color: color }} /></Button>
+                        ))
+                    : (<Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="secondary"><BlockIcon style={{ color: color }} /></Button>)
+                }
             </Tooltip>
 
             <Modal

@@ -51,7 +51,6 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                 variant="contained"
                 filter={handleIndividual}
                 color={color}
-                state={true}
                 disable={handleDisabled}
                 rename={rename}
                 applyDisable={applyDisable} />);
@@ -63,7 +62,6 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                 variant="outlined"
                 filter={handleIndividual}
                 color={color}
-                state={false}
                 disable={handleDisabled}
                 rename={rename}
                 applyDisable={applyDisable} />);
@@ -117,7 +115,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
         setColSelect(data);
     }
 
-    const handleIndividual = (info, state) => {
+    const handleIndividual = (info) => {
         let rowData = rowSelect;
         let colData = colSelect;
         if (rowData.includes(info) || colData.includes(info)) {
@@ -278,7 +276,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
             <br /><br />
             <center>
                 <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={() => save(project)}>Save Draft</Button>
-                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={preview} >Preview</Button>
+                <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={() => preview(project)} >Preview</Button>
             </center>
         </React.Fragment>
     ))

@@ -7,6 +7,7 @@ import PreviewModal from './PreviewModal';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { domain } from '../../config';
 
 class Home extends Component {
 
@@ -33,7 +34,7 @@ class Home extends Component {
     }
 
     publish = () => {
-        axios.post('https://propking.herokuapp.com/api/builder/publish', {
+        axios.post(`${domain}/api/builder/publish`, {
             pid: this.state.pid
         }).then((response) => {
             this.setState({ url: response.data.url });

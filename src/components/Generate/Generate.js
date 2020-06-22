@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { domain } from '../../config';
 
 class Preview extends Component {
 
@@ -28,7 +29,7 @@ class Preview extends Component {
                 facing: this.props.location.facing
             })
         } else {
-            axios.get(`https://propking.herokuapp.com/api/builder/getproject/${pid}`).then((response) => {
+            axios.get(`${domain}/api/builder/getproject/${pid}`).then((response) => {
                 this.setState({
                     loaded: true,
                     pid: pid,
@@ -42,20 +43,32 @@ class Preview extends Component {
                 console.error("Something went wrong", err);
             })
         }
-        console.log(pid);
     }
 
-    preview = () => {
-        window.localStorage.setItem('pid', this.state.pid);
-        window.localStorage.setItem('towers', JSON.stringify(this.state.towers));
-        window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
-        window.open(`/preview/${this.state.pid}`, "_blank");
+    preview = (project) => {
+        this.save(project);
+        let count = 0;
+        project.forEach(t => {
+            t.floors.forEach(f => {
+                f.units.forEach(u => {
+                    if (u.bhk_type === "" || u.size === 0 || u.facing === "") {
+                        count++;
+                    }
+                })
+            })
+        })
+        if (count > 0) {
+            alert(count + " Flat(s) has missing mandatory attribute");
+        } else {
+            window.localStorage.setItem('pid', this.state.pid);
+            window.localStorage.setItem('towers', JSON.stringify(project));
+            window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
+            window.open(`/preview/${this.state.pid}`, "_blank");
+        }
     }
-
-
 
     save = (project) => {
-        axios.post('https://propking.herokuapp.com/api/builder/save', {
+        axios.post(`${domain}/api/builder/save`, {
             pid: this.state.pid,
             pname: this.state.pname,
             towers: project,
