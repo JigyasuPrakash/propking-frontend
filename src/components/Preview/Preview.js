@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { domain } from '../../config';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Home extends Component {
 
@@ -22,7 +24,8 @@ class Home extends Component {
             unitInfo: [],
             filteredTower: undefined,
             open: false,
-            url: ''
+            url: '',
+            loading: true
         }
     }
 
@@ -30,7 +33,7 @@ class Home extends Component {
         let pid = window.localStorage.getItem('pid');
         let towers = JSON.parse(window.localStorage.getItem('towers'));
         let unitInfo = JSON.parse(window.localStorage.getItem('unitInfo'));
-        this.setState({ pid, towers, unitInfo, filteredTower: towers });
+        this.setState({ pid, towers, unitInfo, filteredTower: towers, loading: false });
     }
 
     publish = () => {
@@ -95,7 +98,10 @@ class Home extends Component {
 
     render() {
 
-        return (
+        return (this.state.loading ? (
+            <Backdrop open={true}>
+                <CircularProgress color="secondary" />
+            </Backdrop>) :
             this.state.towers === undefined ? (
                 <center>
                     <h3>Somthing went wrong</h3>

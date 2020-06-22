@@ -12,7 +12,8 @@ class Preview extends Component {
         super(props)
 
         this.state = {
-            loaded: false
+            loaded: false,
+            projects: undefined
         }
     }
 
@@ -21,7 +22,7 @@ class Preview extends Component {
         if (this.props.location.towers !== undefined) {
             this.setState({
                 loaded: true,
-                pid: pid,
+                pid,
                 pname: this.props.location.pname,
                 towers: this.props.location.towers,
                 unitInfo: this.props.location.unitInfo,
@@ -30,15 +31,19 @@ class Preview extends Component {
             })
         } else {
             axios.get(`${domain}/api/builder/getproject/${pid}`).then((response) => {
-                this.setState({
-                    loaded: true,
-                    pid: pid,
-                    pname: response.data.pname,
-                    towers: response.data.towers,
-                    unitInfo: response.data.unitInfo,
-                    uniqueAtt: response.data.uniqueAtt,
-                    facing: response.data.facing
-                });
+                if (response.data.status === "failed") {
+                    alert("Somthing went wrong");
+                } else {
+                    this.setState({
+                        loaded: true,
+                        pid,
+                        pname: response.data.project.pname,
+                        towers: response.data.project.towers,
+                        unitInfo: response.data.project.unitInfo,
+                        uniqueAtt: response.data.project.uniqueAtt,
+                        facing: response.data.project.facing
+                    });
+                }
             }).catch((err) => {
                 console.error("Something went wrong", err);
             })
@@ -84,23 +89,20 @@ class Preview extends Component {
 
     render() {
         return (
-            this.state.loaded === false ? (
+            !this.state.loaded ? (
                 <Backdrop open={true}>
                     <CircularProgress color="secondary" />
                 </Backdrop>
-            ) :
-                this.state.towers === undefined ? <Redirect to="/builder" /> : (
-                    <div>
-                        <GenerateMatrix
-                            towers={this.state.towers}
-                            facing={this.state.facing}
-                            unitInfo={this.state.unitInfo}
-                            uniqueAtt={this.state.uniqueAtt}
-                            save={this.save}
-                            preview={this.preview}
-                        />
-                    </div >
-                )
+            ) : this.state.towers === undefined ? <Redirect to="/builder" /> : (
+                <GenerateMatrix
+                    towers={this.state.towers}
+                    facing={this.state.facing}
+                    unitInfo={this.state.unitInfo}
+                    uniqueAtt={this.state.uniqueAtt}
+                    save={this.save}
+                    preview={this.preview}
+                />
+            )
         )
     }
 }

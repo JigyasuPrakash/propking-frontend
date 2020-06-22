@@ -45,7 +45,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
         if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
             // Selected Units
             let color = ""
-            unit.status ? (color = "lightgreen") : (color = "grey");
+            unit.status ? (color = "grey") : (color = "red");
             return (<GenerateCell
                 unit={unit}
                 variant="contained"
@@ -56,7 +56,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                 applyDisable={applyDisable} />);
         } else {
             let color = ""
-            unit.status ? (color = "lightgreen") : (color = "grey");
+            unit.status ? (color = "grey") : (color = "red");
             return (<GenerateCell
                 unit={unit}
                 variant="outlined"

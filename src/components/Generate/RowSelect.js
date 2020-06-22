@@ -50,11 +50,13 @@ function RowSelect({ floor, filter, rename, state, click }) {
 
     return (
         <React.Fragment>
-            <FormControlLabel
-                control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
-                label={`Floor ${floor.floor_no}`}
-            />
-            <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
+            <div style={{minWidth: "150px"}}>
+                <FormControlLabel
+                    control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
+                    label={`Floor ${floor.floor_no}`}
+                />
+                <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
+            </div>
 
             <Modal
                 aria-labelledby="transition-modal-title"

@@ -19,12 +19,9 @@ class Home extends Component {
     componentDidMount() {
         const url = `${domain}/api/getproject/` + window.location.pathname.split('/')[2];
         axios.get(url).then((response) => {
-            console.log(response.data)
             if (response.data.status === "failed") {
-                console.log("Failed")
                 this.setState({ project: undefined });
             } else {
-                console.log("Success");
                 this.setState({ project: response.data.result });
             }
         })

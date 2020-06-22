@@ -74,9 +74,9 @@ function GenerateCell({ unit, variant, filter, color, disable, rename }) {
             )}>
                 {unit.status ? (
                     unit.att !== "" || unit.bhk_type !== "" || unit.facing !== "" ? (
-                        <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: color }} /></Button>
+                        <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
                     ) : (
-                            <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="secondary"><HomeIcon style={{ color: color }} /></Button>
+                            <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant}><HomeIcon style={{ color: color }} /></Button>
                         ))
                     : (<Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="secondary"><BlockIcon style={{ color: color }} /></Button>)
                 }
