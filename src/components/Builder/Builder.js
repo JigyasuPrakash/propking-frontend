@@ -181,6 +181,7 @@ class Builder extends Component {
                         </Grid>
                     </Grid>
                 ))}
+                <br />
                 {this.state.towerCount.length === 0 ? null : (
                     <center>
                         <Button
@@ -189,18 +190,20 @@ class Builder extends Component {
                             variant="outlined">Proceed</Button>
                     </center>
                 )}
+                <br />
                 {this.state.proceed ? (
                     <div>
                         <Grid container justify="space-evenly">
                             <Grid item xs={4}>
                                 <center>
-                                    <label>Unique Flat Type: </label>
+                                    <label>Unique Flat Type *: </label>
                                 </center><br />
                                 <Grid container justify="space-evenly">
                                     <Grid item xs={4}>
                                         <TextField
                                             id="uniquebhk"
                                             select
+                                            required
                                             size="small"
                                             fullWidth
                                             label="BHK"
@@ -241,15 +244,14 @@ class Builder extends Component {
                                     <label>Unique Attributes: </label>
                                 </center><br />
                                 <Grid container justify="space-evenly">
-                                    <Grid item xs={8}>
+                                    <Grid item xs={10}>
                                         <TextField required size="small" id="uniqueAtt" label="Unique Attributes" />
-                                    </Grid>
-                                    <Grid item xs={1}>
                                         <Fab
                                             size="small"
                                             color="primary"
                                             aria-label="add"
-                                            onClick={addAtt}>
+                                            onClick={addAtt}
+                                            style={{ margin: "5px" }}>
                                             <AddIcon />
                                         </Fab>
                                     </Grid>
