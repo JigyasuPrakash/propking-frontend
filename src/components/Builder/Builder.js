@@ -4,7 +4,11 @@ import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import FacingOptions from './FacingOptions';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { v4 as uuidv4 } from 'uuid';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 class Builder extends Component {
 
@@ -20,7 +24,8 @@ class Builder extends Component {
             flatTypesOptions: [2, 2.5, 3, 3.5, 4],
             facing: [],
             facingOptions: ['East', 'West', 'North', 'South', 'North-East', 'South-East', 'North-West', 'South-West'],
-            proceed: false
+            proceed: false,
+            bhk: ""
         };
     }
 
@@ -63,15 +68,15 @@ class Builder extends Component {
         }
 
         const addFlatType = () => {
-            let bhk = Number(document.getElementById('uniquebhk').value);
+            let bhk = this.state.bhk;
             let area = Number(document.getElementById('uniqueArea').value);
-            if (area !== 0 && bhk !== 0) {
+            if (area !== 0 && bhk !== "") {
                 this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area }] });
             } else {
                 alert("Please provide some value");
             }
             document.getElementById('uniqueArea').value = null;
-            document.getElementById('uniquebhk').value = "";
+            this.setState({ bhk: "" });
         }
 
         const handleAreaDelete = (areaToDelete) => () => {
@@ -81,12 +86,14 @@ class Builder extends Component {
         const createArea = (
             this.state.unitInfo.map((data) => {
                 return (
-                    <Chip
-                        key={data.key}
-                        size="small"
-                        label={`${data.bhk} BHK (${data.area} sq.ft.)`}
-                        onDelete={handleAreaDelete(data)}
-                    />
+                    <React.Fragment>
+                        <Chip
+                            key={data.key}
+                            size="small"
+                            label={`${data.bhk} BHK (${data.area} sq.ft.)`}
+                            onDelete={handleAreaDelete(data)}
+                        /><br />
+                    </React.Fragment>
                 );
             })
         );
@@ -108,12 +115,14 @@ class Builder extends Component {
         const createAtt = (
             this.state.uniqueAtt.map((att) => {
                 return (
-                    <Chip
-                        key={att.key}
-                        size="small"
-                        label={att.label}
-                        onDelete={handleAttDelete(att)}
-                    />
+                    <React.Fragment>
+                        <Chip
+                            key={att.key}
+                            size="small"
+                            label={att.label}
+                            onDelete={handleAttDelete(att)}
+                        /><br />
+                    </React.Fragment>
                 )
             })
         );
@@ -139,62 +148,114 @@ class Builder extends Component {
             }
         }
 
+        const handleChangeBhk = (event) => {
+            this.setState({ bhk: event.target.value });
+        }
+
         return (
             <div style={{ margin: "20px" }}>
-                <label>Project Name*: </label>
-                <input id="pname" type="text" placeholder="Name.." />
+                <Grid container justify="flex-start">
+                    <Grid item xs={2}>
+                        <TextField required size="small" id="pname" label="Project Name" />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <TextField required size="small" id="tCount" label="Number of Towers" type="number" />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Button variant="outlined" onClick={createTower} style={{ marginTop: "10px" }}>
+                            Create
+                        </Button>
+                    </Grid>
+                </Grid>
                 <br />
-                <label>Number of Tower*: </label>
-                <input id="tCount" type="number" min="0" />
-                <button onClick={createTower}>
-                    Create
-                </button>
-
                 {this.state.towerCount.map(t => (
-                    <div key={t.tid}>
-                        <label>Tower Name*: </label>
-                        <input id={`tname${t.tid}`} type="text" />
-                        <label>No. floors*: </label>
-                        <input id={`floorCount${t.tid}`} min="0" type="number" />
-                        <label>Max no. of flats per floor*: </label>
-                        <input id={`unitCount${t.tid}`} min="0" type="number" />
-                        <br />
-                    </div>
+                    <Grid container key={t.tid} justify="space-evenly">
+                        <Grid item xs={2}>
+                            <TextField size="small" id={`tname${t.tid}`} label={`Tower-${t.tid} Name`} />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField required size="small" id={`floorCount${t.tid}`} label="No. of floors" type="number" />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField required size="small" id={`unitCount${t.tid}`} label="Max no. of flats/floor" type="number" />
+                        </Grid>
+                    </Grid>
                 ))}
                 {this.state.towerCount.length === 0 ? null : (
-                    <button onClick={handleProceed}>Proceed</button>
+                    <center>
+                        <Button
+                            style={{ margin: "10px" }}
+                            onClick={handleProceed}
+                            variant="outlined">Proceed</Button>
+                    </center>
                 )}
                 {this.state.proceed ? (
                     <div>
                         <Grid container justify="space-evenly">
-                            <Grid item xs={3}>
+                            <Grid item xs={4}>
                                 <center>
-                                    <label>Unique Flat Types*</label>
+                                    <label>Unique Flat Type: </label>
                                 </center><br />
-                                <select id="uniquebhk">
-                                    <option value="">----BHK----</option>
-                                    <option value="1">1</option>
-                                    <option value="1.5">1.5</option>
-                                    <option value="2">2</option>
-                                    <option value="2.5">2.5</option>
-                                    <option value="3">3</option>
-                                    <option value="3.5">3.5</option>
-                                    <option value="4">4</option>
-                                    <option value="4.5">4.5</option>
-                                </select>
-                                <input id="uniqueArea" type="number" min="0" setp="0.1" placeholder="Area" />
-                                <button onClick={() => addFlatType()}> + </button>
-                                <br /><br />
-                                {createArea}
+                                <Grid container justify="space-evenly">
+                                    <Grid item xs={4}>
+                                        <TextField
+                                            id="uniquebhk"
+                                            select
+                                            size="small"
+                                            fullWidth
+                                            label="BHK"
+                                            value={this.state.bhk}
+                                            onChange={handleChangeBhk}
+                                        >
+                                            <MenuItem value=""><em>None</em></MenuItem>
+                                            <MenuItem value={1}>{1}</MenuItem>
+                                            <MenuItem value={1.5}>{1.5}</MenuItem>
+                                            <MenuItem value={2}>{2}</MenuItem>
+                                            <MenuItem value={2.5}>{2.5}</MenuItem>
+                                            <MenuItem value={3}>{3}</MenuItem>
+                                            <MenuItem value={3.5}>{3.5}</MenuItem>
+                                            <MenuItem value={4}>{4}</MenuItem>
+                                            <MenuItem value={4.5}>{4.5}</MenuItem>
+                                        </TextField>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <TextField required size="small" id="uniqueArea" label="Area" type="number" />
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Fab
+                                            size="small"
+                                            color="primary"
+                                            aria-label="add"
+                                            onClick={addFlatType}
+                                            style={{ margin: "5px" }}>
+                                            <AddIcon />
+                                        </Fab>
+                                    </Grid>
+                                    <br /><br /><br />
+                                    {createArea}
+                                </Grid>
                             </Grid>
-                            <Grid item xs={3}>
+
+                            <Grid item xs={4}>
                                 <center>
                                     <label>Unique Attributes: </label>
                                 </center><br />
-                                <input id="uniqueAtt" type="text" placeholder="Unique Attributes" />
-                                <button onClick={() => addAtt()}> + </button>
-                                <br /><br />
-                                {createAtt}
+                                <Grid container justify="space-evenly">
+                                    <Grid item xs={8}>
+                                        <TextField required size="small" id="uniqueAtt" label="Unique Attributes" />
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Fab
+                                            size="small"
+                                            color="primary"
+                                            aria-label="add"
+                                            onClick={addAtt}>
+                                            <AddIcon />
+                                        </Fab>
+                                    </Grid>
+                                    <br /><br /><br />
+                                    {createAtt}
+                                </Grid>
                             </Grid>
                             <Grid item xs={3}>
                                 <center>
@@ -223,7 +284,8 @@ class Builder extends Component {
                             }
                         </center>
                     </div>
-                ) : null}
+                ) : null
+                }
             </div >
         );
     }

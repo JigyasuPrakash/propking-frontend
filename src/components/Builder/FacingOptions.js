@@ -6,7 +6,7 @@ import CheckBox from '@material-ui/core/Checkbox';
 function FlatTypeOptions({ data, filter }) {
 
     const [state, setState] = React.useState({ checked: false });
-    const handleCheckBox = (event) => {
+    const handleCheckBox = () => {
         setState(prevState => ({ checked: !prevState.checked }));
         filter(data);
     }
