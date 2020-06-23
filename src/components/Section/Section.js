@@ -49,7 +49,7 @@ function Section({ project }) {
         updateArea(data);
     }
 
-    const [unit, changeUnit] = React.useState();
+    const [unit, changeUnit] = React.useState({ uid: "" });
 
     const [open, switchModal] = React.useState(false);
     const handleModalOpen = () => {
@@ -69,7 +69,7 @@ function Section({ project }) {
 
             <Grid item sm={6} xs={12} className={classes.grid}>
                 <Paper elevation={3}>
-                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={changeUnit} />
+                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={changeUnit} selected={unit} />
                 </Paper>
             </Grid>
 

@@ -164,14 +164,30 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
     }
 
     const applyOptions = (unitInfo, newAtt, newFace) => {
-        let floors = []
+        let floors = [];
         myTower.floors.forEach(floor => {
             let units = [];
             floor.units.forEach(unit => {
                 if (rowSelect.includes(unit.uid) || colSelect.includes(unit.uid)) {
-                    units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unitInfo.bhk, size: unitInfo.area, att: newAtt, facing: newFace, status: unit.status });
+                    units.push({
+                        uid: unit.uid,
+                        unit_no: unit.unit_no,
+                        bhk_type: unitInfo === {} ? unit.bhk : unitInfo.bhk,
+                        size: unitInfo === {} ? unit.bhk : unitInfo.area,
+                        att: newAtt === "" ? unit.att : newAtt,
+                        facing: newFace === "" ? unit.facing : newFace,
+                        status: unit.status
+                    });
                 } else {
-                    units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: unit.status });
+                    units.push({
+                        uid: unit.uid,
+                        unit_no: unit.unit_no,
+                        bhk_type: unit.bhk_type,
+                        size: unit.size,
+                        att: unit.att,
+                        facing: unit.facing,
+                        status: unit.status
+                    });
                 }
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });

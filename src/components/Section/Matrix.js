@@ -9,21 +9,34 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 
-function Matrix({ tower, filter, mySelect }) {
+function Matrix({ tower, filter, mySelect, selected }) {
 
     const getUnit = (unit) => {
         console.log(unit.uid + unit.status)
         if (unit.status === 'true') {
-            return (
-                <Tooltip arrow title={(
-                    <React.Fragment>
-                        <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                        <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
-                    </React.Fragment>
-                )}>
-                    <Button variant="outlined" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
-                </Tooltip>
-            )
+            if (unit.uid === selected.uid) {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
+                    </Tooltip>
+                )
+            } else {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button variant="outlined" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
+                    </Tooltip>
+                )
+            }
         } else {
             return (
                 <Button variant="outlined" disabled><HomeIcon color="secondary" /></Button>

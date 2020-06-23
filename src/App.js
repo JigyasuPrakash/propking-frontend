@@ -8,7 +8,6 @@ import GetAll from './components/GetAll';
 import Home from './components/Home';
 import Header from './components/Header/Header';
 import Project from './components/Project';
-import './App.css';
 
 function App() {
   return (

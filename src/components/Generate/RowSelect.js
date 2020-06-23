@@ -53,7 +53,7 @@ function RowSelect({ floor, filter, rename, state, click }) {
             <div style={{minWidth: "150px"}}>
                 <FormControlLabel
                     control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
-                    label={`Floor ${floor.floor_no}`}
+                    label={`${floor.floor_no}`}
                 />
                 <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
             </div>
