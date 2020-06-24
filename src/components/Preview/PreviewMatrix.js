@@ -9,26 +9,39 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 
-function PreviewMatrix({ tower, filter, mySelect }) {
+function PreviewMatrix({ tower, filter, mySelect, selected }) {
 
     const getUnit = (unit) => {
-        switch (unit.status) {
-            case true: return (
-                <Tooltip arrow title={(
-                    <React.Fragment>
-                        <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                        <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                        <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
-                        <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
-                    </React.Fragment>
-                )}>
-                    <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
-                </Tooltip>
-            );
-            case false: return (
-                <Button variant="contained" disabled><HomeIcon color="secondary" /></Button>
-            );
-            default: console.error(unit)
+        if (unit.status === true) {
+            if (unit.uid === selected.uid) {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
+                    </Tooltip>
+                )
+            } else {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button variant="outlined" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
+                    </Tooltip>
+                )
+            }
+        } else {
+            return (
+                <Button variant="outlined" disabled><HomeIcon color="secondary" /></Button>
+            )
         }
     }
 
@@ -41,7 +54,7 @@ function PreviewMatrix({ tower, filter, mySelect }) {
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">
-                                    <Typography variant="body2">Floor {floor.floor_no}</Typography>
+                                    <Typography variant="body2">{floor.floor_type + ' ' + floor.floor_no}</Typography>
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
@@ -61,7 +74,7 @@ function PreviewMatrix({ tower, filter, mySelect }) {
                     ) : (tower.floors.map((floor) => (
                         <TableRow key={floor.fid}>
                             <TableCell align="center">
-                                <Typography variant="body2">{floor.floor_no}</Typography>
+                                <Typography variant="body2">{floor.floor_type + ' ' + floor.floor_no}</Typography>
                             </TableCell>
                             {floor.units.map((unit) =>
                                 unit === undefined ? null :

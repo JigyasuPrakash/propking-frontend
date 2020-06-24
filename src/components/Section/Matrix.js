@@ -12,14 +12,15 @@ import Typography from '@material-ui/core/Typography';
 function Matrix({ tower, filter, mySelect, selected }) {
 
     const getUnit = (unit) => {
-        console.log(unit.uid + unit.status)
         if (unit.status === 'true') {
             if (unit.uid === selected.uid) {
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                         </React.Fragment>
                     )}>
                         <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
@@ -49,11 +50,11 @@ function Matrix({ tower, filter, mySelect, selected }) {
             <TableContainer>
                 <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.tname}</Typography>
                 <Table size="small" aria-label="simple table">
-                    <TableBody>{tower.floors[0].floor_no < tower.floors[1].floor_no ? (
+                    <TableBody>{tower.floors[0].floor_no < (tower.floors === undefined ? 0 : tower.floors[1].floor_no) ? (
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">
-                                    <Typography variant="body2">Floor {floor.floor_no}</Typography>
+                                    <Typography variant="body2">{floor.floor_type + ' ' + floor.floor_no}</Typography>
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
@@ -73,7 +74,7 @@ function Matrix({ tower, filter, mySelect, selected }) {
                     ) : (tower.floors.map((floor) => (
                         <TableRow key={floor.fid}>
                             <TableCell align="center">
-                                <Typography variant="body2">Floor {floor.floor_no}</Typography>
+                                <Typography variant="body2">{floor.floor_type + ' ' + floor.floor_no}</Typography>
                             </TableCell>
                             {floor.units.map((unit) =>
                                 unit === undefined ? null :

@@ -63,7 +63,7 @@ class Preview extends Component {
             })
         })
         if (count > 0) {
-            alert(count + " Flat(s) has missing mandatory attribute");
+            alert(count + " Flat(s) has missing mandatory attributes");
         } else {
             window.localStorage.setItem('pid', this.state.pid);
             window.localStorage.setItem('towers', JSON.stringify(project));
@@ -85,6 +85,7 @@ class Preview extends Component {
         }).catch((err) => {
             console.error("Something went wrong", err)
         })
+        console.log(project)
     }
 
     render() {

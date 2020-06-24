@@ -9,6 +9,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { v4 as uuidv4 } from 'uuid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import { Typography } from '@material-ui/core';
 
 class Builder extends Component {
 
@@ -56,7 +58,7 @@ class Builder extends Component {
                         j <= 9 ? (num = `0${j}`) : num = `${j}`;
                         units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
-                    floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
+                    floors.push({ fid: `T${t.tid}F${i}`, floor_type: 'Floor', floor_no: i, units });
                 }
                 towers.push({
                     tid: t.tid,
@@ -75,7 +77,7 @@ class Builder extends Component {
             } else {
                 alert("Please provide some value");
             }
-            document.getElementById('uniqueArea').value = null;
+            document.getElementById('uniqueArea').value = 0;
             this.setState({ bhk: "" });
         }
 
@@ -86,14 +88,13 @@ class Builder extends Component {
         const createArea = (
             this.state.unitInfo.map((data) => {
                 return (
-                    <React.Fragment>
+                    <div key={data.key}>
                         <Chip
-                            key={data.key}
                             size="small"
                             label={`${data.bhk} BHK (${data.area} sq.ft.)`}
                             onDelete={handleAreaDelete(data)}
                         /><br />
-                    </React.Fragment>
+                    </div>
                 );
             })
         );
@@ -153,46 +154,57 @@ class Builder extends Component {
         }
 
         return (
-            <div style={{ margin: "20px" }}>
-                <Grid container justify="flex-start">
-                    <Grid item xs={2}>
-                        <TextField required size="small" id="pname" label="Project Name" />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <TextField required size="small" id="tCount" label="Number of Towers" type="number" />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Button variant="outlined" onClick={createTower} style={{ marginTop: "10px" }}>
-                            Create
+            <div style={{ padding: "25px" }}>
+                <Paper style={{ padding: "15px" }}>
+                    <Typography variant="h6">Project Details</Typography>
+                    <br />
+                    <Grid container justify="flex-start">
+                        <Grid item xs={2}>
+                            <TextField required size="small" id="pname" label="Project Name" />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField required size="small" id="tCount" label="Number of Towers" type="number" />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button variant="outlined" onClick={createTower} style={{ marginTop: "10px" }}>
+                                Create
                         </Button>
-                    </Grid>
-                </Grid>
-                <br />
-                {this.state.towerCount.map(t => (
-                    <Grid container key={t.tid} justify="space-evenly">
-                        <Grid item xs={2}>
-                            <TextField size="small" id={`tname${t.tid}`} label={`Tower-${t.tid} Name`} />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <TextField required size="small" id={`floorCount${t.tid}`} label="No. of floors" type="number" />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <TextField required size="small" id={`unitCount${t.tid}`} label="Max no. of flats/floor" type="number" />
                         </Grid>
                     </Grid>
-                ))}
+                </Paper>
                 <br />
                 {this.state.towerCount.length === 0 ? null : (
-                    <center>
-                        <Button
-                            style={{ margin: "10px" }}
-                            onClick={handleProceed}
-                            variant="outlined">Proceed</Button>
-                    </center>
+                    <Paper style={{ padding: "15px" }}>
+                        <Typography variant="h6">Tower Details</Typography>
+                        <br />
+                        {this.state.towerCount.map(t => (
+                            <Grid container key={t.tid} justify="flex-start">
+                                <Grid item xs={2}>
+                                    <TextField size="small" id={`tname${t.tid}`} label={`Tower-${t.tid} Name`} />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <TextField required size="small" id={`floorCount${t.tid}`} label="No. of floors" type="number" />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <TextField required size="small" id={`unitCount${t.tid}`} label="Max no. of flats/floor" type="number" />
+                                </Grid>
+                            </Grid>
+                        ))}
+                        <br />
+                        <center>
+                            <Button
+                                style={{ margin: "10px" }}
+                                onClick={handleProceed}
+                                variant="outlined">Proceed</Button>
+                        </center>
+
+                    </Paper>
                 )}
                 <br />
                 {this.state.proceed ? (
-                    <div>
+                    <Paper style={{ padding: "15px" }}>
+                        <Typography variant="h6">Flat Features</Typography>
+                        <br />
                         <Grid container justify="space-evenly">
                             <Grid item xs={4}>
                                 <center>
@@ -285,7 +297,7 @@ class Builder extends Component {
                                     onClick={validate}>Generate Preview</Button></Link>)
                             }
                         </center>
-                    </div>
+                    </Paper>
                 ) : null
                 }
             </div >

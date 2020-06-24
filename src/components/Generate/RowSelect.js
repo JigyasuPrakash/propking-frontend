@@ -8,6 +8,9 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -48,12 +51,17 @@ function RowSelect({ floor, filter, rename, state, click }) {
         handleClose();
     }
 
+    const [item, setItem] = React.useState(floor.floor_type);
+    const handleTypeChange = (event) => {
+        setItem(event.target.value);
+    }
+
     return (
         <React.Fragment>
-            <div style={{minWidth: "150px"}}>
+            <div style={{ minWidth: "150px" }}>
                 <FormControlLabel
                     control={<CheckBox checked={state} onChange={handleCheck} color="primary" />}
-                    label={`${floor.floor_no}`}
+                    label={`${floor.floor_type} ${floor.floor_no}`}
                 />
                 <IconButton size="medium" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
             </div>
@@ -72,8 +80,41 @@ function RowSelect({ floor, filter, rename, state, click }) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <center>
-                            <input id="newname" type="text" placeholder={floor.floor_no} /><br />
-                            <Button variant="outlined" onClick={() => update('floor', floor.fid, document.getElementById('newname').value)} color="primary">Done</Button>
+                            {/* Dropdown for floor type */}
+                            <Grid container justify="space-evenly">
+                                <Grid item xs={6}>
+                                    <TextField
+                                        id="uniquebhk"
+                                        select
+                                        required
+                                        size="small"
+                                        fullWidth
+                                        label="Floor Type"
+                                        value={item}
+                                        onChange={handleTypeChange}
+                                    >
+                                        <MenuItem value="Floor">Floor</MenuItem>
+                                        <MenuItem value="Ground">Ground</MenuItem>
+                                        <MenuItem value="Basement">Basement</MenuItem>
+                                    </TextField>
+                                </Grid>
+                                <Grid item xs={5}>
+                                    {/* Integer input for floor number */}
+                                    <TextField required id="newname" size="small" label="Number" type="number" placeholder={floor.floor_no.toString()} />
+                                </Grid>
+                            </Grid>
+                            <br />
+                            <Button
+                                variant="outlined"
+                                onClick={() =>
+                                    update('floor', floor.fid, {
+                                        floor_type: item,
+                                        floor_no: document.getElementById('newname').value,
+                                        diff: (document.getElementById('newname').value - floor.floor_no)
+                                    })}
+                                color="primary">
+                                Done
+                                </Button>
                         </center>
                     </div>
                 </Fade>

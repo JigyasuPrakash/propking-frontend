@@ -154,7 +154,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                     units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: true })
                 }
             })
-            floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
+            floors.push({ fid: floor.fid, floor_type: floor.floor_type, floor_no: floor.floor_no, units });
         })
         updateTower({
             tid: myTower.tid,
@@ -190,7 +190,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                     });
                 }
             })
-            floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
+            floors.push({ fid: floor.fid, floor_type: floor.floor_type, floor_no: floor.floor_no, units });
         })
         updateTower({
             tid: myTower.tid,
@@ -206,9 +206,15 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
             return;
         }
         if (type === 'floor') {
+            let num = Number(value.floor_no) + newData.floors.length - Number(id.split('F')[1]);
             newData.floors.forEach(f => {
+                if (Number(f.fid.split('F')[1]) > Number(id.split('F')[1])) {
+                    f.floor_type = value.floor_type;
+                    f.floor_no = num--;
+                }
                 if (f.fid === id) {
-                    f.floor_no = value;
+                    f.floor_type = value.floor_type;
+                    f.floor_no = value.floor_no;
                 }
             });
         } else if (type === 'unit') {
@@ -225,6 +231,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
             newData.tname = value;
         }
         updateTower(newData);
+        forceUpdate();
     }
 
     const [rowState, setRowState] = React.useState(myTower.floors.map(u => { return false }));

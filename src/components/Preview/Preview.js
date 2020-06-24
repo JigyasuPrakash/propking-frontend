@@ -20,7 +20,7 @@ class Home extends Component {
             pid: window.location.pathname.split('/')[2],
             towers: undefined,
             areaArray: [],
-            selectUnit: undefined,
+            selectUnit: { uid: "" },
             unitInfo: [],
             filteredTower: undefined,
             open: false,
@@ -137,6 +137,7 @@ class Home extends Component {
                                     <MiddlePreview
                                         tower={this.state.filteredTower}
                                         areaFilter={this.state.areaArray}
+                                        selected = {this.state.selectUnit}
                                         unitSelect={this.selectUnit}
                                     />
                                 </Paper>

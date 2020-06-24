@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 
 function RightPreview({ myUnit, handleModal }) {
     return (
-        myUnit === undefined ?
+        myUnit.uid === "" ?
             (
                 <React.Fragment>
                     <Typography variant="h6" style={{ padding: "10px" }}>Click on any House to view Price options</Typography>
@@ -12,7 +12,7 @@ function RightPreview({ myUnit, handleModal }) {
             ) :
             (
                 <center style={{ padding: "10px" }}>
-                    <Typography variant="h6" align="center">Flat No. {myUnit.unit_no}</Typography>
+                    <Typography variant="h6" align="center">FlatNo. {myUnit.unit_no}</Typography>
                     <img src={myUnit.g_img_set} height="200px" alt="Apartment" style={{ border: "1px solid black" }} />
                     <br />
                     <Typography variant="subtitle1" align="center">{myUnit.bhk_type} BHK ({myUnit.size} Sq.Ft.)</Typography>
