@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { domain } from '../../config';
+import { domain } from '../../../config';
 
 class Preview extends Component {
 
@@ -76,6 +76,7 @@ class Preview extends Component {
         axios.post(`${domain}/api/builder/save`, {
             pid: this.state.pid,
             pname: this.state.pname,
+            type: "apartment",
             towers: project,
             unitInfo: this.state.unitInfo,
             uniqueAtt: this.state.uniqueAtt,

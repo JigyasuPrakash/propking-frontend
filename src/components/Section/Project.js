@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Section from './Section/Section';
+import Section from './Section';
 import Title from './Title';
 import axios from 'axios';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { domain } from '../config';
+import { domain } from '../../config';
 
 class Home extends Component {
 

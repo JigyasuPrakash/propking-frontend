@@ -154,7 +154,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                     units.push({ uid: unit.uid, unit_no: unit.unit_no, bhk_type: unit.bhk_type, size: unit.size, att: unit.att, facing: unit.facing, status: true })
                 }
             })
-            floors.push({ fid: floor.fid, floor_type: floor.floor_type, floor_no: floor.floor_no, units });
+            floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
         })
         updateTower({
             tid: myTower.tid,
@@ -190,7 +190,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                     });
                 }
             })
-            floors.push({ fid: floor.fid, floor_type: floor.floor_type, floor_no: floor.floor_no, units });
+            floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
         })
         updateTower({
             tid: myTower.tid,
@@ -200,23 +200,35 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
         resetCheckBoxState();
     }
 
+    const dynamicNumbering = () => {
+        let numbering = ['B', 'G'];
+        for (let i = 1; i <= myTower.floors.length + 1; i++) {
+            numbering.push(i.toString());
+        }
+        return numbering;
+    }
+
+    const floorNumbering = dynamicNumbering();
+
     const rename = (type, id, value) => {
         let newData = myTower;
         if (value === "") {
             return;
         }
         if (type === 'floor') {
-            let num = Number(value.floor_no) + newData.floors.length - Number(id.split('F')[1]);
-            newData.floors.forEach(f => {
-                if (Number(f.fid.split('F')[1]) > Number(id.split('F')[1])) {
-                    f.floor_type = value.floor_type;
-                    f.floor_no = num--;
-                }
-                if (f.fid === id) {
-                    f.floor_type = value.floor_type;
-                    f.floor_no = value.floor_no;
-                }
-            });
+            let num = Number(floorNumbering.indexOf(value)) + newData.floors.length - Number(id.split('F')[1]);
+            if (((floorNumbering.indexOf(value) + 1) - id.split('F')[1] < 0) || floorNumbering[num] === undefined) {
+                alert("Cannot apply.. Please take care of other flat numbers");
+            } else {
+                newData.floors.forEach(f => {
+                    if (Number(f.fid.split('F')[1]) > Number(id.split('F')[1])) {
+                        f.floor_no = floorNumbering[num--];
+                    }
+                    if (f.fid === id) {
+                        f.floor_no = value;
+                    }
+                });
+            }
         } else if (type === 'unit') {
             newData.floors.forEach(f => {
                 if (f.fid === id.split('U')[0]) {
@@ -268,7 +280,11 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                                 </TableCell>
                                 {myTower.floors[0].units.map(unit => (
                                     <TableCell key={unit.uid}>
-                                        <ColumnSelect units={unit} filter={handleColumnSelect} state={colState[unit.uid.split('U')[1] - 1]} click={handleColClick} />
+                                        <ColumnSelect
+                                            units={unit}
+                                            filter={handleColumnSelect}
+                                            state={colState[unit.uid.split('U')[1] - 1]}
+                                            click={handleColClick} />
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -277,7 +293,13 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                                     <TableRow key={floor.fid}>
                                         <TableCell align="center">
                                             <Typography variant="body2">
-                                                <RowSelect floor={floor} filter={handleRowSelect} rename={rename} state={rowState[floor.fid.split('F')[1] - 1]} click={handleRowClick} />
+                                                <RowSelect
+                                                    floor={floor}
+                                                    filter={handleRowSelect}
+                                                    rename={rename}
+                                                    state={rowState[floor.fid.split('F')[1] - 1]}
+                                                    click={handleRowClick}
+                                                    floorValues={floorNumbering} />
                                             </Typography>
                                         </TableCell>
                                         {floor.units.map((unit) =>

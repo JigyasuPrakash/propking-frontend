@@ -7,7 +7,7 @@ import PreviewModal from './PreviewModal';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { domain } from '../../config';
+import { domain } from '../../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -137,7 +137,7 @@ class Home extends Component {
                                     <MiddlePreview
                                         tower={this.state.filteredTower}
                                         areaFilter={this.state.areaArray}
-                                        selected = {this.state.selectUnit}
+                                        selected={this.state.selectUnit}
                                         unitSelect={this.selectUnit}
                                     />
                                 </Paper>

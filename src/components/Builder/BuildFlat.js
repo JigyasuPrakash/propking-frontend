@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 
-class Builder extends Component {
+class BuildFlat extends Component {
 
     constructor(props) {
         super(props);
@@ -58,7 +58,7 @@ class Builder extends Component {
                         j <= 9 ? (num = `0${j}`) : num = `${j}`;
                         units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
-                    floors.push({ fid: `T${t.tid}F${i}`, floor_type: 'Floor', floor_no: i, units });
+                    floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
                 towers.push({
                     tid: t.tid,
@@ -73,7 +73,7 @@ class Builder extends Component {
             let bhk = this.state.bhk;
             let area = Number(document.getElementById('uniqueArea').value);
             if (area !== 0 && bhk !== "") {
-                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area }] });
+                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area, unit: 'Sq. Ft.' }] });
             } else {
                 alert("Please provide some value");
             }
@@ -284,7 +284,7 @@ class Builder extends Component {
                         <center>
                             {validate() && (<Link
                                 to={{
-                                    pathname: `/generate/${this.state.pid}`,
+                                    pathname: `/generate/f/${this.state.pid}`,
                                     pname: this.state.pname,
                                     towers: this.state.towers,
                                     unitInfo: this.state.unitInfo,
@@ -305,4 +305,4 @@ class Builder extends Component {
     }
 }
 
-export default Builder;
+export default BuildFlat;

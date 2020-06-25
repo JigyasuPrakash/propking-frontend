@@ -54,7 +54,7 @@ function Matrix({ tower, filter, mySelect, selected }) {
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">
-                                    <Typography variant="body2">{floor.floor_type + ' ' + floor.floor_no}</Typography>
+                                    <Typography variant="body2">Floor {floor.floor_no}</Typography>
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
@@ -74,7 +74,7 @@ function Matrix({ tower, filter, mySelect, selected }) {
                     ) : (tower.floors.map((floor) => (
                         <TableRow key={floor.fid}>
                             <TableCell align="center">
-                                <Typography variant="body2">{floor.floor_type + ' ' + floor.floor_no}</Typography>
+                                <Typography variant="body2">Floor {floor.floor_no}</Typography>
                             </TableCell>
                             {floor.units.map((unit) =>
                                 unit === undefined ? null :
