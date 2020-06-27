@@ -11,7 +11,7 @@ import { domain } from '../../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-class Home extends Component {
+class PreviewApartment extends Component {
 
     constructor(props) {
         super(props)
@@ -37,7 +37,7 @@ class Home extends Component {
     }
 
     publish = () => {
-        axios.post(`${domain}/api/builder/publish`, {
+        axios.post(`${domain}/api/builder/a/publish`, {
             pid: this.state.pid
         }).then((response) => {
             this.setState({ url: response.data.url });
@@ -164,4 +164,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default PreviewApartment;

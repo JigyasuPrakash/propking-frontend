@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function TowerName({ tower, update }) {
+function TowerRename({ tower, update }) {
 
     const classes = useStyles();
 
@@ -72,4 +72,4 @@ function TowerName({ tower, update }) {
     )
 }
 
-export default TowerName
+export default TowerRename;

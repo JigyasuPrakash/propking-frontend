@@ -72,20 +72,20 @@ function Dashboard() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}>
-                <StyledMenuItem>
-                    <Link
-                        to="/builder/build/f"
-                        style={{ textDecoration: "none" }}>
+                <Link
+                    to="/builder/build/a"
+                    style={{ textDecoration: "none", color: "black" }}>
+                    <StyledMenuItem>
                         <ListItemText primary="Apartments" />
-                    </Link>
-                </StyledMenuItem>
-                <StyledMenuItem>
-                    <Link
-                        to="/builder/build/p"
-                        style={{ textDecoration: "none" }}>
+                    </StyledMenuItem>
+                </Link>
+                <Link
+                    to="/builder/build/p"
+                    style={{ textDecoration: "none", color: "black" }}>
+                    <StyledMenuItem>
                         <ListItemText primary="Plots" />
-                    </Link>
-                </StyledMenuItem>
+                    </StyledMenuItem>
+                </Link>
             </StyledMenu>
         </center>
     )

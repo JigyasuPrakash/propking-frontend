@@ -6,25 +6,25 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { domain } from '../../../config';
 
-class Preview extends Component {
+class GeneratePlot extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
             loaded: false,
-            projects: undefined
+            blocks: undefined
         }
     }
 
     componentDidMount() {
-        const pid = window.location.pathname.split('/')[2];
-        if (this.props.location.towers !== undefined) {
+        const pid = window.location.pathname.split('/')[3];
+        if (this.props.location.blocks !== undefined) {
             this.setState({
                 loaded: true,
                 pid,
                 pname: this.props.location.pname,
-                towers: this.props.location.towers,
+                blocks: this.props.location.blocks,
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
                 facing: this.props.location.facing
@@ -38,7 +38,7 @@ class Preview extends Component {
                         loaded: true,
                         pid,
                         pname: response.data.project.pname,
-                        towers: response.data.project.towers,
+                        blocks: response.data.project.main,
                         unitInfo: response.data.project.unitInfo,
                         uniqueAtt: response.data.project.uniqueAtt,
                         facing: response.data.project.facing
@@ -66,7 +66,7 @@ class Preview extends Component {
             alert(count + " Flat(s) has missing mandatory attributes");
         } else {
             window.localStorage.setItem('pid', this.state.pid);
-            window.localStorage.setItem('towers', JSON.stringify(project));
+            window.localStorage.setItem('blocks', JSON.stringify(project));
             window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
             window.open(`/preview/${this.state.pid}`, "_blank");
         }
@@ -76,8 +76,8 @@ class Preview extends Component {
         axios.post(`${domain}/api/builder/save`, {
             pid: this.state.pid,
             pname: this.state.pname,
-            type: "apartment",
-            towers: project,
+            type: "plot",
+            main: project,
             unitInfo: this.state.unitInfo,
             uniqueAtt: this.state.uniqueAtt,
             facing: this.state.facing
@@ -95,9 +95,9 @@ class Preview extends Component {
                 <Backdrop open={true}>
                     <CircularProgress color="secondary" />
                 </Backdrop>
-            ) : this.state.towers === undefined ? <Redirect to="/builder" /> : (
+            ) : this.state.blocks === undefined ? <Redirect to="/builder" /> : (
                 <GenerateMatrix
-                    towers={this.state.towers}
+                    blocks={this.state.blocks}
                     facing={this.state.facing}
                     unitInfo={this.state.unitInfo}
                     uniqueAtt={this.state.uniqueAtt}
@@ -109,4 +109,4 @@ class Preview extends Component {
     }
 }
 
-export default Preview;
+export default GeneratePlot;

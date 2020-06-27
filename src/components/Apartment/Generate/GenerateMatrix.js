@@ -12,7 +12,7 @@ import GenerateOptions from './GenerateOptions';
 import GenerateCell from './GenerateCell';
 import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
-import TowerName from './TowerName';
+import TowerRename from './TowerRename';
 
 function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) {
 
@@ -271,7 +271,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
             <GenerateOptions unitInfo={unitInfo} attributes={uniqueAtt} facing={facing} apply={applyOptions} />
             <Grid>
                 <TableContainer>
-                    <TowerName tower={myTower} update={rename} />
+                    <TowerRename tower={myTower} update={rename} />
                     <Table size="small" aria-label="simple table">
                         <TableBody>
                             <TableRow>

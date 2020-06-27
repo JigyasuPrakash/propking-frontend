@@ -284,7 +284,7 @@ class BuildFlat extends Component {
                         <center>
                             {validate() && (<Link
                                 to={{
-                                    pathname: `/generate/f/${this.state.pid}`,
+                                    pathname: `/generate/a/${this.state.pid}`,
                                     pname: this.state.pname,
                                     towers: this.state.towers,
                                     unitInfo: this.state.unitInfo,
