@@ -4,27 +4,28 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { domain } from '../../../config';
+import { domain } from '../../../../config';
 
-class GeneratePlot extends Component {
+class GenerateApartment extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
             loaded: false,
-            blocks: undefined
+            towers: undefined
         }
     }
 
     componentDidMount() {
         const pid = window.location.pathname.split('/')[3];
-        if (this.props.location.blocks !== undefined) {
+        console.log(pid);
+        if (this.props.location.towers !== undefined) {
             this.setState({
                 loaded: true,
                 pid,
                 pname: this.props.location.pname,
-                blocks: this.props.location.blocks,
+                towers: this.props.location.towers,
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
                 facing: this.props.location.facing
@@ -38,7 +39,7 @@ class GeneratePlot extends Component {
                         loaded: true,
                         pid,
                         pname: response.data.project.pname,
-                        blocks: response.data.project.main,
+                        towers: response.data.project.main,
                         unitInfo: response.data.project.unitInfo,
                         uniqueAtt: response.data.project.uniqueAtt,
                         facing: response.data.project.facing
@@ -66,9 +67,9 @@ class GeneratePlot extends Component {
             alert(count + " Flat(s) has missing mandatory attributes");
         } else {
             window.localStorage.setItem('pid', this.state.pid);
-            window.localStorage.setItem('blocks', JSON.stringify(project));
+            window.localStorage.setItem('towers', JSON.stringify(project));
             window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
-            window.open(`/preview/${this.state.pid}`, "_blank");
+            window.open(`/preview/a/${this.state.pid}`, "_blank");
         }
     }
 
@@ -76,7 +77,7 @@ class GeneratePlot extends Component {
         axios.post(`${domain}/api/builder/save`, {
             pid: this.state.pid,
             pname: this.state.pname,
-            type: "plot",
+            type: "apartment",
             main: project,
             unitInfo: this.state.unitInfo,
             uniqueAtt: this.state.uniqueAtt,
@@ -95,9 +96,9 @@ class GeneratePlot extends Component {
                 <Backdrop open={true}>
                     <CircularProgress color="secondary" />
                 </Backdrop>
-            ) : this.state.blocks === undefined ? <Redirect to="/builder" /> : (
+            ) : this.state.towers === undefined ? <Redirect to="/builder" /> : (
                 <GenerateMatrix
-                    blocks={this.state.blocks}
+                    towers={this.state.towers}
                     facing={this.state.facing}
                     unitInfo={this.state.unitInfo}
                     uniqueAtt={this.state.uniqueAtt}
@@ -109,4 +110,4 @@ class GeneratePlot extends Component {
     }
 }
 
-export default GeneratePlot;
+export default GenerateApartment;

@@ -1,15 +1,16 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import Error404 from './components/Error/Error404';
-import GenerateApartment from './components/Apartment/Generate/GenerateApartment';
-import PreviewApartment from './components/Apartment/Preview/PreviewApartment';
-import GeneratePlot from './components/Plots/Generate/GeneratePlot';
-import PreviewPlot from './components/Plots/Preview/PreviewPlot';
+import GenerateApartment from './components/Builder/Apartment/Generate/GenerateApartment';
+import PreviewApartment from './components/Builder/Apartment/Preview/PreviewApartment';
+import GeneratePlot from './components/Builder/Plots/Generate/GeneratePlot';
+import PreviewPlot from './components/Builder/Plots/Preview/PreviewPlot';
 import BuildApartment from './components/Builder/BuildApartment';
 import BuildPlot from './components/Builder/BuildPlot';
 import Home from './components/Home';
 import Header from './components/Header/Header';
-import Project from './components/Section/Project';
+import ApartmentProject from './components/Project/Apartment/Project';
+import PlotProject from './components/Project/Plot/Project';
 import Dashboard from './components/Builder/Dashboard';
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
       <Route render={({ location }) => (
         <Switch location={location}>
           <Route exact path="/" component={Home} />
-          <Route path="/project/:id" component={Project} />
+          <Route path="/project/a/:id" component={ApartmentProject} />
+          <Route path="/project/p/:id" component={PlotProject} />
           <Route exact path="/builder/" component={Dashboard} />
           <Route path="/builder/build/a" component={BuildApartment} />
           <Route path="/builder/build/p" component={BuildPlot} />

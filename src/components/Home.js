@@ -54,12 +54,19 @@ class Home extends Component {
                                     <Typography variant="h6">{p.pname}</Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Link to={`/project/${p.pid}`} style={{ textDecoration: "none" }}>
-                                        <Button
-                                            size="small">
-                                            View
-                                        </Button>
-                                    </Link>
+                                    {p.type === "apartment" ? (
+                                        <Link to={`/project/a/${p.pid}`} style={{ textDecoration: "none" }}>
+                                            <Button
+                                                size="small">
+                                                View
+                                            </Button>
+                                        </Link>) : p.type === "plot" ? (
+                                        <Link to={`/project/p/${p.pid}`} style={{ textDecoration: "none" }}>
+                                                <Button
+                                                    size="small">
+                                                    View
+                                            </Button>
+                                        </Link>) : null}
                                 </CardActions>
                             </Card>
                         </Grid>

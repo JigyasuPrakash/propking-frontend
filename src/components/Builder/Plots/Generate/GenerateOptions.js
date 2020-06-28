@@ -24,10 +24,8 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
         setAtt(event.target.value);
     }
 
-    const [newUnit, setUnit] = React.useState({});
     const [newInfo, setInfo] = React.useState('');
     const handleInfo = (event) => {
-        setUnit({ bhk: event.target.value.bhk, area: event.target.value.area });
         setInfo(event.target.value);
     }
 
@@ -37,11 +35,10 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
     }
 
     const applyOptions = () => {
-        apply(newUnit, newAtt, newFace);
+        apply(newInfo, newAtt, newFace);
         setAtt('');
         setInfo('');
         setFace('');
-        setUnit({});
     }
 
     return (
@@ -49,13 +46,13 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
             <Grid container justify="space-evenly">
                 <Grid item xs={2}>
                     <FormControl className={classes.formControl}>
-                        <InputLabel>FlatTypes</InputLabel>
+                        <InputLabel>Area</InputLabel>
                         <Select value={newInfo} onChange={handleInfo} autoWidth>
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
                             {unitInfo.map(a => (
-                                <MenuItem key={a.key} value={a}>{a.area} Sq.Yds.</MenuItem>
+                                <MenuItem key={a.key} value={a.area}>{a.area} Sq.Yds.</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

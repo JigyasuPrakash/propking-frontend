@@ -7,7 +7,7 @@ import PreviewModal from './PreviewModal';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { domain } from '../../../config';
+import { domain } from '../../../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -17,12 +17,12 @@ class PreviewPlot extends Component {
         super(props)
 
         this.state = {
-            pid: window.location.pathname.split('/')[2],
-            towers: undefined,
+            pid: window.location.pathname.split('/')[3],
+            blocks: undefined,
             areaArray: [],
             selectUnit: { uid: "" },
             unitInfo: [],
-            filteredTower: undefined,
+            filteredBlocks: undefined,
             open: false,
             url: '',
             loading: true
@@ -31,13 +31,13 @@ class PreviewPlot extends Component {
 
     componentDidMount() {
         let pid = window.localStorage.getItem('pid');
-        let towers = JSON.parse(window.localStorage.getItem('towers'));
+        let blocks = JSON.parse(window.localStorage.getItem('blocks'));
         let unitInfo = JSON.parse(window.localStorage.getItem('unitInfo'));
-        this.setState({ pid, towers, unitInfo, filteredTower: towers, loading: false });
+        this.setState({ pid, blocks, unitInfo, filteredBlocks: blocks, loading: false });
     }
 
     publish = () => {
-        axios.post(`${domain}/api/builder/a/publish`, {
+        axios.post(`${domain}/api/builder/p/publish`, {
             pid: this.state.pid
         }).then((response) => {
             this.setState({ url: response.data.url });
@@ -70,13 +70,13 @@ class PreviewPlot extends Component {
 
     handleTowerFilter = (info) => {
         console.log(info)
-        let data = this.state.towers.filter((t) => {
+        let data = this.state.blocks.filter((t) => {
             return info.includes(t.tid);
         });
         if (data.length === 0) {
-            data = this.state.towers;
+            data = this.state.blocks;
         }
-        this.setState({ filteredTower: data });
+        this.setState({ filteredBlocks: data });
     }
 
     handleAreaFilter = (info) => {
@@ -102,7 +102,7 @@ class PreviewPlot extends Component {
             <Backdrop open={true}>
                 <CircularProgress color="secondary" />
             </Backdrop>) :
-            this.state.towers === undefined ? (
+            this.state.blocks === undefined ? (
                 <center>
                     <h3>Somthing went wrong</h3>
                     <Button variant="contained" onClick={() => window.close()}>Close</Button>
@@ -125,7 +125,7 @@ class PreviewPlot extends Component {
                             <Grid item sm xs={12} style={{ margin: "16px" }}>
                                 <Paper elevation={3} >
                                     <LeftPreview
-                                        tower={this.state.towers}
+                                        tower={this.state.blocks}
                                         unitInfo={this.state.unitInfo}
                                         towerFilter={this.handleTowerFilter}
                                         areaFilter={this.handleAreaFilter}
@@ -133,14 +133,12 @@ class PreviewPlot extends Component {
                                 </Paper>
                             </Grid>
                             <Grid item sm={6} xs={12} style={{ margin: "16px" }}>
-                                <Paper elevation={3}>
-                                    <MiddlePreview
-                                        tower={this.state.filteredTower}
-                                        areaFilter={this.state.areaArray}
-                                        selected={this.state.selectUnit}
-                                        unitSelect={this.selectUnit}
-                                    />
-                                </Paper>
+                                <MiddlePreview
+                                    tower={this.state.filteredBlocks}
+                                    areaFilter={this.state.areaArray}
+                                    selected={this.state.selectUnit}
+                                    unitSelect={this.selectUnit}
+                                />
                             </Grid>
                             <Grid item sm xs={12} style={{ margin: "16px" }}>
                                 <Paper elevation={3} >

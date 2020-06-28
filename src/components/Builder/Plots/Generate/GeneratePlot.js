@@ -4,31 +4,33 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { domain } from '../../../config';
+import { domain } from '../../../../config';
+import Button from '@material-ui/core/Button';
 
-class GenerateApartment extends Component {
+class GeneratePlot extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
             loaded: false,
-            towers: undefined
+            blocks: undefined,
+            disabled: []
         }
     }
 
     componentDidMount() {
         const pid = window.location.pathname.split('/')[3];
-        console.log(pid);
-        if (this.props.location.towers !== undefined) {
+        if (this.props.location.blocks !== undefined) {
             this.setState({
                 loaded: true,
                 pid,
                 pname: this.props.location.pname,
-                towers: this.props.location.towers,
+                blocks: this.props.location.blocks,
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
-                facing: this.props.location.facing
+                facing: this.props.location.facing,
+                disabled: []
             })
         } else {
             axios.get(`${domain}/api/builder/getproject/${pid}`).then((response) => {
@@ -39,10 +41,11 @@ class GenerateApartment extends Component {
                         loaded: true,
                         pid,
                         pname: response.data.project.pname,
-                        towers: response.data.project.main,
+                        blocks: response.data.project.main,
                         unitInfo: response.data.project.unitInfo,
                         uniqueAtt: response.data.project.uniqueAtt,
-                        facing: response.data.project.facing
+                        facing: response.data.project.facing,
+                        disabled: response.data.project.disabled
                     });
                 }
             }).catch((err) => {
@@ -51,11 +54,11 @@ class GenerateApartment extends Component {
         }
     }
 
-    preview = (project) => {
-        this.save(project);
+    preview = () => {
+        this.save();
         let count = 0;
-        project.forEach(t => {
-            t.floors.forEach(f => {
+        this.state.blocks.forEach(b => {
+            b.floors.forEach(f => {
                 f.units.forEach(u => {
                     if (u.bhk_type === "" || u.size === 0 || u.facing === "") {
                         count++;
@@ -67,18 +70,18 @@ class GenerateApartment extends Component {
             alert(count + " Flat(s) has missing mandatory attributes");
         } else {
             window.localStorage.setItem('pid', this.state.pid);
-            window.localStorage.setItem('towers', JSON.stringify(project));
+            window.localStorage.setItem('blocks', JSON.stringify(this.state.blocks));
             window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
-            window.open(`/preview/a/${this.state.pid}`, "_blank");
+            window.open(`/preview/p/${this.state.pid}`, "_blank");
         }
     }
 
-    save = (project) => {
+    save = () => {
         axios.post(`${domain}/api/builder/save`, {
             pid: this.state.pid,
             pname: this.state.pname,
-            type: "apartment",
-            main: project,
+            type: "plot",
+            main: this.state.blocks,
             unitInfo: this.state.unitInfo,
             uniqueAtt: this.state.uniqueAtt,
             facing: this.state.facing
@@ -87,7 +90,16 @@ class GenerateApartment extends Component {
         }).catch((err) => {
             console.error("Something went wrong", err)
         })
-        console.log(project)
+    }
+
+    update = (newBlock) => {
+        let newData = this.state.blocks;
+        newData.forEach(t => {
+            if (t.tid === newBlock.tid) {
+                newData[newData.indexOf(t)] = newBlock;
+            }
+        })
+        this.setState({ blocks: newData });
     }
 
     render() {
@@ -96,18 +108,30 @@ class GenerateApartment extends Component {
                 <Backdrop open={true}>
                     <CircularProgress color="secondary" />
                 </Backdrop>
-            ) : this.state.towers === undefined ? <Redirect to="/builder" /> : (
-                <GenerateMatrix
-                    towers={this.state.towers}
-                    facing={this.state.facing}
-                    unitInfo={this.state.unitInfo}
-                    uniqueAtt={this.state.uniqueAtt}
-                    save={this.save}
-                    preview={this.preview}
-                />
+            ) : this.state.blocks === undefined ? <Redirect to="/builder" /> : (
+                <React.Fragment>
+                    {this.state.blocks.map(block => (
+                        <React.Fragment key={block.tid}>
+                            <br />
+                            <GenerateMatrix
+                                block={block}
+                                update={this.update}
+                                unitInfo={this.state.unitInfo}
+                                uniqueAtt={this.state.uniqueAtt}
+                                facing={this.state.facing}
+                                disables={this.state.disabled}
+                            />
+                        </React.Fragment>
+                    ))}
+                    <br /><br />
+                    <center>
+                        <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={this.save}>Save Draft</Button>
+                        <Button color="primary" variant="contained" style={{ margin: "4px" }} onClick={this.preview} >Preview</Button>
+                    </center>
+                </React.Fragment>
             )
         )
     }
 }
 
-export default GenerateApartment;
+export default GeneratePlot;

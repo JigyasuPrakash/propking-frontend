@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function RowSelect({ floor, filter, rename, state, click, floorValues }) {
+function RowSelect({ floor, filter, rename, state, click }) {
 
     const classes = useStyles();
 

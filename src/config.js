@@ -1,3 +1,3 @@
 module.exports = {
-    domain: false ? "https://propking.herokuapp.com" : "http://localhost:7777"
+    domain: true ? "https://propking.herokuapp.com" : "http://localhost:7777"
 }

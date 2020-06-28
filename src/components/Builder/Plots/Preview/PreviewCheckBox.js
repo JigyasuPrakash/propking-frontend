@@ -15,7 +15,7 @@ function PreviewCheckBox({ data, filter }) {
         data === undefined ? null : (
             <FormControlLabel
                 control={<CheckBox checked={state.checked} onChange={handleCheckBox} color="primary" />}
-                label={<Typography>{data.bhk} BHK ({data.area} Sq.Ft.)</Typography>}
+                label={<Typography>{data.area} Sq.Yds.</Typography>}
                 style={{ margin: "2px" }}
             />
         )

@@ -7,7 +7,7 @@ import PreviewModal from './PreviewModal';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { domain } from '../../../config';
+import { domain } from '../../../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -17,7 +17,7 @@ class PreviewApartment extends Component {
         super(props)
 
         this.state = {
-            pid: window.location.pathname.split('/')[2],
+            pid: window.location.pathname.split('/')[3],
             towers: undefined,
             areaArray: [],
             selectUnit: { uid: "" },

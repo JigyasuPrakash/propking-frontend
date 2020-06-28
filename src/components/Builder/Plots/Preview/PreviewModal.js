@@ -41,9 +41,9 @@ function PreviewModal({ unit, open, handleModalClose }) {
             }}>
             <Fade in={open}>
                 <div className={classes.paper}>
-                    <Typography variant="h6" align="center">FlatNo.: {unit.unit_no}</Typography>
+                    <Typography variant="h6" align="center">Plot No. {unit.unit_no}</Typography>
                     <br />
-                    <Typography variant="subtitle1" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                    <Typography variant="subtitle1" align="center">{unit.size} Sq.Yds.</Typography>
                     <br />
                     <Button variant="outlined" color="primary">Proceed with Payment</Button>
                 </div>
