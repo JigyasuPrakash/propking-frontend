@@ -50,7 +50,7 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
             <TableContainer>
                 <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.tname}</Typography>
                 <Table size="small" aria-label="simple table">
-                    <TableBody>{tower.floors[0].floor_no < (tower.floors === undefined ? 0 : tower.floors[1].floor_no) ? (
+                    <TableBody>{tower.floors[0].fid.split('F')[1] < (tower.floors === undefined ? 0 : tower.floors[1].fid.split('F')[1]) ? (
                         tower.floors.reverse().map((floor) => (
                             <TableRow key={floor.fid}>
                                 <TableCell align="center">

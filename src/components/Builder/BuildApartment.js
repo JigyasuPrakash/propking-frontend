@@ -73,7 +73,7 @@ class BuildFlat extends Component {
             let bhk = this.state.bhk;
             let area = Number(document.getElementById('uniqueArea').value);
             if (area !== 0 && bhk !== "") {
-                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area, unit: 'Sq. Ft.' }] });
+                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area, unit: 'Sq.Ft.' }] });
             } else {
                 alert("Please provide some value");
             }
