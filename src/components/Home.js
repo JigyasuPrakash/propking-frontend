@@ -61,17 +61,22 @@ class Home extends Component {
                                                 View
                                             </Button>
                                         </Link>) : p.type === "plot" ? (
-                                        <Link to={`/project/p/${p.pid}`} style={{ textDecoration: "none" }}>
+                                            <Link to={`/project/p/${p.pid}`} style={{ textDecoration: "none" }}>
                                                 <Button
                                                     size="small">
                                                     View
                                             </Button>
-                                        </Link>) : null}
+                                            </Link>) : null}
                                 </CardActions>
                             </Card>
                         </Grid>
                     ))}
                 </Grid>
+                <br />
+                <br />
+                <center>
+                    <Link to="/builder" style={{ textDecoration: "none" }}><Button variant="contained" color="primary">Builder's Dashboard</Button></Link>
+                </center>
             </React.Fragment>)
         )
     }
