@@ -80,7 +80,7 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
                                             )
                                     )}
                                 </TableRow>
-                                {floor.fid.split('F')[1] % 2 === 0 ? null : (
+                                {floor.fid.split('F')[1] % 2 === 1 ? null : (
                                     <TableRow>
                                         <TableCell></TableCell>
                                         {floor.units.map((unit) => (
@@ -103,7 +103,7 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
                                         )
                                 )}
                             </TableRow>
-                            {floor.fid.split('F')[1] % 2 === 0 ? null : (
+                            {floor.fid.split('F')[1] % 2 === 1 ? null : (
                                 <TableRow key={floor.fid}>
                                     <TableCell></TableCell>
                                     {floor.units.map((unit) => (

@@ -43,17 +43,18 @@ class BuildPlot extends Component {
 
         const handleProceed = () => {
             let blocks = [];
+            let plotCount = 1;
             this.state.blockCount.forEach(t => {
                 let bname = document.getElementById(`bname${t.tid}`).value;
                 let floors = []
                 let floorCount = document.getElementById(`floorCount${t.tid}`).value;
-                for (let i = floorCount; i >= 1; i--) {
+                for (let i = 1; i <= floorCount; i++) {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
-                        let num = '';
-                        j <= 9 ? (num = `0${j}`) : num = `${j}`;
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
+                        let num = plotCount++;
+                        num = (num < 99 && num > 9) ? ('0' + num) : (num < 10) ? ('00' + num) : num
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }

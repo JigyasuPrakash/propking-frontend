@@ -22,7 +22,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        axios.get(`${domain}/api/admin/getallprojects`)
+        axios.get(`${domain}/api/public/getallprojects`)
             .then((response) => {
                 if (response.data.status === 'failed') {
                     this.setState({ projects: '' });

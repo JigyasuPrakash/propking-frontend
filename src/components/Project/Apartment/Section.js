@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Section({ project }) {
+function Section({ project, response }) {
     const classes = useStyles();
 
     const [filteredTower, myFilter] = React.useState(project.towers);
@@ -75,7 +75,7 @@ function Section({ project }) {
 
             <Grid item sm xs={12} className={classes.grid}>
                 <Paper elevation={3} >
-                    <RightSection myUnit={unit} handleModal={handleModalOpen} />
+                    <RightSection myUnit={unit} handleModal={handleModalOpen} response={response} />
                 </Paper>
             </Grid>
 

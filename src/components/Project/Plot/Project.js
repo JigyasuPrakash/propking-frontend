@@ -17,7 +17,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const url = `${domain}/api/admin/getproject/p/` + window.location.pathname.split('/')[3];
+        const url = `${domain}/api/public/getproject/p/` + window.location.pathname.split('/')[3];
         axios.get(url).then((response) => {
             if (response.data.status === "failed") {
                 alert("Can't fetch results");
