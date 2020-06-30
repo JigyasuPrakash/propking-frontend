@@ -13,34 +13,31 @@ class Home extends Component {
 
         this.state = {
             project: undefined,
-            loader: false
+            customer: undefined
         }
     }
 
     componentDidMount() {
-        this.setState({ loader: true });
         const url = `${domain}/api/public/getproject/a/` + window.location.pathname.split('/')[3];
         axios.get(url).then((response) => {
             if (response.data.status === "failed") {
                 alert("Can't fetch results");
                 this.setState({ project: undefined });
             } else {
-                this.setState({ project: response.data.result, loader: false });
+                this.setState({ project: response.data.result });
             }
         })
     }
 
-    refresh = () => {
-        this.setState({ loader: true });
-        const url = `${domain}/api/public/getproject/a/` + window.location.pathname.split('/')[3];
-        axios.get(url).then((response) => {
-            if (response.data.status === "failed") {
-                alert("Can't fetch results");
-                this.setState({ project: undefined });
-            } else {
-                this.setState({ project: response.data.result, loader: false });
-            }
-        })
+    fetchBookedFlat = (unit) => {
+        axios.post(`${domain}/api/public/getcustomer`, { pid: this.state.project.pid, uid: unit.uid })
+            .then((response) => {
+                if (response.data.status === "done") {
+                    this.setState({ customer: response.data.result });
+                } else {
+                    alert("Somthing went wrong");
+                }
+            })
     }
 
     customerResponse = (type, data) => {
@@ -50,6 +47,7 @@ class Home extends Component {
             data
         }).then((response) => {
             if (response.data.status === "done") {
+                window.location.reload();
                 alert("Response saving: Success \nReference Id: " + response.data.refid);
             } else {
                 alert("Response saving: Failed, Please try again later");
@@ -70,17 +68,12 @@ class Home extends Component {
                         <Title
                             name={this.state.project.name}
                             location={this.state.project.location}
-                            logo={this.state.project.img_set}
-                            refresh={this.refresh} />
+                            logo={this.state.project.img_set} />
                         <Section
                             project={this.state.project}
-                            response={this.customerResponse} />
-                        <Backdrop open={this.state.loader} style={{
-                            zIndex: 1,
-                            color: '#fff'
-                        }}>
-                            <CircularProgress color="secondary" />
-                        </Backdrop>
+                            response={this.customerResponse}
+                            fetchBookedFlat={this.fetchBookedFlat}
+                            customer={this.state.customer} />
                     </div>
                 )
         )

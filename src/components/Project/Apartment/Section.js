@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Section({ project, response }) {
+function Section({ project, response, fetchBookedFlat, customer }) {
     const classes = useStyles();
 
     const [filteredTower, myFilter] = React.useState(project.towers);
@@ -56,6 +56,9 @@ function Section({ project, response }) {
         } else {
             changeUnit(myUnit);
         }
+        if(myUnit.status === "booked"){
+            fetchBookedFlat(myUnit)
+        }
     }
 
     const [open, switchModal] = React.useState(false);
@@ -82,7 +85,7 @@ function Section({ project, response }) {
 
             <Grid item sm xs={12} className={classes.grid}>
                 <Paper elevation={3} >
-                    <RightSection myUnit={unit} handleModal={handleModalOpen} response={response} />
+                    <RightSection myUnit={unit} handleModal={handleModalOpen} response={response} customer={customer} />
                 </Paper>
             </Grid>
 

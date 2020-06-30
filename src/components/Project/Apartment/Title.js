@@ -29,7 +29,7 @@ function Title({ name, location, logo, refresh }) {
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={refresh}>Refresh</Button>
+                        onClick={() => window.location.reload()}>Refresh</Button>
                 </Grid>
             </Grid>
         </div>

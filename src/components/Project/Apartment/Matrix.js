@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 function Matrix({ tower, filter, mySelect, selected }) {
 
-    // unit.status -- true -> available || false -> booked || completed -> completed
+    // unit.status -- true -> available || false -> in lead || booked -> booked
     const getUnit = (unit) => {
         if (unit.status === 'true') {
             if (unit.uid === selected.uid) {
@@ -95,7 +95,7 @@ function Matrix({ tower, filter, mySelect, selected }) {
                     </Tooltip>
                 )
             }
-        } else if (unit.status === "completed") {
+        } else if (unit.status === "booked") {
             if (unit.uid === selected.uid) {
                 return (
                     <Tooltip arrow title={(
