@@ -27,7 +27,7 @@ function RightSection({ myUnit, handleModal, response }) {
             } else {
                 alert("Please fill mandatory fields to continue");
             }
-        } else if (action === "Payment") {
+        } else if (action === "Booking" || action === "Payment") {
             let amount = document.getElementById("amount").value;
             if (name !== "" && phone !== "") {
                 response(action, { unit: myUnit.uid, name, agentname, phone, paymentOpt, amount, comment });
@@ -35,9 +35,6 @@ function RightSection({ myUnit, handleModal, response }) {
                 alert("Please fill mandatory fields to continue");
             }
         }
-
-
-
     }
 
     return (
@@ -49,9 +46,10 @@ function RightSection({ myUnit, handleModal, response }) {
                 onChange={handleChange}
                 fullWidth
             >
-                <MenuItem value=""><em>None</em></MenuItem>
+                {/* Do it for booked flats as well */}
                 <MenuItem value="Lead">Lead</MenuItem>
-                {myUnit.uid !== "" && (<MenuItem value="Payment">Payment</MenuItem>)}
+                {(myUnit.uid !== "") && (myUnit.status === "true") && (<MenuItem value="Booking">Booking</MenuItem>)}
+                {(myUnit.uid !== "") && (myUnit.status === "false") && (<MenuItem value="Payment">Payment</MenuItem>)}
             </TextField>
             <div style={{ padding: "8px" }}>
                 <center>
@@ -61,7 +59,7 @@ function RightSection({ myUnit, handleModal, response }) {
                             <React.Fragment>
                                 <br />
                                 <Typography variant="h6" align="center">Flat No. {myUnit.unit_no}</Typography>
-                                {action === "Payment" && (
+                                {((action === "Booking") || (action === "Payment")) && (
                                     <React.Fragment>
                                         <TextField id="customername" label="Name" required fullWidth />
                                         <TextField id="agentname" label="Agent Name" fullWidth />
@@ -74,13 +72,15 @@ function RightSection({ myUnit, handleModal, response }) {
                                             onChange={handlePaymentChange}
                                             required
                                             fullWidth>
-                                            <MenuItem value=""><em>None</em></MenuItem>
                                             <MenuItem value="Cheque">Cheque</MenuItem>
-                                            <MenuItem value="NEFT">NEFT</MenuItem>
+                                            <MenuItem value="Cash">Cash</MenuItem>
                                             <MenuItem value="Net Banking">Net Banking</MenuItem>
                                         </TextField>
-                                        <TextField id="comment" label="Comments" fullWidth /><br />
-                                        <Button onClick={submit}>Booknow</Button>
+                                        {(paymentOpt === "Cheque" || paymentOpt === "Net Banking") && (
+                                            <TextField id="refnumber" label="Refernce Number" fullWidth />
+                                        )}
+                                        <TextField id="comment" label="Comments" fullWidth /><br /><br />
+                                        <Button variant="outlined" color="primary" onClick={submit}>Submit</Button>
                                     </React.Fragment>
                                 )}
                             </React.Fragment>
@@ -91,8 +91,8 @@ function RightSection({ myUnit, handleModal, response }) {
                             <TextField id="customername" label="Name" required fullWidth />
                             <TextField id="agentname" label="Agent Name" fullWidth />
                             <TextField id="phone" label="Phone No" type="number" required fullWidth />
-                            <TextField id="comment" label="Comments" fullWidth /><br />
-                            <Button onClick={submit}>Submit</Button>
+                            <TextField id="comment" label="Comments" fullWidth /><br /><br />
+                            <Button variant="outlined" color="primary" onClick={submit}>Submit</Button>
                         </React.Fragment>)}
                 </center>
             </div>

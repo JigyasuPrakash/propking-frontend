@@ -50,6 +50,13 @@ function Section({ project, response }) {
     }
 
     const [unit, changeUnit] = React.useState({ uid: "" });
+    const handleUnitSelect = (myUnit) => {
+        if (unit.uid === myUnit.uid) {
+            changeUnit({ uid: "" });
+        } else {
+            changeUnit(myUnit);
+        }
+    }
 
     const [open, switchModal] = React.useState(false);
     const handleModalOpen = () => {
@@ -69,7 +76,7 @@ function Section({ project, response }) {
 
             <Grid item sm={6} xs={12} className={classes.grid}>
                 <Paper elevation={3}>
-                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={changeUnit} selected={unit} />
+                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={handleUnitSelect} selected={unit} />
                 </Paper>
             </Grid>
 

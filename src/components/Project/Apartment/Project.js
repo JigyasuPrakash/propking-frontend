@@ -12,18 +12,33 @@ class Home extends Component {
         super(props)
 
         this.state = {
-            project: undefined
+            project: undefined,
+            loader: false
         }
     }
 
     componentDidMount() {
+        this.setState({ loader: true });
         const url = `${domain}/api/public/getproject/a/` + window.location.pathname.split('/')[3];
         axios.get(url).then((response) => {
             if (response.data.status === "failed") {
                 alert("Can't fetch results");
                 this.setState({ project: undefined });
             } else {
-                this.setState({ project: response.data.result });
+                this.setState({ project: response.data.result, loader: false });
+            }
+        })
+    }
+
+    refresh = () => {
+        this.setState({ loader: true });
+        const url = `${domain}/api/public/getproject/a/` + window.location.pathname.split('/')[3];
+        axios.get(url).then((response) => {
+            if (response.data.status === "failed") {
+                alert("Can't fetch results");
+                this.setState({ project: undefined });
+            } else {
+                this.setState({ project: response.data.result, loader: false });
             }
         })
     }
@@ -52,8 +67,20 @@ class Home extends Component {
                 </Backdrop>
             ) : (
                     <div>
-                        <Title name={this.state.project.name} location={this.state.project.location} logo={this.state.project.img_set} />
-                        <Section project={this.state.project} response={this.customerResponse} />
+                        <Title
+                            name={this.state.project.name}
+                            location={this.state.project.location}
+                            logo={this.state.project.img_set}
+                            refresh={this.refresh} />
+                        <Section
+                            project={this.state.project}
+                            response={this.customerResponse} />
+                        <Backdrop open={this.state.loader} style={{
+                            zIndex: 1,
+                            color: '#fff'
+                        }}>
+                            <CircularProgress color="secondary" />
+                        </Backdrop>
                     </div>
                 )
         )

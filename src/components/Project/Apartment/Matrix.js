@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 function Matrix({ tower, filter, mySelect, selected }) {
 
+    // unit.status -- true -> available || false -> booked || completed -> completed
     const getUnit = (unit) => {
         if (unit.status === 'true') {
             if (unit.uid === selected.uid) {
@@ -19,11 +20,18 @@ function Matrix({ tower, filter, mySelect, selected }) {
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                         </React.Fragment>
                     )}>
-                        <Button variant="contained" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => mySelect(unit)}
+                            color="primary">
+                            <HomeIcon style={{ color: "lightgreen" }} />
+                        </Button>
                     </Tooltip>
                 )
             } else {
@@ -31,17 +39,102 @@ function Matrix({ tower, filter, mySelect, selected }) {
                     <Tooltip arrow title={(
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                         </React.Fragment>
                     )}>
-                        <Button variant="outlined" onClick={() => mySelect(unit)} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
+                        <Button
+                            variant="outlined"
+                            onClick={() => mySelect(unit)}
+                            color="primary">
+                            <HomeIcon style={{ color: "lightgreen" }} />
+                        </Button>
                     </Tooltip>
                 )
             }
-        } else {
-            return (
-                <Button variant="outlined" disabled><HomeIcon color="secondary" /></Button>
-            )
+        } else if (unit.status === "false") {
+            if (unit.uid === selected.uid) {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button
+                            variant="contained" color="primary"
+                            onClick={() => mySelect(unit)}>
+                            <HomeIcon style={{ color: "#d8db2e" }} />
+                        </Button>
+                    </Tooltip>
+                )
+            } else {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button
+                            variant="outlined" color="primary"
+                            onClick={() => mySelect(unit)}>
+                            <HomeIcon style={{ color: "#d8db2e" }} />
+                        </Button>
+                    </Tooltip>
+                )
+            }
+        } else if (unit.status === "completed") {
+            if (unit.uid === selected.uid) {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button
+                            variant="contained" color="primary"
+                            onClick={() => mySelect(unit)}>
+                            <HomeIcon color="secondary" />
+                        </Button>
+                    </Tooltip>
+                )
+            } else {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button
+                            variant="outlined" color="primary"
+                            onClick={() => mySelect(unit)}>
+                            <HomeIcon color="secondary" />
+                        </Button>
+                    </Tooltip>
+                )
+            }
         }
     }
 
