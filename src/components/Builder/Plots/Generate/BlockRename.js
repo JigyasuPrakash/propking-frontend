@@ -62,7 +62,7 @@ function BlockRename({ block, update }) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <center>
-                            <input id="newTname" type="text" placeholder={block.tname} /><br />
+                            <input id="newTname" type="text" defaultValue={block.tname} /><br />
                             <Button variant="outlined" onClick={handleRename} color="primary">Done</Button>
                         </center>
                     </div>

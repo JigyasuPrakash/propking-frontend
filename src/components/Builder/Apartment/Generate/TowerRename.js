@@ -62,7 +62,7 @@ function TowerRename({ tower, update }) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <center>
-                            <input id="newTname" type="text" placeholder={tower.tname} /><br />
+                            <input id="newTname" type="text" defaultValue={tower.tname} /><br />
                             <Button variant="outlined" onClick={handleRename} color="primary">Done</Button>
                         </center>
                     </div>

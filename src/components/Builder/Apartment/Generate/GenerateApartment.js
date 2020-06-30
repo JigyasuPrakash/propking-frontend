@@ -29,7 +29,7 @@ class GenerateApartment extends Component {
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
                 facing: this.props.location.facing
-            })
+            });
         } else {
             axios.get(`${domain}/api/builder/getproject/${pid}`).then((response) => {
                 if (response.data.status === "failed") {
@@ -46,8 +46,9 @@ class GenerateApartment extends Component {
                     });
                 }
             }).catch((err) => {
+                this.setState({ project: undefined })
                 console.error("Something went wrong", err);
-            })
+            });
         }
     }
 
@@ -87,7 +88,6 @@ class GenerateApartment extends Component {
         }).catch((err) => {
             console.error("Something went wrong", err)
         })
-        console.log(project)
     }
 
     render() {

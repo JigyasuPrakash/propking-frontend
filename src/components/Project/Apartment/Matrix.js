@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 function Matrix({ tower, filter, mySelect, selected }) {
 
-    // unit.status -- true -> available || false -> in lead || booked -> booked
+    // unit.status -- true -> available || lead -> in lead || booked -> booked || false -> removed
     const getUnit = (unit) => {
         if (unit.status === 'true') {
             if (unit.uid === selected.uid) {
@@ -55,7 +55,7 @@ function Matrix({ tower, filter, mySelect, selected }) {
                     </Tooltip>
                 )
             }
-        } else if (unit.status === "false") {
+        } else if (unit.status === "lead") {
             if (unit.uid === selected.uid) {
                 return (
                     <Tooltip arrow title={(
@@ -131,6 +131,46 @@ function Matrix({ tower, filter, mySelect, selected }) {
                             variant="outlined" color="primary"
                             onClick={() => mySelect(unit)}>
                             <HomeIcon color="secondary" />
+                        </Button>
+                    </Tooltip>
+                )
+            }
+        } else if (unit.status === "false") {
+            if (unit.uid === selected.uid) {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button
+                            variant="contained" color="primary"
+                            onClick={() => mySelect(unit)}>
+                            <HomeIcon style={{ color: "grey" }} />
+                        </Button>
+                    </Tooltip>
+                )
+            } else {
+                return (
+                    <Tooltip arrow title={(
+                        <React.Fragment>
+                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.att === "" ? (<React.Fragment>
+                                <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
+                            </React.Fragment>) : null}
+                            <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
+                        </React.Fragment>
+                    )}>
+                        <Button
+                            variant="outlined" color="primary"
+                            onClick={() => mySelect(unit)}>
+                            <HomeIcon style={{ color: "grey" }} />
                         </Button>
                     </Tooltip>
                 )
