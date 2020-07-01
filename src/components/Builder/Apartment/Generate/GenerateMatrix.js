@@ -172,10 +172,10 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                     units.push({
                         uid: unit.uid,
                         unit_no: unit.unit_no,
-                        bhk_type: unitInfo === {} ? unit.bhk : unitInfo.bhk,
-                        size: unitInfo === {} ? unit.bhk : unitInfo.area,
-                        att: newAtt === "" ? unit.att : newAtt,
-                        facing: newFace === "" ? unit.facing : newFace,
+                        bhk_type: unitInfo.bhk,
+                        size: unitInfo.area,
+                        att: newAtt,
+                        facing: newFace,
                         status: unit.status
                     });
                 } else {
@@ -223,9 +223,25 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                 newData.floors.forEach(f => {
                     if (Number(f.fid.split('F')[1]) > Number(id.split('F')[1])) {
                         f.floor_no = floorNumbering[num--];
+                        let i = 1;
+                        f.units.forEach(u => {
+                            let num = "";
+                            if (i < 10) {
+                                num = `0${i++}`
+                            }
+                            u.unit_no = `${f.floor_no}${num}`
+                        })
                     }
                     if (f.fid === id) {
                         f.floor_no = value;
+                        let i = 1;
+                        f.units.forEach(u => {
+                            let num = "";
+                            if (i < 10) {
+                                num = `0${i++}`
+                            }
+                            u.unit_no = `${value}${num}`
+                        })
                     }
                 });
             }

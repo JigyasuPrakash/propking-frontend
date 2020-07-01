@@ -246,9 +246,9 @@ class BuildFlat extends Component {
                                             <AddIcon />
                                         </Fab>
                                     </Grid>
-                                    <br /><br /><br />
-                                    {createArea}
+                                    <br /><br />
                                 </Grid>
+                                {createArea}
                             </Grid>
 
                             <Grid item xs={4}>
@@ -267,9 +267,9 @@ class BuildFlat extends Component {
                                             <AddIcon />
                                         </Fab>
                                     </Grid>
-                                    <br /><br /><br />
-                                    {createAtt}
+                                    <br /><br />
                                 </Grid>
+                                {createAtt}
                             </Grid>
                             <Grid item xs={3}>
                                 <center>

@@ -19,7 +19,6 @@ class GenerateApartment extends Component {
 
     componentDidMount() {
         const pid = window.location.pathname.split('/')[3];
-        console.log(pid);
         if (this.props.location.towers !== undefined) {
             this.setState({
                 loaded: true,
@@ -33,6 +32,7 @@ class GenerateApartment extends Component {
         } else {
             axios.get(`${domain}/api/builder/getproject/${pid}`).then((response) => {
                 if (response.data.status === "failed") {
+                    this.setState({ loaded: true });
                     alert("Somthing went wrong");
                 } else {
                     this.setState({
@@ -65,7 +65,7 @@ class GenerateApartment extends Component {
             })
         })
         if (count > 0) {
-            alert(count + " Flat(s) has missing mandatory attributes");
+            alert(count + " Flat(s) is/are missing mandatory attributes\nPlease apply attributes for the units in grey color");
         } else {
             window.localStorage.setItem('pid', this.state.pid);
             window.localStorage.setItem('towers', JSON.stringify(project));
@@ -96,7 +96,7 @@ class GenerateApartment extends Component {
                 <Backdrop open={true}>
                     <CircularProgress color="secondary" />
                 </Backdrop>
-            ) : this.state.towers === undefined ? <Redirect to="/builder" /> : (
+            ) : this.state.towers === undefined ? <Redirect to="/builder/build/a" /> : (
                 <GenerateMatrix
                     towers={this.state.towers}
                     facing={this.state.facing}

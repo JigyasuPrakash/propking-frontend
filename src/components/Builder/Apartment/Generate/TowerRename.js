@@ -45,7 +45,7 @@ function TowerRename({ tower, update }) {
     return (
         <React.Fragment>
             <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">
-                {tower.tname} <IconButton size="medium" onClick={openModal}><EditIcon fontSize="small" /></IconButton>
+                Tower: {tower.tname} <IconButton size="medium" onClick={openModal}><EditIcon fontSize="small" /></IconButton>
             </Typography>
 
             <Modal

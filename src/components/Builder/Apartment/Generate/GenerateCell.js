@@ -73,7 +73,7 @@ function GenerateCell({ unit, variant, filter, color, disable, rename }) {
                 </React.Fragment>
             )}>
                 {unit.status ? (
-                    unit.att !== "" || unit.bhk_type !== "" || unit.facing !== "" ? (
+                    unit.bhk_type !== "" && unit.facing !== "" ? (
                         <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
                     ) : (
                             <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant}><HomeIcon style={{ color: color }} /></Button>
@@ -81,7 +81,6 @@ function GenerateCell({ unit, variant, filter, color, disable, rename }) {
                     : (<Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="secondary"><BlockIcon style={{ color: color }} /></Button>)
                 }
             </Tooltip>
-
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

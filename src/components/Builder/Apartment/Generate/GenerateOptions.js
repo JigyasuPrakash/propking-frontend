@@ -24,7 +24,7 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
         setAtt(event.target.value);
     }
 
-    const [newUnit, setUnit] = React.useState({});
+    const [newUnit, setUnit] = React.useState({ bhk: "", area: 0 });
     const [newInfo, setInfo] = React.useState('');
     const handleInfo = (event) => {
         setUnit({ bhk: event.target.value.bhk, area: event.target.value.area });
@@ -41,7 +41,7 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
         setAtt('');
         setInfo('');
         setFace('');
-        setUnit({});
+        setUnit({ bhk: "", area: 0 });
     }
 
     return (
