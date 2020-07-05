@@ -8,8 +8,9 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
 
-function Matrix({ tower, filter, mySelect, selected }) {
+function Matrix({ tower, filter, mySelect, selected, leadcount }) {
 
     // unit.status -- true -> available || lead -> in lead || booked -> booked || false -> removed
     const getUnit = (unit) => {
@@ -56,6 +57,13 @@ function Matrix({ tower, filter, mySelect, selected }) {
                 )
             }
         } else if (unit.status === "lead") {
+            let count = 0;
+            console.log(leadcount)
+            leadcount.forEach(element => {
+                if (element.unit_id === unit.uid) {
+                    count = element.count;
+                }
+            });;
             if (unit.uid === selected.uid) {
                 return (
                     <Tooltip arrow title={(
@@ -68,11 +76,13 @@ function Matrix({ tower, filter, mySelect, selected }) {
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                         </React.Fragment>
                     )}>
-                        <Button
-                            variant="contained" color="primary"
-                            onClick={() => mySelect(unit)}>
-                            <HomeIcon style={{ color: "#d8db2e" }} />
-                        </Button>
+                        <Badge badgeContent={count} color="secondary">
+                            <Button
+                                variant="contained" color="primary"
+                                onClick={() => mySelect(unit)}>
+                                <HomeIcon style={{ color: "#d8db2e" }} />
+                            </Button>
+                        </Badge>
                     </Tooltip>
                 )
             } else {
@@ -87,11 +97,13 @@ function Matrix({ tower, filter, mySelect, selected }) {
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                         </React.Fragment>
                     )}>
-                        <Button
-                            variant="outlined" color="primary"
-                            onClick={() => mySelect(unit)}>
-                            <HomeIcon style={{ color: "#d8db2e" }} />
-                        </Button>
+                        <Badge badgeContent={count} color="secondary">
+                            <Button
+                                variant="outlined" color="primary"
+                                onClick={() => mySelect(unit)}>
+                                <HomeIcon style={{ color: "#d8db2e" }} />
+                            </Button>
+                        </Badge>
                     </Tooltip>
                 )
             }

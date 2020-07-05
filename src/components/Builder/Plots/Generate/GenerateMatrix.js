@@ -207,9 +207,9 @@ function GenerateMatrix({ block, update, unitInfo, uniqueAtt, facing }) {
     }
 
     return (
-        <Paper>
+        <Paper style={{ margin: "20px" }}>
             <GenerateOptions unitInfo={unitInfo} attributes={uniqueAtt} facing={facing} apply={applyOptions} />
-            <TableContainer>
+            <TableContainer style={{ padding: "20px" }}>
                 <BlockRename block={myBlock} update={rename} />
                 <Table size="small" aria-label="simple table">
                     <TableBody>

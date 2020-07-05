@@ -52,9 +52,7 @@ class BuildPlot extends Component {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
-                        let num = plotCount++;
-                        num = (num < 99 && num > 9) ? ('0' + num) : (num < 10) ? ('00' + num) : num
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${plotCount++}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
@@ -228,7 +226,7 @@ class BuildPlot extends Component {
                                 </center><br />
                                 <Grid container justify="space-evenly">
                                     <Grid item xs={10}>
-                                        <TextField required size="small" id="uniqueAtt" label="Unique Attributes" />
+                                        <TextField size="small" id="uniqueAtt" label="Unique Attributes" />
                                         <Fab
                                             size="small"
                                             color="primary"

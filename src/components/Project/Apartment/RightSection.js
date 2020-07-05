@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 function RightSection({ myUnit, handleModal, response, customer }) {
 
-    const [action, setAction] = React.useState("");
+    const [action, setAction] = React.useState("Lead");
     const handleChange = (event) => {
         setAction(event.target.value);
     }
@@ -58,12 +58,11 @@ function RightSection({ myUnit, handleModal, response, customer }) {
                 onChange={handleChange}
                 fullWidth
             >
-                {/* Do it for booked flats as well */}
-                <MenuItem value="Lead">Lead</MenuItem>
-                {(myUnit.uid !== "") && (myUnit.status === "true" || myUnit.status === "false") && (<MenuItem value="Booking">Booking</MenuItem>)}
+                {myUnit.status !== "booked" && (<MenuItem value="Lead">Lead</MenuItem>)}
+                {(myUnit.uid !== "") && (myUnit.status === "true" || myUnit.status === "lead") && (<MenuItem value="Booking">Booking</MenuItem>)}
                 {(myUnit.uid !== "") && (myUnit.status === "booked") && (<MenuItem value="Payment">Payment</MenuItem>)}
             </TextField>
-            {myUnit.status === "true" || myUnit.status === "false" || myUnit.uid === "" ? (
+            {myUnit.status === "true" || myUnit.status === "lead" || myUnit.uid === "" ? (
                 <div style={{ padding: "8px" }}>
                     <center>
                         {myUnit.uid === "" ?
@@ -139,14 +138,6 @@ function RightSection({ myUnit, handleModal, response, customer }) {
                                     </React.Fragment>
                                 )}
                             </React.Fragment>
-                            {action === "Lead" && (
-                                <React.Fragment>
-                                    <TextField id="customername" label="Name" required fullWidth defaultValue={customer.customer_name} />
-                                    <TextField id="agentname" label="Agent Name" fullWidth defaultValue={customer.agent_name} />
-                                    <TextField id="phone" label="Phone No" type="number" required fullWidth defaultValue={customer.phone} />
-                                    <TextField id="comment" label="Comments" fullWidth /><br /><br />
-                                    <Button variant="outlined" color="primary" onClick={submit}>Submit</Button>
-                                </React.Fragment>)}
                         </center>
                     </div>
                 )}

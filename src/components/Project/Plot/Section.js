@@ -11,7 +11,7 @@ import PaymentModal from './PaymentModal';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
-        margin: "18px"
+        margin: "15px"
     },
     modal: {
         display: 'flex',
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Section({ project }) {
+function Section({ project, response, fetchBookedPlot, customer, leadcount }) {
     const classes = useStyles();
 
     const [filteredTower, myFilter] = React.useState(project.blocks);
@@ -50,6 +50,16 @@ function Section({ project }) {
     }
 
     const [unit, changeUnit] = React.useState({ uid: "" });
+    const handleUnitSelect = (myUnit) => {
+        if (unit.uid === myUnit.uid) {
+            changeUnit({ uid: "" });
+        } else {
+            changeUnit(myUnit);
+        }
+        if (myUnit.status === "booked") {
+            fetchBookedPlot(myUnit)
+        }
+    }
 
     const [open, switchModal] = React.useState(false);
     const handleModalOpen = () => {
@@ -67,13 +77,13 @@ function Section({ project }) {
                 </Paper>
             </Grid>
 
-            <Grid item sm={6} xs={12} className={classes.grid}>
-                <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={changeUnit} selected={unit} />
+            <Grid item sm={7} xs={12} className={classes.grid}>
+                <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={handleUnitSelect} selected={unit} leadcount={leadcount} />
             </Grid>
 
             <Grid item sm xs={12} className={classes.grid}>
                 <Paper elevation={3} >
-                    <RightSection myUnit={unit} handleModal={handleModalOpen} />
+                    <RightSection myUnit={unit} handleModal={handleModalOpen} response={response} customer={customer} />
                 </Paper>
             </Grid>
 

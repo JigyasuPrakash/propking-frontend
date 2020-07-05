@@ -15,17 +15,20 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
     }
 
     const icons = tower === undefined ? null : tower.map(item => (
-        <center>
-            <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "8px" }}>
-                <ApartmentIcon color="primary" fontSize="default" />
-                <Typography variant="button" style={{ color: "black" }}>{item.tname}</Typography>
-            </ToggleButton><br />
-        </center>
+        <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "5px", border: "0.5px grey solid" }}>
+            <ApartmentIcon color="primary" fontSize="large" />
+            <Typography variant="button" style={{ color: "black" }}>{item.tname}</Typography>
+        </ToggleButton>
     ));
 
     const createUnitInfo = unitInfo === undefined ? null : unitInfo.map(item => (
-        <MyCheckBox key={item.id} data={item} filter={areaFilter} />
-    ))
+        <React.Fragment key={item.id}>
+            <MyCheckBox
+                data={item}
+                filter={areaFilter} />
+            <br />
+        </React.Fragment>
+    ));
 
     return (
         <React.Fragment>
@@ -42,9 +45,7 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
             <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
                 <Grid item sm={12}>
                     <Typography variant="h6" style={{ margin: "10px" }} align="center">Unit Type</Typography>
-                    <center>
-                        {createUnitInfo}
-                    </center>
+                    {createUnitInfo}
                 </Grid>
             </Grid>
         </React.Fragment>

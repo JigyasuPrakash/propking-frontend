@@ -13,7 +13,8 @@ class Home extends Component {
 
         this.state = {
             project: undefined,
-            customer: undefined
+            customer: undefined,
+            leadcount: undefined
         }
     }
 
@@ -24,7 +25,7 @@ class Home extends Component {
                 alert("Can't fetch results");
                 this.setState({ project: undefined });
             } else {
-                this.setState({ project: response.data.result });
+                this.setState({ project: response.data.result, leadcount: response.data.leadcount });
             }
         })
     }
@@ -41,7 +42,7 @@ class Home extends Component {
     }
 
     customerResponse = (type, data) => {
-        axios.post(`${domain}/api/public/response`, {
+        axios.post(`${domain}/api/public/a/response`, {
             pid: this.state.project.pid,
             type,
             data
@@ -73,7 +74,8 @@ class Home extends Component {
                             project={this.state.project}
                             response={this.customerResponse}
                             fetchBookedFlat={this.fetchBookedFlat}
-                            customer={this.state.customer} />
+                            customer={this.state.customer}
+                            leadcount={this.state.leadcount} />
                     </div>
                 )
         )

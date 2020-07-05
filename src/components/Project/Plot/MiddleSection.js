@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function MiddleSection({ tower, areaFilter, unitSelect, selected }) {
+function MiddleSection({ tower, areaFilter, unitSelect, selected, leadcount }) {
 
     const styling = useStyles();
 
@@ -19,7 +19,7 @@ function MiddleSection({ tower, areaFilter, unitSelect, selected }) {
             {tower.map(t => (
                 <React.Fragment>
                     <Paper elevation={3}>
-                        <Matrix tower={t} filter={areaFilter} mySelect={unitSelect} selected={selected} />
+                        <Matrix tower={t} filter={areaFilter} mySelect={unitSelect} selected={selected} leadcount={leadcount} />
                     </Paper>
                     <br />
                 </React.Fragment>

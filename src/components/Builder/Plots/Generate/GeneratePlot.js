@@ -67,7 +67,7 @@ class GeneratePlot extends Component {
             })
         })
         if (count > 0) {
-            alert(count + " Flat(s) has missing mandatory attributes");
+            alert(count + " Plot(s) has missing mandatory attributes");
         } else {
             window.localStorage.setItem('pid', this.state.pid);
             window.localStorage.setItem('blocks', JSON.stringify(this.state.blocks));

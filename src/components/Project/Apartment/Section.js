@@ -11,7 +11,7 @@ import PaymentModal from './PaymentModal';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
-        margin: "18px"
+        margin: "15px"
     },
     modal: {
         display: 'flex',
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Section({ project, response, fetchBookedFlat, customer }) {
+function Section({ project, response, fetchBookedFlat, customer, leadcount }) {
     const classes = useStyles();
 
     const [filteredTower, myFilter] = React.useState(project.towers);
@@ -77,9 +77,9 @@ function Section({ project, response, fetchBookedFlat, customer }) {
                 </Paper>
             </Grid>
 
-            <Grid item sm={6} xs={12} className={classes.grid}>
+            <Grid item sm={7} xs={12} className={classes.grid}>
                 <Paper elevation={3}>
-                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={handleUnitSelect} selected={unit} />
+                    <MiddleSection tower={filteredTower} areaFilter={areaArray} unitSelect={handleUnitSelect} selected={unit} leadcount={leadcount} />
                 </Paper>
             </Grid>
 

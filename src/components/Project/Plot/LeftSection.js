@@ -15,28 +15,40 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
     }
 
     const icons = tower === undefined ? null : tower.map(item => (
-        <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "8px" }}>
-            <ApartmentIcon color="primary" fontSize="default" />
+        <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "5px", border: "0.5px grey solid" }}>
+            <ApartmentIcon color="primary" fontSize="large" />
             <Typography variant="button" style={{ color: "black" }}>{item.bname}</Typography>
         </ToggleButton>
     ));
 
     const createUnitInfo = unitInfo === undefined ? null : unitInfo.map(item => (
-        <MyCheckBox key={item.id} data={item} filter={areaFilter} />
-    ))
+        <React.Fragment key={item.id}>
+            <MyCheckBox
+                data={item}
+                filter={areaFilter} />
+            <br />
+        </React.Fragment>
+    ));
 
     return (
-        <Grid container>
-            <Grid item sm style={{ borderRight: "1px lightgrey solid" }}>
-                <ToggleButtonGroup orientation="vertical" value={formats} onChange={handleChange} aria-label="apartments" style={{ margin: "5px", }}>
-                    {icons}
-                </ToggleButtonGroup>
+        <React.Fragment>
+            <Grid container justify="center">
+                <Grid item sm={12}>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Towers:</Typography>
+                    <center>
+                        <ToggleButtonGroup orientation="vertical" value={formats} onChange={handleChange} aria-label="apartments" style={{ margin: "5px", }}>
+                            {icons}
+                        </ToggleButtonGroup>
+                    </center>
+                </Grid>
             </Grid>
-            <Grid item sm={7}>
-                <Typography variant="h6" style={{ borderBottom: "1px lightGrey solid", margin: "10px" }} align="center">Plot Type</Typography>
-                {createUnitInfo}
+            <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
+                <Grid item sm={12}>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Unit Type</Typography>
+                    {createUnitInfo}
+                </Grid>
             </Grid>
-        </Grid>
+        </React.Fragment>
     )
 }
 

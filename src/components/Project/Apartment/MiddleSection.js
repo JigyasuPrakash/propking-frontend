@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function MiddleSection({ tower, areaFilter, unitSelect, selected }) {
+function MiddleSection({ tower, areaFilter, unitSelect, selected, leadcount }) {
 
     const styling = useStyles();
 
@@ -21,7 +21,7 @@ function MiddleSection({ tower, areaFilter, unitSelect, selected }) {
 
     return (tower === undefined ? (<CircularProgress />) : (
         <div className={styling.div}>
-            <Matrix tower={tower[page - 1]} filter={areaFilter} mySelect={unitSelect} selected={selected} />
+            <Matrix tower={tower[page - 1]} filter={areaFilter} mySelect={unitSelect} selected={selected} leadcount={leadcount} />
             <br />
             <Pagination count={tower.length} page={page} onChange={handleChange} color="primary" />
             <br />
