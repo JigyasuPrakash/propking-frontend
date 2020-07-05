@@ -177,7 +177,7 @@ class BuildPlot extends Component {
                                     <TextField required size="small" id={`floorCount${t.tid}`} label="No. of Rows" type="number" />
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <TextField required size="small" id={`unitCount${t.tid}`} label="Units per row" type="number" />
+                                    <TextField required size="small" id={`unitCount${t.tid}`} label="Max Units per row" type="number" />
                                 </Grid>
                             </Grid>
                         ))}

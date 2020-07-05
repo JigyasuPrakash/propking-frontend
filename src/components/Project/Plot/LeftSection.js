@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ToggleButton from '@material-ui/lab/ToggleButton';
-import ApartmentIcon from '@material-ui/icons/Apartment';
+import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import MyCheckBox from './MyCheckBox';
 
 function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
@@ -16,7 +16,7 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
 
     const icons = tower === undefined ? null : tower.map(item => (
         <ToggleButton key={item.tid} value={item.tid} aria-label={item.tid} style={{ margin: "5px", border: "0.5px grey solid" }}>
-            <ApartmentIcon color="primary" fontSize="large" />
+            <ViewWeekIcon color="primary" fontSize="large" />
             <Typography variant="button" style={{ color: "black" }}>{item.bname}</Typography>
         </ToggleButton>
     ));
@@ -34,7 +34,7 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
         <React.Fragment>
             <Grid container justify="center">
                 <Grid item sm={12}>
-                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Towers:</Typography>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Blocks:</Typography>
                     <center>
                         <ToggleButtonGroup orientation="vertical" value={formats} onChange={handleChange} aria-label="apartments" style={{ margin: "5px", }}>
                             {icons}
