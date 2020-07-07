@@ -10,16 +10,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function MiddleSection({ tower, areaFilter, unitSelect, selected, leadcount }) {
+function MiddleSection({ tower, areaFilter, facingFilter, attributeFilter, unitSelect, selected, leadcount }) {
 
     const styling = useStyles();
 
     return (tower === undefined ? (<CircularProgress />) : (
         <div className={styling.div}>
             {tower.map(t => (
-                <React.Fragment>
+                <React.Fragment key={t.tid}>
                     <Paper elevation={3}>
-                        <Matrix tower={t} filter={areaFilter} mySelect={unitSelect} selected={selected} leadcount={leadcount} />
+                        <Matrix
+                            key={t.tid}
+                            tower={t}
+                            areafilter={areaFilter}
+                            facingFilter={facingFilter}
+                            attributeFilter={attributeFilter}
+                            mySelect={unitSelect}
+                            selected={selected}
+                            leadcount={leadcount} />
                     </Paper>
                     <br />
                 </React.Fragment>

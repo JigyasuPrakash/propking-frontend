@@ -10,7 +10,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 
-function Matrix({ tower, filter, mySelect, selected, leadcount }) {
+function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, selected, leadcount }) {
 
     // unit.status -- true -> available || lead -> in lead || booked -> booked || false -> removed
     const getUnit = (unit) => {
@@ -203,16 +203,34 @@ function Matrix({ tower, filter, mySelect, selected, leadcount }) {
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
-                                        (filter.length === 0 ? (
+                                        (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? (
                                             <TableCell key={unit.uid}>
                                                 {getUnit(unit)}
                                             </TableCell>) :
-                                            (filter.includes(unit.size) ? (
-                                                <TableCell key={unit.uid}>
-                                                    {getUnit(unit)}
-                                                </TableCell>) : null
-                                            )
-                                        )
+                                            <TableCell key={unit.uid}>
+                                                <Button
+                                                    variant="outlined"
+                                                    disabled
+                                                    onClick={() => mySelect(unit)}>
+                                                    <HomeIcon style={{ color: "grey" }} />
+                                                </Button>
+                                            </TableCell> :
+                                            <TableCell key={unit.uid}>
+                                                <Button
+                                                    variant="outlined"
+                                                    disabled
+                                                    onClick={() => mySelect(unit)}>
+                                                    <HomeIcon style={{ color: "grey" }} />
+                                                </Button>
+                                            </TableCell> :
+                                            <TableCell key={unit.uid}>
+                                                <Button
+                                                    variant="outlined"
+                                                    disabled
+                                                    onClick={() => mySelect(unit)}>
+                                                    <HomeIcon style={{ color: "grey" }} />
+                                                </Button>
+                                            </TableCell>
                                 )}
                             </TableRow>
                         ))
@@ -223,16 +241,34 @@ function Matrix({ tower, filter, mySelect, selected, leadcount }) {
                             </TableCell>
                             {floor.units.map((unit) =>
                                 unit === undefined ? null :
-                                    (filter.length === 0 ? (
+                                    (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? (
                                         <TableCell key={unit.uid}>
                                             {getUnit(unit)}
                                         </TableCell>) :
-                                        (filter.includes(unit.size) ? (
-                                            <TableCell key={unit.uid}>
-                                                {getUnit(unit)}
-                                            </TableCell>) : null
-                                        )
-                                    )
+                                        <TableCell key={unit.uid}>
+                                            <Button
+                                                variant="outlined"
+                                                disabled
+                                                onClick={() => mySelect(unit)}>
+                                                <HomeIcon style={{ color: "grey" }} />
+                                            </Button>
+                                        </TableCell> :
+                                        <TableCell key={unit.uid}>
+                                            <Button
+                                                variant="outlined"
+                                                disabled
+                                                onClick={() => mySelect(unit)}>
+                                                <HomeIcon style={{ color: "grey" }} />
+                                            </Button>
+                                        </TableCell> :
+                                        <TableCell key={unit.uid}>
+                                            <Button
+                                                variant="outlined"
+                                                disabled
+                                                onClick={() => mySelect(unit)}>
+                                                <HomeIcon style={{ color: "grey" }} />
+                                            </Button>
+                                        </TableCell>
                             )}
                         </TableRow>
                     )))}

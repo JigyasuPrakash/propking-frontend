@@ -26,6 +26,7 @@ class Home extends Component {
                     alert("Can't fetch results");
                     this.setState({ project: undefined });
                 } else {
+                    console.log(response.data.result)
                     this.setState({ project: response.data.result, leadcount: response.data.leadcount });
                 }
             })

@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 
-function PreviewMatrix({ tower, filter, mySelect, selected, leadcount }) {
+function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, selected, leadcount }) {
 
     const getUnit = (unit) => {
         if (unit.status === 'true') {
@@ -65,10 +65,11 @@ function PreviewMatrix({ tower, filter, mySelect, selected, leadcount }) {
         } else if (unit.status === "lead") {
             let count = 0;
             leadcount.forEach(element => {
-                if (element.unit_no === unit.uid) {
+                if (element.unit_id === unit.uid) {
                     count = element.count;
                 }
             });
+
             if (unit.uid === selected.uid) {
                 return (
                     <Tooltip arrow title={(
@@ -86,7 +87,7 @@ function PreviewMatrix({ tower, filter, mySelect, selected, leadcount }) {
                             style={{ backgroundColor: "#d8db2e", border: "1px solid black", cursor: "pointer" }}
                         >
                             <center>
-                                <Badge badgeContent={count} color="secondary">
+                                <Badge badgeContent={5} color="secondary">
                                     <Avatar style={{ backgroundColor: "inherit", color: "black" }}>
                                         {unit.unit_no}
                                     </Avatar>
@@ -239,9 +240,22 @@ function PreviewMatrix({ tower, filter, mySelect, selected, leadcount }) {
                                     </TableCell>
                                     {floor.units.map((unit) =>
                                         unit === undefined ? null :
-                                            (filter.length === 0 ? getUnit(unit) :
-                                                (filter.includes(unit.size) ? getUnit(unit) : null)
-                                            )
+                                            (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? getUnit(unit) : (
+                                                <TableCell
+                                                    key={unit.uid}
+                                                    style={{ border: "1px solid black", }}
+                                                ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{3}</Avatar></center></TableCell>
+                                            ) : (
+                                                    <TableCell
+                                                        key={unit.uid}
+                                                        style={{ border: "1px solid black", }}
+                                                    ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{2}</Avatar></center></TableCell>
+                                                ) : (
+                                                    <TableCell
+                                                        key={unit.uid}
+                                                        style={{ border: "1px solid black", }}
+                                                    ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{1}</Avatar></center></TableCell>
+                                                )
                                     )}
                                 </TableRow>
                                 {floor.fid.split('F')[1] % 2 === 1 ? null : (
@@ -262,9 +276,22 @@ function PreviewMatrix({ tower, filter, mySelect, selected, leadcount }) {
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
-                                        (filter.length === 0 ? getUnit(unit) :
-                                            (filter.includes(unit.size) ? getUnit(unit) : null)
-                                        )
+                                        (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? getUnit(unit) : (
+                                            <TableCell
+                                                key={unit.uid}
+                                                style={{ border: "1px solid black", }}
+                                            ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{3}</Avatar></center></TableCell>
+                                        ) : (
+                                                <TableCell
+                                                    key={unit.uid}
+                                                    style={{ border: "1px solid black", }}
+                                                ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{2}</Avatar></center></TableCell>
+                                            ) : (
+                                                <TableCell
+                                                    key={unit.uid}
+                                                    style={{ border: "1px solid black", }}
+                                                ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{1}</Avatar></center></TableCell>
+                                            )
                                 )}
                             </TableRow>
                             {floor.fid.split('F')[1] % 2 === 1 ? null : (

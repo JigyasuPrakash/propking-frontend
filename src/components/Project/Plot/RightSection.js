@@ -71,6 +71,8 @@ function RightSection({ myUnit, handleModal, response, customer }) {
                                 <React.Fragment>
                                     <br />
                                     <Typography variant="h6" align="center">Flat No. {myUnit.unit_no}</Typography>
+                                    <Typography variant="subtitle1" align="center">Area: {myUnit.size} Sq.Yds.</Typography>
+                                    <Typography variant="caption" align="center">Feature: {myUnit.tags_set}</Typography>
                                     {action === "Booking" && (
                                         <React.Fragment>
                                             <TextField id="customername" label="Name" required fullWidth />

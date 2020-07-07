@@ -13,7 +13,7 @@ function LeftPreview({ tower, unitInfo, areaFilter, towerFilter }) {
         setFormats(newFormats);
         towerFilter(newFormats);
     }
-    
+
     const icons = tower === undefined ? null : tower.map(item => (
         <ToggleButton key={item.tid} value={item.tid} aria-label={item.bname} style={{ margin: "9px" }}>
             <ApartmentIcon color="primary" fontSize="default" />
@@ -26,17 +26,24 @@ function LeftPreview({ tower, unitInfo, areaFilter, towerFilter }) {
     ))
 
     return (
-        <Grid container>
-            <Grid item sm style={{ borderRight: "1px lightgrey solid" }}>
-                <ToggleButtonGroup orientation="vertical" value={formats} onChange={handleChange} aria-label="apartments" style={{ margin: "5px", }}>
-                    {icons}
-                </ToggleButtonGroup>
+        <React.Fragment >
+            <Grid container justify="center">
+                <Grid item sm={12}>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Towers:</Typography>
+                    <center>
+                        <ToggleButtonGroup orientation="vertical" value={formats} onChange={handleChange} aria-label="apartments" style={{ margin: "5px", }}>
+                            {icons}
+                        </ToggleButtonGroup>
+                    </center>
+                </Grid>
             </Grid>
-            <Grid item sm={8}>
-                <Typography variant="h6" style={{ borderBottom: "1px lightGrey solid", margin: "10px" }} align="center">Unit Type</Typography>
-                {createUnitInfo}
+            <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
+                <Grid item sm={12}>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Unit Type</Typography>
+                    {createUnitInfo}
+                </Grid>
             </Grid>
-        </Grid>
+        </React.Fragment>
     )
 }
 

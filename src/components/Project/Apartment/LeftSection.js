@@ -6,7 +6,8 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import MyCheckBox from './MyCheckBox';
 
-function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
+
+function LeftSection({ tower, unitInfo, areaFilter, towerFilter, attributes, facing }) {
 
     const [formats, setFormats] = React.useState(() => []);
     const handleChange = (event, newFormats) => {
@@ -24,7 +25,28 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
     const createUnitInfo = unitInfo === undefined ? null : unitInfo.map(item => (
         <React.Fragment key={item.id}>
             <MyCheckBox
+                type="unit"
                 data={item}
+                filter={areaFilter} />
+            <br />
+        </React.Fragment>
+    ));
+
+    const createAttribute = attributes === undefined ? null : attributes.map(item => (
+        <React.Fragment key={item.attribute}>
+            <MyCheckBox
+                type="attribute"
+                data={item.attribute}
+                filter={areaFilter} />
+            <br />
+        </React.Fragment>
+    ));
+
+    const createFacing = facing === undefined ? null : facing.map(item => (
+        <React.Fragment key={item.facing}>
+            <MyCheckBox
+                type="facing"
+                data={item.facing}
                 filter={areaFilter} />
             <br />
         </React.Fragment>
@@ -46,6 +68,18 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter }) {
                 <Grid item sm={12}>
                     <Typography variant="h6" style={{ margin: "10px" }} align="center">Unit Type</Typography>
                     {createUnitInfo}
+                </Grid>
+            </Grid>
+            <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
+                <Grid item sm={12}>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Attributes</Typography>
+                    {createAttribute}
+                </Grid>
+            </Grid>
+            <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
+                <Grid item sm={12}>
+                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Facing</Typography>
+                    {createFacing}
                 </Grid>
             </Grid>
         </React.Fragment>

@@ -76,7 +76,12 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
                                     {floor.units.map((unit) =>
                                         unit === undefined ? null :
                                             (filter.length === 0 ? getUnit(unit) :
-                                                (filter.includes(unit.size) ? getUnit(unit) : null)
+                                                (filter.includes(unit.size) ? getUnit(unit) : (
+                                                    <TableCell
+                                                        key={unit.uid}
+                                                        style={{ border: "1px solid black", }}
+                                                    ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{null}</Avatar></center></TableCell>
+                                                ))
                                             )
                                     )}
                                 </TableRow>
@@ -99,7 +104,12 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
                                         (filter.length === 0 ? getUnit(unit) :
-                                            (filter.includes(unit.size) ? getUnit(unit) : null)
+                                            (filter.includes(unit.size) ? getUnit(unit) : (
+                                                <TableCell
+                                                    key={unit.uid}
+                                                    style={{ border: "1px solid black", }}
+                                                ><center><Avatar style={{ backgroundColor: "white", color: "white" }}>{null}</Avatar></center></TableCell>
+                                            ))
                                         )
                                 )}
                             </TableRow>
