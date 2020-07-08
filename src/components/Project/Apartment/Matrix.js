@@ -58,7 +58,6 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
             }
         } else if (unit.status === "lead") {
             let count = 0;
-            console.log(leadcount)
             leadcount.forEach(element => {
                 if (element.unit_id === unit.uid) {
                     count = element.count;

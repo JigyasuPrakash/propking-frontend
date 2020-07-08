@@ -17,7 +17,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -41,7 +41,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -74,7 +74,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -87,7 +87,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                             style={{ backgroundColor: "#d8db2e", border: "1px solid black", cursor: "pointer" }}
                         >
                             <center>
-                                <Badge badgeContent={5} color="secondary">
+                                <Badge badgeContent={count} color="secondary">
                                     <Avatar style={{ backgroundColor: "inherit", color: "black" }}>
                                         {unit.unit_no}
                                     </Avatar>
@@ -100,7 +100,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -128,7 +128,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -152,7 +152,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -178,7 +178,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -202,7 +202,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
+                            <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
                             {unit.att === "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />

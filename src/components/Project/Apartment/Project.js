@@ -14,7 +14,9 @@ class Home extends Component {
         this.state = {
             project: undefined,
             customer: undefined,
-            leadcount: undefined
+            lead: [],
+            leadcount: 0,
+            paymentcount: 0
         }
     }
 
@@ -25,7 +27,11 @@ class Home extends Component {
                 alert("Can't fetch results");
                 this.setState({ project: undefined });
             } else {
-                this.setState({ project: response.data.result, leadcount: response.data.leadcount });
+                let leadcount = 0;
+                response.data.leadcount.forEach(lead => {
+                    leadcount += Number(lead.count);
+                })
+                this.setState({ project: response.data.result, lead: response.data.leadcount, leadcount, paymentcount: response.data.paymentcount });
             }
         })
     }
@@ -69,13 +75,15 @@ class Home extends Component {
                         <Title
                             name={this.state.project.name}
                             location={this.state.project.location}
-                            logo={this.state.project.img_set} />
+                            logo={this.state.project.img_set}
+                            leadcount={this.state.leadcount}
+                            paymentcount={this.state.paymentcount} />
                         <Section
                             project={this.state.project}
                             response={this.customerResponse}
                             fetchBookedFlat={this.fetchBookedFlat}
                             customer={this.state.customer}
-                            leadcount={this.state.leadcount} />
+                            leadcount={this.state.lead} />
                     </div>
                 )
         )

@@ -69,7 +69,6 @@ class PreviewApartment extends Component {
     }
 
     handleTowerFilter = (info) => {
-        console.log(info)
         let data = this.state.towers.filter((t) => {
             return info.includes(t.tid);
         });

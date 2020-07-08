@@ -23,18 +23,18 @@ function RightSection({ myUnit, handleModal, response, customer }) {
         let comment = document.getElementById("comment").value;
         if (action === "Lead") {
             if (name !== "" && phone !== "") {
-                response(action, { unit: myUnit.uid, name, agentname, phone, comment });
+                response(action, { unit: myUnit.uid, unit_no: myUnit.unit_no, name, agentname, phone, comment });
             } else {
                 alert("Please fill mandatory fields to continue");
             }
         } else if (action === "Booking" || action === "Payment") {
             let amount = document.getElementById("amount").value;
-            let ref_no = "";
+            let ref_no = "-";
             if (paymentOpt === "Cheque" || paymentOpt === "Net Banking") {
                 ref_no = document.getElementById("refnumber").value;
             }
             if (name !== "" && phone !== "") {
-                response(action, { unit: myUnit.uid, name, agentname, phone, paymentOpt, amount, ref_no, comment });
+                response(action, { unit: myUnit.uid, unit_no: myUnit.unit_no, name, agentname, phone, paymentOpt, amount, ref_no, comment });
             } else {
                 alert("Please fill mandatory fields to continue");
             }

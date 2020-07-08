@@ -12,6 +12,7 @@ import Header from './components/Header/Header';
 import ApartmentProject from './components/Project/Apartment/Project';
 import PlotProject from './components/Project/Plot/Project';
 import Dashboard from './components/Builder/Dashboard';
+import ExistingProject from './components/Builder/ExistingProject';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route exact path="/builder/" component={Dashboard} />
           <Route path="/builder/build/a" component={BuildApartment} />
           <Route path="/builder/build/p" component={BuildPlot} />
-          <Route path="/builder/projects" component={Home} />
+          <Route path="/builder/projects" component={ExistingProject} />
           <Route path="/generate/a/:id" component={GenerateApartment} />
           <Route path="/generate/p/:id" component={GeneratePlot} />
           <Route path="/preview/a/:id" component={PreviewApartment} />
