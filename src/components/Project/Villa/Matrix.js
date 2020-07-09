@@ -19,9 +19,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -39,9 +39,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -67,9 +67,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -88,9 +88,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -111,9 +111,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -130,9 +130,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -151,9 +151,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -170,9 +170,9 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 return (
                     <Tooltip arrow title={(
                         <React.Fragment>
-                            <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
-                            <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
+                            <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -195,10 +195,59 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                 <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.tname}</Typography>
                 <Table size="small" aria-label="simple table">
                     <TableBody>{tower.floors[0].fid.split('F')[1] < (tower.floors === undefined ? 0 : tower.floors[1].fid.split('F')[1]) ? (
-                        tower.floors.reverse().map((floor) => (
+                        tower.floors.map((floor) => (
+                            <React.Fragment>
+                                <TableRow key={floor.fid}>
+                                    <TableCell align="center" style={{ minWidth: "100px" }}>
+                                        <Typography variant="body2">Row {floor.floor_no}</Typography>
+                                    </TableCell>
+                                    {floor.units.map((unit) =>
+                                        unit === undefined ? null :
+                                            (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? (
+                                                <TableCell key={unit.uid}>
+                                                    {getUnit(unit)}
+                                                </TableCell>) :
+                                                <TableCell key={unit.uid}>
+                                                    <Button
+                                                        variant="outlined"
+                                                        disabled
+                                                        onClick={() => mySelect(unit)}>
+                                                        <HomeIcon style={{ color: "grey" }} />
+                                                    </Button>
+                                                </TableCell> :
+                                                <TableCell key={unit.uid}>
+                                                    <Button
+                                                        variant="outlined"
+                                                        disabled
+                                                        onClick={() => mySelect(unit)}>
+                                                        <HomeIcon style={{ color: "grey" }} />
+                                                    </Button>
+                                                </TableCell> :
+                                                <TableCell key={unit.uid}>
+                                                    <Button
+                                                        variant="outlined"
+                                                        disabled
+                                                        onClick={() => mySelect(unit)}>
+                                                        <HomeIcon style={{ color: "grey" }} />
+                                                    </Button>
+                                                </TableCell>
+                                    )}
+                                </TableRow>
+                                {floor.fid.split('F')[1] % 2 === 1 ? null : (
+                                    <TableRow>
+                                        <TableCell></TableCell>
+                                        {floor.units.map((unit) => (
+                                            <TableCell key={unit.uid}></TableCell>
+                                        ))}
+                                    </TableRow>)
+                                }
+                            </React.Fragment>
+                        ))
+                    ) : (tower.floors.reverse().map((floor) => (
+                        <React.Fragment>
                             <TableRow key={floor.fid}>
                                 <TableCell align="center" style={{ minWidth: "100px" }}>
-                                    <Typography variant="body2">Floor {floor.floor_no}</Typography>
+                                    <Typography variant="body2">Row {floor.floor_no}</Typography>
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
@@ -232,44 +281,15 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                             </TableCell>
                                 )}
                             </TableRow>
-                        ))
-                    ) : (tower.floors.map((floor) => (
-                        <TableRow key={floor.fid}>
-                            <TableCell align="center" style={{ minWidth: "100px" }}>
-                                <Typography variant="body2">Floor {floor.floor_no}</Typography>
-                            </TableCell>
-                            {floor.units.map((unit) =>
-                                unit === undefined ? null :
-                                    (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? (
-                                        <TableCell key={unit.uid}>
-                                            {getUnit(unit)}
-                                        </TableCell>) :
-                                        <TableCell key={unit.uid}>
-                                            <Button
-                                                variant="outlined"
-                                                disabled
-                                                onClick={() => mySelect(unit)}>
-                                                <HomeIcon style={{ color: "grey" }} />
-                                            </Button>
-                                        </TableCell> :
-                                        <TableCell key={unit.uid}>
-                                            <Button
-                                                variant="outlined"
-                                                disabled
-                                                onClick={() => mySelect(unit)}>
-                                                <HomeIcon style={{ color: "grey" }} />
-                                            </Button>
-                                        </TableCell> :
-                                        <TableCell key={unit.uid}>
-                                            <Button
-                                                variant="outlined"
-                                                disabled
-                                                onClick={() => mySelect(unit)}>
-                                                <HomeIcon style={{ color: "grey" }} />
-                                            </Button>
-                                        </TableCell>
-                            )}
-                        </TableRow>
+                            {floor.fid.split('F')[1] % 2 === 1 ? null : (
+                                <TableRow>
+                                    <TableCell></TableCell>
+                                    {floor.units.map((unit) => (
+                                        <TableCell key={unit.uid}></TableCell>
+                                    ))}
+                                </TableRow>)
+                            }
+                        </React.Fragment>
                     )))}
                     </TableBody>
                 </Table>

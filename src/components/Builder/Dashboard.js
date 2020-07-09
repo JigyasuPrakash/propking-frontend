@@ -86,6 +86,13 @@ function Dashboard() {
                         <ListItemText primary="Plots" />
                     </StyledMenuItem>
                 </Link>
+                <Link
+                    to="/builder/build/v"
+                    style={{ textDecoration: "none", color: "black" }}>
+                    <StyledMenuItem>
+                        <ListItemText primary="Villa" />
+                    </StyledMenuItem>
+                </Link>
             </StyledMenu>
         </center>
     )

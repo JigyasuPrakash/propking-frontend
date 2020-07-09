@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import LeftPreview from './LeftPreview';
 import MiddlePreview from './MiddlePreview';
-import RightPreview from './RightPreview';
-import PreviewModal from './PreviewModal';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -121,17 +118,7 @@ class PreviewApartment extends Component {
                         >Publish</Button>
                         {this.publishedLink()}
                         <Grid container justify="space-evenly">
-                            <Grid item sm xs={12} style={{ margin: "16px" }}>
-                                <Paper elevation={3} >
-                                    <LeftPreview
-                                        tower={this.state.towers}
-                                        unitInfo={this.state.unitInfo}
-                                        towerFilter={this.handleTowerFilter}
-                                        areaFilter={this.handleAreaFilter}
-                                    />
-                                </Paper>
-                            </Grid>
-                            <Grid item sm={6} xs={12} style={{ margin: "16px" }}>
+                            <Grid item sm={12} xs={12} style={{ margin: "16px" }}>
                                 <Paper elevation={3}>
                                     <MiddlePreview
                                         tower={this.state.filteredTower}
@@ -141,22 +128,7 @@ class PreviewApartment extends Component {
                                     />
                                 </Paper>
                             </Grid>
-                            <Grid item sm xs={12} style={{ margin: "16px" }}>
-                                <Paper elevation={3} >
-                                    <RightPreview
-                                        myUnit={this.state.selectUnit}
-                                        handleModal={this.handleModalOpen}
-                                    />
-                                </Paper>
-                            </Grid>
                         </Grid>
-
-                        {this.state.selectUnit === undefined ? null : (
-                            <PreviewModal
-                                unit={this.state.selectUnit}
-                                open={this.state.open}
-                                handleModalClose={this.handleModalClose} />)
-                        }
                     </center>
                 )
         )

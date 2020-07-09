@@ -3,6 +3,7 @@ import axios from 'axios';
 import MiddlePreview from './MiddlePreview';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import { domain } from '../../../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -33,7 +34,7 @@ class PreviewPlot extends Component {
     }
 
     publish = () => {
-        axios.post(`${domain}/api/builder/p/publish`, {
+        axios.post(`${domain}/api/builder/v/publish`, {
             pid: this.state.pid
         }).then((response) => {
             this.setState({ url: response.data.url });
@@ -65,6 +66,7 @@ class PreviewPlot extends Component {
     }
 
     handleTowerFilter = (info) => {
+        console.log(info)
         let data = this.state.blocks.filter((t) => {
             return info.includes(t.tid);
         });
@@ -117,14 +119,18 @@ class PreviewPlot extends Component {
                         >Publish</Button>
                         {this.publishedLink()}
                         <Grid container justify="space-evenly">
-                            <Grid item sm={12} xs={12} style={{ margin: "16px" }}>
-                                <MiddlePreview
-                                    tower={this.state.filteredBlocks}
-                                    areaFilter={this.state.areaArray}
-                                    selected={this.state.selectUnit}
-                                    unitSelect={this.selectUnit}
-                                />
-                            </Grid>
+                            {this.state.filteredBlocks.map(tower => (
+                                <Grid item sm={12} xs={12} style={{ margin: "16px" }}>
+                                    <Paper elevation={3}>
+                                        <MiddlePreview
+                                            tower={tower}
+                                            areaFilter={this.state.areaArray}
+                                            selected={this.state.selectUnit}
+                                            unitSelect={this.selectUnit}
+                                        />
+                                    </Paper>
+                                </Grid>
+                            ))}
                         </Grid>
                     </center>
                 )

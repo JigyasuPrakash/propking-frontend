@@ -3,7 +3,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import HomeIcon from '@material-ui/icons/Home';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import EditIcon from '@material-ui/icons/Edit';
@@ -12,6 +11,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import BlockIcon from '@material-ui/icons/Block';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -57,14 +57,15 @@ function GenerateCell({ unit, variant, filter, color, disable, rename }) {
         <React.Fragment>
             <Tooltip interactive arrow title={(
                 <React.Fragment>
-                    <Typography variant="body2" align="center">FlatNo: {unit.unit_no}
+                    <Typography variant="body2" align="center">Villa No: {unit.unit_no}
                         <IconButton size="small" onClick={handleOpen}><EditIcon fontSize="small" /></IconButton>
                     </Typography>
                     <FormControlLabel
                         control={<Switch size="small" checked={checked} onChange={toggleChecked} />}
                         label="Remove"
                     /><br />
-                    <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
+                    {console.log(unit)}
+                    <Typography variant="caption" align="center">{unit.landArea} Sq.Ft. - {unit.type} - {unit.bhk_type} BHK({unit.size} Sq.Fts.)</Typography><br />
                     {unit.att === "" ? null : (
                         <React.Fragment>
                             <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
@@ -73,10 +74,10 @@ function GenerateCell({ unit, variant, filter, color, disable, rename }) {
                 </React.Fragment>
             )}>
                 {unit.status ? (
-                    unit.bhk_type !== "" && unit.facing !== "" && unit.g_img_set !== "" ? (
+                    unit.att !== "" && unit.facing !== "" && unit.g_img_set !== "" ? (
                         <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
                     ) : (
-                            <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant}><HomeIcon style={{ color: color }} /></Button>
+                            <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant}><HomeIcon style={{ color: "grey" }} /></Button>
                         ))
                     : (<Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="secondary"><BlockIcon style={{ color: color }} /></Button>)
                 }

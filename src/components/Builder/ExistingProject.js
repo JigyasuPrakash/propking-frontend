@@ -103,7 +103,11 @@ class ExistingProject extends Component {
                                             <Link to={`/project/p/${p.pid}`} style={{ textDecoration: "none" }}>
                                                 <Button
                                                     size="small">View</Button>
-                                            </Link>) : null}
+                                            </Link>) : p.type === "villa" ? (
+                                                <Link to={`/project/v/${p.pid}`} style={{ textDecoration: "none" }}>
+                                                    <Button
+                                                        size="small">View</Button>
+                                                </Link>) : null}
                                     <Button
                                         onClick={() => this.getLead(p.pid, p.pname)}
                                         size="small">Leads</Button>

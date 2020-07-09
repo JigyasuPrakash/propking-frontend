@@ -28,6 +28,7 @@ class BuildFlat extends Component {
             facingOptions: ['East', 'West', 'North', 'South', 'North-East', 'South-East', 'North-West', 'South-West'],
             proceed: false,
             bhk: "",
+            type: "",
             floorPlans: [],
             verified: false
         };
@@ -49,7 +50,7 @@ class BuildFlat extends Component {
         const handleProceed = () => {
             let towers = [];
             this.state.towerCount.forEach(t => {
-                let tname = document.getElementById(`tname${t.tid}`).value;
+                let bname = document.getElementById(`tname${t.tid}`).value;
                 let floors = []
                 let floorCount = document.getElementById(`floorCount${t.tid}`).value;
                 for (let i = floorCount; i >= 1; i--) {
@@ -58,13 +59,13 @@ class BuildFlat extends Component {
                     for (let j = 1; j <= unitCount; j++) {
                         let num = '';
                         j <= 9 ? (num = `0${j}`) : num = `${j}`;
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true, g_img_set: "" });
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", landArea: 0, type: "", size: 0, att: "", facing: "", status: true, g_img_set: "" });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
                 towers.push({
                     tid: t.tid,
-                    tname,
+                    bname,
                     floors,
                 })
             })
@@ -72,15 +73,18 @@ class BuildFlat extends Component {
         }
 
         const addFlatType = () => {
+            let landArea = Number(document.getElementById("landArea").value);
+            let type = this.state.type;
             let bhk = this.state.bhk;
             let area = Number(document.getElementById('uniqueArea').value);
-            if (area !== 0 && bhk !== "") {
-                this.setState({ unitInfo: [...this.state.unitInfo, { key: bhk + '' + area, bhk, area, unit: 'Sq.Ft.' }] });
+            if (landArea !== 0 && area !== 0 && bhk !== "" && type !== "") {
+                this.setState({ unitInfo: [...this.state.unitInfo, { key: type + bhk + '' + area, landArea, type, bhk, area, unit: 'Sq.Ft.' }] });
             } else {
                 alert("Please provide some value");
             }
+            document.getElementById("landArea").value = ""
             document.getElementById('uniqueArea').value = "";
-            this.setState({ bhk: "" });
+            this.setState({ bhk: "", type: "" });
         }
 
         const handleAreaDelete = (areaToDelete) => () => {
@@ -93,7 +97,7 @@ class BuildFlat extends Component {
                     <div key={data.key}>
                         <Chip
                             size="small"
-                            label={`${data.bhk} BHK (${data.area} sq.ft.)`}
+                            label={`${data.landArea} Sq.Ft. Land - ${data.type}\n${data.bhk} BHK (${data.area} Sq.Ft.)`}
                             onDelete={handleAreaDelete(data)}
                         /><br />
                     </div>
@@ -155,6 +159,10 @@ class BuildFlat extends Component {
             this.setState({ bhk: event.target.value });
         }
 
+        const handleChangeType = (event) => {
+            this.setState({ type: event.target.value });
+        }
+
         const getfplan = () => {
             let myFPlan = [];
             this.state.unitInfo.forEach(u => {
@@ -164,7 +172,7 @@ class BuildFlat extends Component {
                         alert("URL cannot be empty");
                     } else {
                         myFPlan.push({
-                            label: `Floor plan: ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
+                            label: `Floor plan: ${u.type} - ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
                             url
                         });
                     }
@@ -184,7 +192,7 @@ class BuildFlat extends Component {
                             <TextField required size="small" id="pname" label="Project Name" />
                         </Grid>
                         <Grid item xs={2}>
-                            <TextField required size="small" id="tCount" label="Number of Towers" type="number" />
+                            <TextField required size="small" id="tCount" label="Number of Blocks" type="number" />
                         </Grid>
                         <Grid item xs={2}>
                             <Button variant="outlined" onClick={createTower} style={{ marginTop: "10px" }}>
@@ -196,18 +204,18 @@ class BuildFlat extends Component {
                 <br />
                 {this.state.towerCount.length === 0 ? null : (
                     <Paper style={{ padding: "15px" }}>
-                        <Typography variant="h6">Tower Details</Typography>
+                        <Typography variant="h6">Block Details</Typography>
                         <br />
                         {this.state.towerCount.map(t => (
                             <Grid container key={t.tid} justify="flex-start">
                                 <Grid item xs={2}>
-                                    <TextField size="small" id={`tname${t.tid}`} label={`Tower-${t.tid} Name`} />
+                                    <TextField size="small" id={`tname${t.tid}`} label={`Block-${t.tid} Name`} />
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <TextField required size="small" id={`floorCount${t.tid}`} label="No. of floors" type="number" />
+                                    <TextField required size="small" id={`floorCount${t.tid}`} label="No. of rows" type="number" />
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <TextField required size="small" id={`unitCount${t.tid}`} label="Max no. of flats/floor" type="number" />
+                                    <TextField required size="small" id={`unitCount${t.tid}`} label="Max no. of villas/row" type="number" />
                                 </Grid>
                             </Grid>
                         ))}
@@ -224,15 +232,35 @@ class BuildFlat extends Component {
                 <br />
                 {this.state.proceed && this.state.towerCount.length !== 0 ? (
                     <Paper style={{ padding: "15px" }}>
-                        <Typography variant="h6">Flat Features</Typography>
+                        <Typography variant="h6">Villa Features</Typography>
                         <br />
                         <Grid container justify="space-evenly">
-                            <Grid item xs={4}>
+                            <Grid item xs={5}>
                                 <center>
-                                    <label>Unique Flat Type *: </label>
+                                    <label>Unique Villa Type *: </label>
                                 </center><br />
                                 <Grid container justify="space-evenly">
-                                    <Grid item xs={4}>
+                                    <Grid item xs={3}>
+                                        <TextField required size="small" id="landArea" label="Land Area" type="number" />
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <TextField
+                                            id="villatype"
+                                            select
+                                            required
+                                            size="small"
+                                            fullWidth
+                                            label="Type"
+                                            value={this.state.type}
+                                            onChange={handleChangeType}
+                                        >
+                                            <MenuItem value=""><em>None</em></MenuItem>
+                                            <MenuItem value="Simplex">Simplex</MenuItem>
+                                            <MenuItem value="Duplex">Duplex</MenuItem>
+                                            <MenuItem value="Triplex">Triplex</MenuItem>
+                                        </TextField>
+                                    </Grid>
+                                    <Grid item xs={2}>
                                         <TextField
                                             id="uniquebhk"
                                             select
@@ -254,7 +282,7 @@ class BuildFlat extends Component {
                                             <MenuItem value={4.5}>{4.5}</MenuItem>
                                         </TextField>
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={3}>
                                         <TextField required size="small" id="uniqueArea" label="Area" type="number" />
                                     </Grid>
                                     <Grid item xs={1}>
@@ -272,7 +300,7 @@ class BuildFlat extends Component {
                                 {createArea}
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs={3}>
                                 <center>
                                     <label>Unique Attributes: </label>
                                 </center><br />
@@ -332,7 +360,7 @@ class BuildFlat extends Component {
                         <center>
                             {this.state.verified && (<Link
                                 to={{
-                                    pathname: `/generate/a/${this.state.pid}`,
+                                    pathname: `/generate/v/${this.state.pid}`,
                                     pname: this.state.pname,
                                     towers: this.state.towers,
                                     unitInfo: this.state.unitInfo,

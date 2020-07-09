@@ -66,7 +66,7 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
                 <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">{tower.bname}</Typography>
                 <Table size="small" aria-label="simple table">
                     <TableBody>{tower.floors[0].fid.split('F')[1] < (tower.floors[1] === undefined ? 0 : tower.floors[1].fid.split('F')[1]) ? (
-                        tower.floors.reverse().map((floor) => (
+                        tower.floors.map((floor) => (
                             <React.Fragment>
                                 <TableRow key={floor.fid}>
                                     <TableCell align="center">
@@ -94,7 +94,7 @@ function PreviewMatrix({ tower, filter, mySelect, selected }) {
                                 )}
                             </React.Fragment>
                         ))
-                    ) : (tower.floors.map((floor) => (
+                    ) : (tower.floors.reverse().map((floor) => (
                         <React.Fragment key={floor.fid}>
                             <TableRow>
                                 <TableCell align="center">

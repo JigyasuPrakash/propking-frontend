@@ -66,7 +66,13 @@ class Home extends Component {
                                                     size="small">
                                                     View
                                             </Button>
-                                            </Link>) : null}
+                                            </Link>) : p.type === "villa" ? (
+                                                <Link to={`/project/v/${p.pid}`} style={{ textDecoration: "none" }}>
+                                                    <Button
+                                                        size="small">
+                                                        View
+                                                    </Button>
+                                                </Link>) : null}
                                 </CardActions>
                             </Card>
                         </Grid>
