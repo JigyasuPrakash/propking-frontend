@@ -27,7 +27,8 @@ class GenerateApartment extends Component {
                 towers: this.props.location.towers,
                 unitInfo: this.props.location.unitInfo,
                 uniqueAtt: this.props.location.uniqueAtt,
-                facing: this.props.location.facing
+                facing: this.props.location.facing,
+                floorPlans: this.props.location.floorPlans
             });
         } else {
             axios.get(`${domain}/api/builder/getproject/${pid}`).then((response) => {
@@ -42,7 +43,8 @@ class GenerateApartment extends Component {
                         towers: response.data.project.main,
                         unitInfo: response.data.project.unitInfo,
                         uniqueAtt: response.data.project.uniqueAtt,
-                        facing: response.data.project.facing
+                        facing: response.data.project.facing,
+                        floorPlans: response.data.project.floorPlans
                     });
                 }
             }).catch((err) => {
@@ -82,7 +84,8 @@ class GenerateApartment extends Component {
             main: project,
             unitInfo: this.state.unitInfo,
             uniqueAtt: this.state.uniqueAtt,
-            facing: this.state.facing
+            facing: this.state.facing,
+            floorPlans: this.state.floorPlans
         }).then((response) => {
             alert("Project saving: " + response.data.status);
         }).catch((err) => {
@@ -102,6 +105,7 @@ class GenerateApartment extends Component {
                     facing={this.state.facing}
                     unitInfo={this.state.unitInfo}
                     uniqueAtt={this.state.uniqueAtt}
+                    floorPlans={this.state.floorPlans}
                     save={this.save}
                     preview={this.preview}
                 />

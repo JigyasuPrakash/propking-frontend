@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function GenerateOptions({ unitInfo, attributes, facing, apply }) {
+function GenerateOptions({ unitInfo, attributes, facing, floorPlans, apply }) {
     const classes = useStyles();
 
     const [newAtt, setAtt] = React.useState('');
@@ -36,11 +36,17 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
         setFace(event.target.value);
     }
 
+    const [newFloorPlan, setFloorPlan] = React.useState('');
+    const handlePlanChange = (event) => {
+        setFloorPlan(event.target.value);
+    }
+
     const applyOptions = () => {
-        apply(newUnit, newAtt, newFace);
+        apply(newUnit, newAtt, newFace, newFloorPlan);
         setAtt('');
         setInfo('');
         setFace('');
+        setFloorPlan('');
         setUnit({ bhk: "", area: 0 });
     }
 
@@ -84,6 +90,20 @@ function GenerateOptions({ unitInfo, attributes, facing, apply }) {
                             </MenuItem>
                             {facing.map(a => (
                                 <MenuItem key={a} value={a}>{a}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={3}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Floor Plan</InputLabel>
+                        <Select value={newFloorPlan} onChange={handlePlanChange} fullWidth>
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {floorPlans.map(a => (
+                                <MenuItem key={a.label} value={a.url}>{a.label}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

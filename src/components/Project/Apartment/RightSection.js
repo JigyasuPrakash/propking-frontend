@@ -72,42 +72,43 @@ function RightSection({ myUnit, handleModal, response, customer }) {
                                     <br />
                                     <Typography variant="h6" align="center">Flat No. {myUnit.unit_no}</Typography>
                                     <Typography variant="subtitle1" align="center">{myUnit.bhk_type} BHK ({myUnit.size} Sq.Ft.)</Typography>
-                                    <Typography variant="caption" align="center">Features: {myUnit.tags_set}</Typography>
-                                    {action === "Booking" && (
+                                    <Typography variant="caption" align="center">Features: {myUnit.tags_set}</Typography><br />
+                                    <Button onClick={() => handleModal(myUnit)}>Floor Plan</Button>
+                                        {action === "Booking" && (
+                                            <React.Fragment>
+                                                <TextField id="customername" label="Name" required fullWidth />
+                                                <TextField id="agentname" label="Agent Name" fullWidth />
+                                                <TextField id="phone" label="Phone No" type="number" required fullWidth />
+                                                <TextField id="amount" label="Amount" type="number" required fullWidth />
+                                                <TextField
+                                                    select
+                                                    label="Payment Type"
+                                                    value={paymentOpt}
+                                                    onChange={handlePaymentChange}
+                                                    required
+                                                    fullWidth>
+                                                    <MenuItem value="Cheque">Cheque</MenuItem>
+                                                    <MenuItem value="Cash">Cash</MenuItem>
+                                                    <MenuItem value="Net Banking">Net Banking</MenuItem>
+                                                </TextField>
+                                                {(paymentOpt === "Cheque" || paymentOpt === "Net Banking") && (
+                                                    <TextField id="refnumber" label="Reference Number" fullWidth />
+                                                )}
+                                                <TextField id="comment" label="Comments" fullWidth /><br /><br />
+                                                <Button variant="outlined" color="primary" onClick={submit}>Submit</Button>
+                                            </React.Fragment>
+                                        )}
+                                </React.Fragment>
+                            )
+                        }
+                                    {action === "Lead" && (
                                         <React.Fragment>
                                             <TextField id="customername" label="Name" required fullWidth />
                                             <TextField id="agentname" label="Agent Name" fullWidth />
                                             <TextField id="phone" label="Phone No" type="number" required fullWidth />
-                                            <TextField id="amount" label="Amount" type="number" required fullWidth />
-                                            <TextField
-                                                select
-                                                label="Payment Type"
-                                                value={paymentOpt}
-                                                onChange={handlePaymentChange}
-                                                required
-                                                fullWidth>
-                                                <MenuItem value="Cheque">Cheque</MenuItem>
-                                                <MenuItem value="Cash">Cash</MenuItem>
-                                                <MenuItem value="Net Banking">Net Banking</MenuItem>
-                                            </TextField>
-                                            {(paymentOpt === "Cheque" || paymentOpt === "Net Banking") && (
-                                                <TextField id="refnumber" label="Reference Number" fullWidth />
-                                            )}
                                             <TextField id="comment" label="Comments" fullWidth /><br /><br />
                                             <Button variant="outlined" color="primary" onClick={submit}>Submit</Button>
-                                        </React.Fragment>
-                                    )}
-                                </React.Fragment>
-                            )
-                        }
-                        {action === "Lead" && (
-                            <React.Fragment>
-                                <TextField id="customername" label="Name" required fullWidth />
-                                <TextField id="agentname" label="Agent Name" fullWidth />
-                                <TextField id="phone" label="Phone No" type="number" required fullWidth />
-                                <TextField id="comment" label="Comments" fullWidth /><br /><br />
-                                <Button variant="outlined" color="primary" onClick={submit}>Submit</Button>
-                            </React.Fragment>)}
+                                        </React.Fragment>)}
                     </center>
                 </div>) : (
                     <div style={{ padding: "8px" }}>
@@ -143,8 +144,8 @@ function RightSection({ myUnit, handleModal, response, customer }) {
                         </center>
                     </div>
                 )}
-        </div>
-    )
+                </div>
+            )
 }
 
 export default RightSection

@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
 import TowerRename from './TowerRename';
 
-function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) {
+function GenerateMatrix({ towers, unitInfo, uniqueAtt, floorPlans, facing, save, preview }) {
 
     const [project, setProject] = React.useState(towers);
     const handleProjectUpdate = (newTower) => {
@@ -163,7 +163,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
         });
     }
 
-    const applyOptions = (unitInfo, newAtt, newFace) => {
+    const applyOptions = (unitInfo, newAtt, newFace, newFloorPlan) => {
         let floors = [];
         myTower.floors.forEach(floor => {
             let units = [];
@@ -176,7 +176,8 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                         size: unitInfo.area,
                         att: newAtt,
                         facing: newFace,
-                        status: unit.status
+                        status: unit.status,
+                        g_img_set: newFloorPlan
                     });
                 } else {
                     units.push({
@@ -186,7 +187,8 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
                         size: unit.size,
                         att: unit.att,
                         facing: unit.facing,
-                        status: unit.status
+                        status: unit.status,
+                        g_img_set: unit.g_img_set
                     });
                 }
             })
@@ -284,7 +286,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, facing, save, preview }) 
 
     return (myTower === undefined ? null : (
         <React.Fragment>
-            <GenerateOptions unitInfo={unitInfo} attributes={uniqueAtt} facing={facing} apply={applyOptions} />
+            <GenerateOptions unitInfo={unitInfo} attributes={uniqueAtt} floorPlans={floorPlans} facing={facing} apply={applyOptions} />
             <Grid>
                 <TableContainer>
                     <TowerRename tower={myTower} update={rename} />

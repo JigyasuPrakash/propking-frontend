@@ -70,12 +70,14 @@ function LeftSection({ tower, unitInfo, areaFilter, towerFilter, attributes, fac
                     {createUnitInfo}
                 </Grid>
             </Grid>
-            <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
-                <Grid item sm={12}>
-                    <Typography variant="h6" style={{ margin: "10px" }} align="center">Attributes</Typography>
-                    {createAttribute}
+            {attributes.length !== 0 && (
+                <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
+                    <Grid item sm={12}>
+                        <Typography variant="h6" style={{ margin: "10px" }} align="center">Attributes</Typography>
+                        {createAttribute}
+                    </Grid>
                 </Grid>
-            </Grid>
+            )}
             <Grid container justify="center" style={{ borderTop: "1px solid lightgrey" }}>
                 <Grid item sm={12}>
                     <Typography variant="h6" style={{ margin: "10px" }} align="center">Facing</Typography>

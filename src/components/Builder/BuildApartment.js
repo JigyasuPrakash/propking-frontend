@@ -27,7 +27,9 @@ class BuildFlat extends Component {
             facing: [],
             facingOptions: ['East', 'West', 'North', 'South', 'North-East', 'South-East', 'North-West', 'South-West'],
             proceed: false,
-            bhk: ""
+            bhk: "",
+            floorPlans: [],
+            verified: false
         };
     }
 
@@ -56,7 +58,7 @@ class BuildFlat extends Component {
                     for (let j = 1; j <= unitCount; j++) {
                         let num = '';
                         j <= 9 ? (num = `0${j}`) : num = `${j}`;
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true });
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", size: 0, att: "", facing: "", status: true, g_img_set: "" });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
@@ -153,6 +155,25 @@ class BuildFlat extends Component {
             this.setState({ bhk: event.target.value });
         }
 
+        const getfplan = () => {
+            let myFPlan = [];
+            this.state.unitInfo.forEach(u => {
+                this.state.facing.forEach(f => {
+                    let url = document.getElementById(`fplan${u.key + f}`).value;
+                    if (url === "") {
+                        alert("URL cannot be empty");
+                    } else {
+                        myFPlan.push({
+                            label: `Floor plan: ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
+                            url
+                        });
+                    }
+                })
+            });
+            let myVerify = myFPlan.length === (this.state.unitInfo.length * this.state.facing.length)
+            this.setState({ floorPlans: myFPlan, verified: (validate() && myVerify) });
+        }
+
         return (
             <div style={{ padding: "25px" }}>
                 <Paper style={{ padding: "15px" }}>
@@ -201,7 +222,7 @@ class BuildFlat extends Component {
                     </Paper>
                 )}
                 <br />
-                {this.state.proceed ? (
+                {this.state.proceed && this.state.towerCount.length !== 0 ? (
                     <Paper style={{ padding: "15px" }}>
                         <Typography variant="h6">Flat Features</Typography>
                         <br />
@@ -280,16 +301,44 @@ class BuildFlat extends Component {
                                 ))}
                             </Grid>
                         </Grid>
-                        <br /><br />
+                        <br />
+                        {(this.state.unitInfo.length !== 0 && this.state.facing.length !== 0) && (
+                            <React.Fragment>
+                                <Typography variant="h6">Floor Plan's URLs</Typography>
+                                <Grid container justify="flex-start">
+                                    {this.state.unitInfo.map(u => (
+                                        this.state.facing.map(f => (
+                                            <Grid xs={7} item key={u.key + f} style={{ margin: "5px" }}>
+                                                <TextField
+                                                    required
+                                                    fullWidth
+                                                    size="small"
+                                                    id={`fplan${u.key + f}`}
+                                                    label={`Floor plan: ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`} />
+                                            </Grid>
+                                        ))
+                                    ))}
+                                </Grid>
+                                <br />
+                                <center>
+                                    <Button
+                                        style={{ margin: "10px" }}
+                                        onClick={getfplan}
+                                        variant="outlined">Verify</Button>
+                                </center>
+                            </React.Fragment>
+                        )}
+                        <br />
                         <center>
-                            {validate() && (<Link
+                            {this.state.verified && (<Link
                                 to={{
                                     pathname: `/generate/a/${this.state.pid}`,
                                     pname: this.state.pname,
                                     towers: this.state.towers,
                                     unitInfo: this.state.unitInfo,
                                     uniqueAtt: this.state.uniqueAtt,
-                                    facing: this.state.facing
+                                    facing: this.state.facing,
+                                    floorPlans: this.state.floorPlans
                                 }}
                                 style={{ textDecoration: "none" }}><Button
                                     variant="contained"
