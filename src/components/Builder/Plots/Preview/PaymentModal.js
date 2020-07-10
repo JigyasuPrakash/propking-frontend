@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -20,9 +21,11 @@ function PaymentModal({ unit, open }) {
         unit === undefined ? null : (
             <Fade in={open}>
                 <div className={classes.paper}>
-                    <Typography variant="h6" align="center">Floor Plan</Typography>
+                    <Typography variant="h6" align="center">Plot No. {unit.unit_no}</Typography>
                     <br />
-                    <img src={unit.g_img_set} alt="Floor Plan" height="480px" />
+                    <Typography variant="subtitle1" align="center">{unit.size} Sq.Yds.</Typography>
+                    <br />
+                    <Button variant="outlined" color="primary">Proceed with Payment</Button>
                 </div>
             </Fade>
         )

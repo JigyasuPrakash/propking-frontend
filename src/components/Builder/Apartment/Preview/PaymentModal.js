@@ -22,7 +22,7 @@ function PaymentModal({ unit, open }) {
                 <div className={classes.paper}>
                     <Typography variant="h6" align="center">Floor Plan</Typography>
                     <br />
-                    <img src={unit.g_img_set} alt="Floor Plan" height="480px" />
+                    <img src={unit.g_img_set} alt="Floor Plan" />
                 </div>
             </Fade>
         )

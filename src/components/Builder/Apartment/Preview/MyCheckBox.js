@@ -20,7 +20,7 @@ function MyCheckBox({ type, data, filter }) {
             type === "unit" ? (
                 <FormControlLabel
                     control={<CheckBox checked={state.checked} onChange={handleCheckBox} color="primary" />}
-                    label={<Typography>{data.landArea} Sq.Yds. - {data.type} - {data.bhk} BHK ({data.area} {data.unit})</Typography>}
+                    label={<Typography>{data.bhk} BHK ({data.area} {data.unit})</Typography>}
                     style={{ margin: "2px" }}
                 />
             ) : type === "attribute" ? (

@@ -72,6 +72,8 @@ class GeneratePlot extends Component {
             window.localStorage.setItem('pid', this.state.pid);
             window.localStorage.setItem('blocks', JSON.stringify(this.state.blocks));
             window.localStorage.setItem('unitInfo', JSON.stringify(this.state.unitInfo));
+            window.localStorage.setItem('attributeInfo', JSON.stringify(this.state.uniqueAtt));
+            window.localStorage.setItem('facingInfo', JSON.stringify(this.state.facing));
             window.open(`/preview/p/${this.state.pid}`, "_blank");
         }
     }

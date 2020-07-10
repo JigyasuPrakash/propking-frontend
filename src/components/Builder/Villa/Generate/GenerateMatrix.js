@@ -263,7 +263,7 @@ function GenerateMatrix({ block, update, unitInfo, uniqueAtt, facing, floorPlans
                                             </TableCell>
                                         ))}
                                     </TableRow>
-                                    {floor.fid.split('F')[1] % 2 === 0 ? null : (
+                                    {floor.fid.split('F')[1] % 2 === 1 ? null : (
                                         <TableRow>
                                             <TableCell></TableCell>
                                             {floor.units.map((unit) => (

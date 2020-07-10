@@ -1,16 +1,16 @@
 import React from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
-import PreviewMatrix from './PreviewMatrix';
+import Matrix from './Matrix'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     div: {
         alignItems: "center"
     }
 }))
 
-function MiddlePreview({ tower, areaFilter, unitSelect, selected }) {
+function MiddleSection({ tower, unitSelect, selected }) {
 
     const styling = useStyles();
 
@@ -21,7 +21,10 @@ function MiddlePreview({ tower, areaFilter, unitSelect, selected }) {
 
     return (tower === undefined ? (<CircularProgress />) : (
         <div className={styling.div}>
-            <PreviewMatrix tower={tower[page - 1]} filter={areaFilter} mySelect={unitSelect} selected={selected} />
+            <Matrix
+                tower={tower[page - 1]}
+                mySelect={unitSelect}
+                selected={selected} />
             <br />
             <Pagination count={tower.length} page={page} onChange={handleChange} color="primary" />
             <br />
@@ -29,4 +32,4 @@ function MiddlePreview({ tower, areaFilter, unitSelect, selected }) {
     ))
 }
 
-export default MiddlePreview;
+export default MiddleSection

@@ -54,14 +54,14 @@ function GenerateOptions({ unitInfo, attributes, facing, floorPlans, apply }) {
         <div>
             <Grid container justify="space-evenly">
                 <Grid item xs={2}>
-                    <FormControl className={classes.formControl} fullWidth>
+                    <FormControl className={classes.formControl} fullWidth required>
                         <InputLabel>FlatTypes</InputLabel>
                         <Select value={newInfo} onChange={handleInfo} autoWidth>
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
                             {unitInfo.map(a => (
-                                <MenuItem key={a.key} value={a}>{a.landArea} Sq.Ft. - {a.type} - {a.bhk} BHK ({a.area} Sq.Ft.)</MenuItem>
+                                <MenuItem key={a.key} value={a}>{a.landArea} Sq.Yds. - {a.type} - {a.bhk} BHK ({a.area} Sq.Ft.)</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -82,7 +82,7 @@ function GenerateOptions({ unitInfo, attributes, facing, floorPlans, apply }) {
                 </Grid>
 
                 <Grid item xs={2}>
-                    <FormControl className={classes.formControl} fullWidth>
+                    <FormControl className={classes.formControl} fullWidth required>
                         <InputLabel>Facing</InputLabel>
                         <Select value={newFace} onChange={handleFace} autoWidth>
                             <MenuItem value="">
@@ -96,7 +96,7 @@ function GenerateOptions({ unitInfo, attributes, facing, floorPlans, apply }) {
                 </Grid>
 
                 <Grid item xs={3}>
-                    <FormControl className={classes.formControl} fullWidth>
+                    <FormControl className={classes.formControl} fullWidth required>
                         <InputLabel>Floor Plan</InputLabel>
                         <Select value={newFloorPlan} onChange={handlePlanChange} autoWidth>
                             <MenuItem value="">

@@ -74,7 +74,7 @@ function GenerateCell({ unit, variant, filter, color, disable, rename }) {
                 </React.Fragment>
             )}>
                 {unit.status ? (
-                    unit.att !== "" && unit.facing !== "" && unit.g_img_set !== "" ? (
+                    unit.bhk_type !== 0 && unit.facing !== "" && unit.g_img_set !== "" ? (
                         <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant} color="primary"><HomeIcon style={{ color: "lightgreen" }} /></Button>
                     ) : (
                             <Button id={unit.uid} onClick={() => filter(unit.uid)} variant={variant}><HomeIcon style={{ color: "grey" }} /></Button>

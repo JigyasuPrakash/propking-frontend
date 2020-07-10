@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
+import Section from './Section';
 import axios from 'axios';
-import MiddlePreview from './MiddlePreview';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { domain } from '../../../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { domain } from '../../../../config';
+import Button from '@material-ui/core/Button';
 
-class PreviewApartment extends Component {
+class Home extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            pid: window.location.pathname.split('/')[3],
-            towers: undefined,
-            areaArray: [],
-            selectUnit: { uid: "" },
-            unitInfo: [],
-            filteredTower: undefined,
-            open: false,
-            url: '',
-            loading: true
+            project: undefined,
+            url: ""
         }
     }
 
@@ -30,7 +21,13 @@ class PreviewApartment extends Component {
         let pid = window.localStorage.getItem('pid');
         let towers = JSON.parse(window.localStorage.getItem('towers'));
         let unitInfo = JSON.parse(window.localStorage.getItem('unitInfo'));
-        this.setState({ pid, towers, unitInfo, filteredTower: towers, loading: false });
+        let attributeInfo = JSON.parse(window.localStorage.getItem('attributeInfo'));
+        let facingInfo = JSON.parse(window.localStorage.getItem('facingInfo'));
+        this.setState({
+            project: {
+                pid, towers, unitInfo, attributeInfo, facingInfo
+            }
+        });
     }
 
     publish = () => {
@@ -61,78 +58,34 @@ class PreviewApartment extends Component {
         }
     }
 
-    selectUnit = (selectUnit) => {
-        this.setState({ selectUnit });
-    }
-
-    handleTowerFilter = (info) => {
-        let data = this.state.towers.filter((t) => {
-            return info.includes(t.tid);
-        });
-        if (data.length === 0) {
-            data = this.state.towers;
-        }
-        this.setState({ filteredTower: data });
-    }
-
-    handleAreaFilter = (info) => {
-        let data = this.state.areaArray;
-        if (data.includes(info)) {
-            data = data.filter(a => { return a !== info });
-        } else {
-            data.push(info);
-        }
-        this.setState({ areaArray: data });
-    }
-
-    handleModalOpen = () => {
-        this.setState({ open: true });
-    }
-    handleModalClose = () => {
-        this.setState({ open: false });
-    }
-
     render() {
-
-        return (this.state.loading ? (
-            <Backdrop open={true}>
-                <CircularProgress color="secondary" />
-            </Backdrop>) :
-            this.state.towers === undefined ? (
-                <center>
-                    <h3>Somthing went wrong</h3>
-                    <Button variant="contained" onClick={() => window.close()}>Close</Button>
-                </center>
+        return (
+            this.state.project === undefined ? (
+                <Backdrop open={true}>
+                    <CircularProgress color="secondary" />
+                </Backdrop>
             ) : (
-                    <center>
-                        <Button
-                            variant="contained"
-                            onClick={() => window.close()}
-                            style={{ margin: "12px" }}
-                        >Close</Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={this.publish}
-                            style={{ margin: "12px" }}
-                        >Publish</Button>
-                        {this.publishedLink()}
-                        <Grid container justify="space-evenly">
-                            <Grid item sm={12} xs={12} style={{ margin: "16px" }}>
-                                <Paper elevation={3}>
-                                    <MiddlePreview
-                                        tower={this.state.filteredTower}
-                                        areaFilter={this.state.areaArray}
-                                        selected={this.state.selectUnit}
-                                        unitSelect={this.selectUnit}
-                                    />
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </center>
+                    <div>
+                        <center>
+                            <Button
+                                variant="contained"
+                                onClick={() => window.close()}
+                                style={{ margin: "12px" }}
+                            >Close</Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={this.publish}
+                                style={{ margin: "12px" }}
+                            >Publish</Button>
+                            {this.publishedLink()}
+                        </center>
+                        <Section
+                            project={this.state.project} />
+                    </div>
                 )
         )
     }
 }
 
-export default PreviewApartment;
+export default Home

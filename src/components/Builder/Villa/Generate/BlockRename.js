@@ -45,7 +45,7 @@ function BlockRename({ block, update }) {
     return (
         <React.Fragment>
             <Typography variant="h5" style={{ borderBottom: "1px lightgrey solid", margin: "10px" }} align="center">
-                {block.bname} <IconButton size="medium" onClick={openModal}><EditIcon fontSize="small" /></IconButton>
+                {block.tname} <IconButton size="medium" onClick={openModal}><EditIcon fontSize="small" /></IconButton>
             </Typography>
 
             <Modal

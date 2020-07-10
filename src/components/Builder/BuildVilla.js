@@ -50,10 +50,10 @@ class BuildFlat extends Component {
         const handleProceed = () => {
             let towers = [];
             this.state.towerCount.forEach(t => {
-                let bname = document.getElementById(`tname${t.tid}`).value;
+                let tname = document.getElementById(`tname${t.tid}`).value;
                 let floors = []
                 let floorCount = document.getElementById(`floorCount${t.tid}`).value;
-                for (let i = floorCount; i >= 1; i--) {
+                for (let i = 1; i <= floorCount; i++) {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
@@ -65,7 +65,7 @@ class BuildFlat extends Component {
                 }
                 towers.push({
                     tid: t.tid,
-                    bname,
+                    tname,
                     floors,
                 })
             })
@@ -97,7 +97,7 @@ class BuildFlat extends Component {
                     <div key={data.key}>
                         <Chip
                             size="small"
-                            label={`${data.landArea} Sq.Ft. Land - ${data.type}\n${data.bhk} BHK (${data.area} Sq.Ft.)`}
+                            label={`${data.landArea} Sq.Yds. Land - ${data.type}\n${data.bhk} BHK (${data.area} Sq.Ft.)`}
                             onDelete={handleAreaDelete(data)}
                         /><br />
                     </div>
@@ -168,11 +168,9 @@ class BuildFlat extends Component {
             this.state.unitInfo.forEach(u => {
                 this.state.facing.forEach(f => {
                     let url = document.getElementById(`fplan${u.key + f}`).value;
-                    if (url === "") {
-                        alert("URL cannot be empty");
-                    } else {
+                    if (url !== "") {
                         myFPlan.push({
-                            label: `Floor plan: ${u.type} - ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
+                            label: `Floor plan: ${u.landArea} Sq.Yds. -  ${u.type} - ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
                             url
                         });
                     }
