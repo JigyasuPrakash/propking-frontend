@@ -17,8 +17,8 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                     <React.Fragment>
                         <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                         <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                        {unit.tags_set === "" ? (<React.Fragment>
-                            <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
+                        {unit.att !== "" ? (<React.Fragment>
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
                         </React.Fragment>) : null}
                         <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                     </React.Fragment>
@@ -41,8 +41,8 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                     <React.Fragment>
                         <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                         <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                        {unit.tags_set === "" ? (<React.Fragment>
-                            <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
+                        {unit.att !== "" ? (<React.Fragment>
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
                         </React.Fragment>) : null}
                         <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                     </React.Fragment>
@@ -76,7 +76,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                                     </TableCell>
                                     {floor.units.map((unit) =>
                                         unit === undefined ? null :
-                                            (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? getUnit(unit) : (
+                                            (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.att)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? getUnit(unit) : (
                                                 <TableCell
                                                     key={unit.uid}
                                                     style={{ border: "1px solid black", }}
@@ -112,7 +112,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                                 </TableCell>
                                 {floor.units.map((unit) =>
                                     unit === undefined ? null :
-                                        (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.tags_set)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? getUnit(unit) : (
+                                        (areafilter.length === 0 || areafilter.includes(unit.size)) ? (attributeFilter.length === 0 || attributeFilter.includes(unit.att)) ? (facingFilter.length === 0 || facingFilter.includes(unit.facing)) ? getUnit(unit) : (
                                             <TableCell
                                                 key={unit.uid}
                                                 style={{ border: "1px solid black", }}

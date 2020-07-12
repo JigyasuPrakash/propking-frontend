@@ -21,7 +21,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -41,7 +41,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -69,7 +69,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -90,7 +90,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -113,7 +113,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -132,7 +132,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -153,7 +153,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -172,7 +172,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                         <React.Fragment>
                             <Typography variant="body2" align="center">Flat No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -211,7 +211,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                     variant="outlined"
                                                     disabled
                                                     onClick={() => mySelect(unit)}>
-                                                    <HomeIcon style={{ color: "grey" }} />
+                                                    <HomeIcon style={{ color: "white" }} />
                                                 </Button>
                                             </TableCell> :
                                             <TableCell key={unit.uid}>
@@ -219,7 +219,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                     variant="outlined"
                                                     disabled
                                                     onClick={() => mySelect(unit)}>
-                                                    <HomeIcon style={{ color: "grey" }} />
+                                                    <HomeIcon style={{ color: "white" }} />
                                                 </Button>
                                             </TableCell> :
                                             <TableCell key={unit.uid}>
@@ -227,7 +227,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                     variant="outlined"
                                                     disabled
                                                     onClick={() => mySelect(unit)}>
-                                                    <HomeIcon style={{ color: "grey" }} />
+                                                    <HomeIcon style={{ color: "white" }} />
                                                 </Button>
                                             </TableCell>
                                 )}
@@ -249,7 +249,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                 variant="outlined"
                                                 disabled
                                                 onClick={() => mySelect(unit)}>
-                                                <HomeIcon style={{ color: "grey" }} />
+                                                <HomeIcon style={{ color: "white" }} />
                                             </Button>
                                         </TableCell> :
                                         <TableCell key={unit.uid}>
@@ -257,7 +257,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                 variant="outlined"
                                                 disabled
                                                 onClick={() => mySelect(unit)}>
-                                                <HomeIcon style={{ color: "grey" }} />
+                                                <HomeIcon style={{ color: "white" }} />
                                             </Button>
                                         </TableCell> :
                                         <TableCell key={unit.uid}>
@@ -265,7 +265,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                 variant="outlined"
                                                 disabled
                                                 onClick={() => mySelect(unit)}>
-                                                <HomeIcon style={{ color: "grey" }} />
+                                                <HomeIcon style={{ color: "white" }} />
                                             </Button>
                                         </TableCell>
                             )}

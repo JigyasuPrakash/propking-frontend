@@ -132,20 +132,13 @@ function GenerateMatrix({ block, update, unitInfo, uniqueAtt, facing }) {
                     units.push({
                         uid: unit.uid,
                         unit_no: unit.unit_no,
-                        size: unitInfo === "" ? unit.size : unitInfo,
-                        att: newAtt === "" ? unit.att : newAtt,
-                        facing: newFace === "" ? unit.facing : newFace,
+                        size: unitInfo,
+                        att: newAtt,
+                        facing: newFace,
                         status: unit.status
                     });
                 } else {
-                    units.push({
-                        uid: unit.uid,
-                        unit_no: unit.unit_no,
-                        size: unit.size,
-                        att: unit.att,
-                        facing: unit.facing,
-                        status: unit.status
-                    });
+                    units.push(unit);
                 }
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });
@@ -171,10 +164,18 @@ function GenerateMatrix({ block, update, unitInfo, uniqueAtt, facing }) {
             });
         } else if (type === 'unit') {
             newData.floors.forEach(f => {
+                f.units.forEach(u => {
+                    if (u.unit_no === value) {
+                        alert("Duplicate entries found!");
+                        value = "";
+                    }
+                })
+            });
+            newData.floors.forEach(f => {
                 if (f.fid === id.split('U')[0]) {
                     f.units.forEach(u => {
                         if (u.uid === id) {
-                            u.unit_no = value;
+                            u.unit_no = value === "" ? u.unit_no : value;
                         }
                     })
                 }

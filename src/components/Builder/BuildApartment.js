@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 class BuildFlat extends Component {
 
@@ -160,9 +160,7 @@ class BuildFlat extends Component {
             this.state.unitInfo.forEach(u => {
                 this.state.facing.forEach(f => {
                     let url = document.getElementById(`fplan${u.key + f}`).value;
-                    if (url === "") {
-                        alert("URL cannot be empty");
-                    } else {
+                    if (url !== "") {
                         myFPlan.push({
                             label: `Floor plan: ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
                             url
@@ -170,7 +168,10 @@ class BuildFlat extends Component {
                     }
                 })
             });
-            let myVerify = myFPlan.length === (this.state.unitInfo.length * this.state.facing.length)
+            let myVerify = myFPlan.length > 0;
+            if (!myVerify) {
+                alert("At least one floor plan required");
+            }
             this.setState({ floorPlans: myFPlan, verified: (validate() && myVerify) });
         }
 

@@ -212,7 +212,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                         variant="outlined"
                                                         disabled
                                                         onClick={() => mySelect(unit)}>
-                                                        <HomeIcon style={{ color: "grey" }} />
+                                                        <HomeIcon style={{ color: "white" }} />
                                                     </Button>
                                                 </TableCell> :
                                                 <TableCell key={unit.uid}>
@@ -220,7 +220,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                         variant="outlined"
                                                         disabled
                                                         onClick={() => mySelect(unit)}>
-                                                        <HomeIcon style={{ color: "grey" }} />
+                                                        <HomeIcon style={{ color: "white" }} />
                                                     </Button>
                                                 </TableCell> :
                                                 <TableCell key={unit.uid}>
@@ -228,7 +228,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                         variant="outlined"
                                                         disabled
                                                         onClick={() => mySelect(unit)}>
-                                                        <HomeIcon style={{ color: "grey" }} />
+                                                        <HomeIcon style={{ color: "white" }} />
                                                     </Button>
                                                 </TableCell>
                                     )}
@@ -260,7 +260,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                     variant="outlined"
                                                     disabled
                                                     onClick={() => mySelect(unit)}>
-                                                    <HomeIcon style={{ color: "grey" }} />
+                                                    <HomeIcon style={{ color: "white" }} />
                                                 </Button>
                                             </TableCell> :
                                             <TableCell key={unit.uid}>
@@ -268,7 +268,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                     variant="outlined"
                                                     disabled
                                                     onClick={() => mySelect(unit)}>
-                                                    <HomeIcon style={{ color: "grey" }} />
+                                                    <HomeIcon style={{ color: "white" }} />
                                                 </Button>
                                             </TableCell> :
                                             <TableCell key={unit.uid}>
@@ -276,7 +276,7 @@ function Matrix({ tower, areafilter, facingFilter, attributeFilter, mySelect, se
                                                     variant="outlined"
                                                     disabled
                                                     onClick={() => mySelect(unit)}>
-                                                    <HomeIcon style={{ color: "grey" }} />
+                                                    <HomeIcon style={{ color: "white" }} />
                                                 </Button>
                                             </TableCell>
                                 )}

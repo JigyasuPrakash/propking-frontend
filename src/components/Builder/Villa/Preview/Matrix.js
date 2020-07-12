@@ -19,8 +19,8 @@ function Matrix({ tower, mySelect, selected }) {
                     <React.Fragment>
                         <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
                         <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                        {unit.tags_set !== "" ? (<React.Fragment>
-                            <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
+                        {unit.att !== "" ? (<React.Fragment>
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
                         </React.Fragment>) : null}
                         <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                     </React.Fragment>
@@ -39,8 +39,8 @@ function Matrix({ tower, mySelect, selected }) {
                     <React.Fragment>
                         <Typography variant="body2" align="center">Villa No: {unit.unit_no}</Typography>
                         <Typography variant="caption" align="center">{unit.type} - {unit.bhk_type} BHK ({unit.size} Sq.Ft.)</Typography><br />
-                        {unit.tags_set !== "" ? (<React.Fragment>
-                            <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
+                        {unit.att !== "" ? (<React.Fragment>
+                            <Typography variant="caption" align="center">Att: {unit.att}</Typography><br />
                         </React.Fragment>) : null}
                         <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
                     </React.Fragment>

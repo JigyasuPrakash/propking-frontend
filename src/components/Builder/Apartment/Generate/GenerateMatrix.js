@@ -180,16 +180,7 @@ function GenerateMatrix({ towers, unitInfo, uniqueAtt, floorPlans, facing, save,
                         g_img_set: newFloorPlan
                     });
                 } else {
-                    units.push({
-                        uid: unit.uid,
-                        unit_no: unit.unit_no,
-                        bhk_type: unit.bhk_type,
-                        size: unit.size,
-                        att: unit.att,
-                        facing: unit.facing,
-                        status: unit.status,
-                        g_img_set: unit.g_img_set
-                    });
+                    units.push(unit);
                 }
             })
             floors.push({ fid: floor.fid, floor_no: floor.floor_no, units });

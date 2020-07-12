@@ -30,10 +30,11 @@ class Home extends Component {
 
     publish = () => {
         axios.post(`${domain}/api/builder/p/publish`, {
-            pid: this.state.pid
+            pid: this.state.project.pid
         }).then((response) => {
             this.setState({ url: response.data.url });
             alert("Project Publishing: " + response.data.status);
+            console.log(response.data)
         }).catch((err) => {
             console.log("Something went wrong", err);
         })

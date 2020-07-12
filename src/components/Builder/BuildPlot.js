@@ -215,9 +215,9 @@ class BuildPlot extends Component {
                                             <AddIcon />
                                         </Fab>
                                     </Grid>
-                                    <br /><br /><br />
-                                    {createArea}
                                 </Grid>
+                                <br />
+                                {createArea}
                             </Grid>
 
                             <Grid item xs={4}>
@@ -236,9 +236,9 @@ class BuildPlot extends Component {
                                             <AddIcon />
                                         </Fab>
                                     </Grid>
-                                    <br /><br /><br />
-                                    {createAtt}
                                 </Grid>
+                                <br />
+                                {createAtt}
                             </Grid>
                             <Grid item xs={3}>
                                 <center>

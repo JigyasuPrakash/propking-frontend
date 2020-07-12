@@ -19,7 +19,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -27,10 +27,10 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                     )}>
                         <TableCell
                             onClick={() => mySelect(unit)}
-                            style={{ backgroundColor: "darkgreen", border: "1px solid black", cursor: "pointer" }}
+                            style={{ backgroundColor: "green", border: "1px solid black", cursor: "pointer" }}
                         >
                             <center>
-                                <Avatar style={{ backgroundColor: "inherit", color: "black" }}>
+                                <Avatar style={{ backgroundColor: "lightgreen", color: "black" }}>
                                     {unit.unit_no}
                                 </Avatar>
                             </center>
@@ -43,7 +43,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -76,7 +76,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -102,7 +102,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -130,7 +130,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -154,7 +154,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -180,7 +180,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>
@@ -204,7 +204,7 @@ function PreviewMatrix({ tower, areafilter, facingFilter, attributeFilter, mySel
                         <React.Fragment>
                             <Typography variant="body2" align="center">Plot No: {unit.unit_no}</Typography>
                             <Typography variant="caption" align="center">{unit.size} Sq.Yds.</Typography><br />
-                            {unit.tags_set === "" ? (<React.Fragment>
+                            {unit.tags_set !== "" ? (<React.Fragment>
                                 <Typography variant="caption" align="center">Att: {unit.tags_set}</Typography><br />
                             </React.Fragment>) : null}
                             <Typography variant="caption" aign="center">Face: {unit.facing}</Typography>

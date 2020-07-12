@@ -170,13 +170,16 @@ class BuildFlat extends Component {
                     let url = document.getElementById(`fplan${u.key + f}`).value;
                     if (url !== "") {
                         myFPlan.push({
-                            label: `Floor plan: ${u.landArea} Sq.Yds. -  ${u.type} - ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
+                            label: `Floor plan: ${u.bhk} BHK (${u.area} Sq.Ft.) - ${f} Facing`,
                             url
                         });
                     }
                 })
             });
-            let myVerify = myFPlan.length === (this.state.unitInfo.length * this.state.facing.length)
+            let myVerify = myFPlan.length > 0;
+            if (!myVerify) {
+                alert("At least one floor plan required");
+            }
             this.setState({ floorPlans: myFPlan, verified: (validate() && myVerify) });
         }
 
