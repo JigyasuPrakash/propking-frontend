@@ -187,10 +187,18 @@ function GenerateMatrix({ block, update, unitInfo, uniqueAtt, facing, floorPlans
             });
         } else if (type === 'unit') {
             newData.floors.forEach(f => {
+                f.units.forEach(u => {
+                    if (u.unit_no === value) {
+                        alert("Duplicate entries found!");
+                        value = "";
+                    }
+                })
+            });
+            newData.floors.forEach(f => {
                 if (f.fid === id.split('U')[0]) {
                     f.units.forEach(u => {
                         if (u.uid === id) {
-                            u.unit_no = value;
+                            u.unit_no = value === "" ? u.unit_no : value;
                         }
                     })
                 }
