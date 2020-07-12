@@ -49,6 +49,7 @@ class BuildFlat extends Component {
 
         const handleProceed = () => {
             let towers = [];
+            let plotCount = 1;
             this.state.towerCount.forEach(t => {
                 let tname = document.getElementById(`tname${t.tid}`).value;
                 let floors = []
@@ -57,9 +58,7 @@ class BuildFlat extends Component {
                     let units = []
                     let unitCount = document.getElementById(`unitCount${t.tid}`).value;
                     for (let j = 1; j <= unitCount; j++) {
-                        let num = '';
-                        j <= 9 ? (num = `0${j}`) : num = `${j}`;
-                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${i}${num}`, bhk_type: "", landArea: 0, type: "", size: 0, att: "", facing: "", status: true, g_img_set: "" });
+                        units.push({ uid: `T${t.tid}F${i}U${j}`, unit_no: `${plotCount++}`, bhk_type: "", landArea: 0, type: "", size: 0, att: "", facing: "", status: true, g_img_set: "" });
                     }
                     floors.push({ fid: `T${t.tid}F${i}`, floor_no: i, units });
                 }
